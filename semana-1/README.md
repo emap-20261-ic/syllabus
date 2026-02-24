@@ -1,6 +1,6 @@
 # Semana 1 — Introdução à Computação
 
-## Aula 1 — Arquitetura básica dos computadores
+## Aula 1 — Arquitetura básica dos computadores (slides 1)
 
 ### O que é um computador?
 
@@ -81,9 +81,8 @@ luz em distâncias microscópicas.
 > Para saber mais: [How Computers
 > Work](https://youtube.com/playlist?list=PLzdnOPI1iJNcsRwJhvksEo1tJqjIqWbN-)
 
----
 
-## Aula 2 — Representação de dados e sistema operacional
+## Aula 2 — Representação de dados e sistema operacional (slides 2 e 3)
 
 ### Representação de dados
 
@@ -206,9 +205,8 @@ linha de comando, ler comandos digitados, executá-los e exibir
 resultados. O shell também gerencia **variáveis de ambiente** e pode
 executar **scripts**. Exemplos: CMD (Windows), `bash`, `zsh`.
 
----
 
-## Aula 3 — Linha de comando, programação e compilação
+## Aula 3 — Linha de comando, programação e compilação (slides 4 e 5)
 
 ### Linha de comando
 
