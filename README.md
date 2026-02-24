@@ -9,25 +9,35 @@ Professor: alexandre.rademaker@fgv.br
 - entender a lógica da computação
 - usar computação para matemática
 
-Usaremos a [linguagem C](https://pt.wikipedia.org/wiki/C_(linguagem_de_programa%C3%A7%C3%A3o)), mas queremos aprender a programar em qualquer linguagem.
+Usaremos a [linguagem
+C](https://pt.wikipedia.org/wiki/C_(linguagem_de_programa%C3%A7%C3%A3o)),
+mas queremos aprender a programar em qualquer linguagem.
 
-Sintaxe é apenas uma parte da programação. Depois de aprender a sintaxe vamos aprender a escrever 'bons' programas. O que seria um 'bom programa'? 
+Sintaxe é apenas uma parte da programação. Depois de aprender a
+sintaxe vamos aprender a escrever 'bons' programas. O que seria um
+'bom programa'?
 
 ## Sobre IA
 
-O uso responsável é encorajado. Façam perguntas, usem para acelerar um trabalho mas sejam sempre capazes e entender e criticiar o que for feito, nunca delegar inteiramente para a AI, senão não existe aprendizado.
+O uso responsável é encorajado. Façam perguntas, usem para acelerar um
+trabalho mas sejam sempre capazes e entender e criticiar o que for
+feito, nunca delegar inteiramente para a AI, senão não existe
+aprendizado.
 
 ## Trabalhos
 
 - sempre em grupos de 2-3 alunos.
 
-- procurem sempre formar grupos diferentes, alunos com mais facilidade, procurem os alunos com mais dificuldade para ajudar. Duplo aprendizado. Alunos com mais dificuldade, procurem os que demonstram mais facilidade.
+- procurem sempre formar grupos diferentes, alunos com mais
+  facilidade, procurem os alunos com mais dificuldade para
+  ajudar. Duplo aprendizado. Alunos com mais dificuldade, procurem os
+  que demonstram mais facilidade.
 
-- aprender a programar existe esforço, tentativas e erros. 
+- aprender a programar existe esforço, tentativas e erros.
 
 ## Programa
 
-** semana 1 
+### semana 1 
 
 - apresentação do curso
 - arquitetura básica dos computadores
@@ -41,7 +51,8 @@ O uso responsável é encorajado. Façam perguntas, usem para acelerar um trabal
 - Editor 
 - comandos do terminal etc
 
-Como alternativa, vamos preferir usar os [Codespaces](https://github.com/features/codespaces?locale=pt-BR)!
+Como alternativa, vamos preferir usar os
+[Codespaces](https://github.com/features/codespaces?locale=pt-BR)!
 
 ## critérios de avaliação
 
