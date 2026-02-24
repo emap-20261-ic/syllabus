@@ -1,0 +1,176 @@
+#+title: Laboratório 1
+
+* Conteúdo programatico
+
+- praticando o uso da linha de comando
+- compilando programas C
+- identificando erros de sintaxe básicos em C
+  
+* Objetivos
+
+1. praticar o uso das ferramentas: linha de comando, editor,
+   compilador etc
+2. Familiarização com as estruturas sintáticas básicas da linguagem C
+
+* Atividade 1 (40 minutos)
+
+Praticar comandos básicos do Linux no https://replit.com/, em uma
+máquina Linux/MacOS ou no GitHub Codespace.
+
+
+1. identificar o diretório corrente com =pwd=, mudar o diretório atual
+   com =cd= de forma relativa ou absoluta. 
+
+2. criar um arquivo texto usando o =touch= e o =cat= (com
+   redirecionamento e CTRL-c).
+
+3. criar um novo diretório usando o comando =mkdir= e mover arquivos
+   criados no passo anterior para esse diretório usando o comando
+   =mv=.
+   
+4. copiar o arquivo criado para um diretório diferente usando o
+   comando =cp=. Copiar de forma recursiva. Ler página 'man'.
+
+5. o histórico de comandos com =history=, uso de TAB para
+   auto-completar comandos, up/down e =!NUM= para repetir comandos.
+
+6. listar o conteúdo de um diretório específico usando o comando
+   =ls=. Passar os parâmetros =-l= e =-lh=. Entender a diferença.
+
+7. redirecionar a saída do =ls= para um arquivo.   
+   
+8. encontrar todos os arquivos em um diretório que correspondem a um
+   padrão específico usando o comando =find=. O uso do xargs para
+   transformar uma lista em parâmetros.
+
+   #+begin_example
+   % find . -name '*.pdf' | xargs file
+   ./slides-2.pdf: PDF document, version 1.5
+   ./slides-3.pdf: PDF document, version 1.5
+   ./slides-1.pdf: PDF document, version 1.5
+   ./slides-4.pdf: PDF document, version 1.5
+   #+end_example
+   
+9. exibir o conteúdo de um arquivo de texto em um terminal usando o
+   comando =cat=, =less=, =tail= e =head=. Contar linhas com o =wc=.
+   
+10. filtrar linhas específicas de um arquivo de texto usando o
+    comando =grep=. O uso do =sort= e =uniq=.
+
+    #+begin_example
+    % cd semana-1/src
+    % grep -h "include" *.c | sort | uniq -c
+      2 #include <ctype.h>
+      1 #include <math.h>
+      2 #include <stdbool.h>
+     39 #include <stdio.h>
+      1 #include <string.h>
+    #+end_example
+
+11. Leitura da saída anterior, sequenciamento de comandos. Assumindo
+    um diretório onde não exista o arquivo 'lixo'.
+
+    #+begin_example
+    % ls ; echo $?
+    % rm lixo; echo $?
+    
+    % rm lixo && echo 1
+    % rm lixo || echo 1
+    #+end_example
+
+12. monitorar o uso de recursos do sistema usando o comando =top= e
+    =ps=. Os comandos =who=, =whoami= e =df=.   
+
+* Atividade 2 (10 minutos)
+
+- usando o editor de textos
+  - VS Code (local) e sua interface
+  - Emacs, Vi, Vim
+  - https://replit.com/
+  
+* Atividade 3 (20 minutos)
+
+- transformando o código C em arquivos binários (executáveis)
+
+- comandos para compilar um arquivo
+
+  #+begin_example
+  % clang hello0.c -Wall
+  % clang hello0.c -Wall -o hello
+  % make hello0
+  #+end_example
+
+- mudar um arquivo e compilar novamente  
+
+- outros compiladores de C: =cc= e =gcc=  
+
+* Atividade 4 (50 minutos)
+
+- git para controle de versão dos arquivos em um diretório. Comandos
+  básicos:
+
+  #+begin_example
+  $ mkdir test
+  $ cd test
+  $ git init
+  $ touch readme.txt
+  $ git commit -a -m 'first commit'
+  #+end_example
+
+  Veja que existe um diretório 'oculto' chamado '.git', onde o git
+  preserva os dados. O diretório 'test' é agora uma área de trabalho
+  onde temos a versão corrente dos arquivos.
+
+  Agora edite o arquivo readme.txt e depois execute o comando
+  abaixo. A saida mostra que o arquivo foi alterado.
+
+  #+begin_example
+  $ git status
+  #+end_example
+
+  Podemos ver as mudanças no arquivo com:
+
+  #+begin_example
+  $ git diff
+  #+end_example
+
+  Podemos 'salvar' esta nova 'versão do arquivo em um novo 'commit'
+  (fotografia do diretório).
+
+  #+begin_example
+  $ git commit -a -m 'primeira edição'
+  #+end_example
+
+  agora podemos examinar os 'commits' que temos, versões que temos até
+  agora:
+
+  #+begin_example
+  $ git log
+  #+end_example
+
+  podemos fazer nova edição e novo commit.
+
+  #+begin_example
+  % git commit -a -m 'segunda edição'
+  [master b0dab46] segunda edição
+  1 file changed, 4 insertions(+), 1 deletion(-)
+  % git log
+  b0dab4673fcd2920f6be70bfe9b8a8542acaa6ee (HEAD -> master) segunda edição
+  0888289ff25b722c79118a2e0b8659a226ad5ab9 primeira edição
+  dda8ddbfdc8e566005b94184d26aabea85ac9d7b first commit
+  #+end_example
+
+  Podemos voltar no tempo.
+
+  #+begin_example
+  $ git checkout dda8ddbfdc8e566005b94184d26aabea85ac9d7b
+  #+end_example
+
+  Leia com atenção o que o 'git' irá informar depois que executar o
+  comando acima.
+
+  Para saber mais https://git-scm.com/doc.
+
+  O site https://github.com é um hospedeiro de repositórios git,
+  considere aprender como usar o site em
+  https://docs.github.com/pt/get-started/quickstart/hello-world.

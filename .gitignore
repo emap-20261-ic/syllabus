@@ -1,0 +1,17 @@
+**/.DS_Store
+
+**/__pycache__
+**/venv
+*~
+
+**/*.aux
+**/*.log
+**/*.nav
+**/*.snm
+**/*.vrb
+**/*.out
+**/*.toc
+
+docs/**
+cs50/**
+

@@ -1,0 +1,294 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ o que é programação}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[allowframebreaks]{o que é programação}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+  
+      Programação é resolver problemas!
+      \vspace{.5cm}
+
+      Programas recebem entradas e geram saídas!
+      \vspace{.5cm}
+
+      Por que aprender a programar? Entender o problema?
+
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \includegraphics[width=\textwidth]{programming.png}
+    \end{column}
+  \end{columns}
+
+  \framebreak
+
+  Considere o problema de calcular raízes quadradas. Podemos definir a
+  função de raiz quadrada como
+
+  \[
+    \sqrt{x} = y \quad \text{such that} \quad y > 0 \land y^2 = x
+  \]
+
+  Uma função matemática perfeitamente legítima. Poderíamos usá-la para
+  \emph{reconhecer} se um número é a raiz quadrada de outro ou para
+  derivar fatos sobre raízes quadradas em geral. Por outro lado, a
+  definição não descreve um procedimento, não nos diz quase nada sobre
+  como \emph{encontrar} a raiz quadrada de um determinado número.
+
+  Matemática versus computação
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Linguagens e Programação}
+
+  Um software é um conjunto de instruções para que o computador
+  realize ações e tome decisões.
+
+  Existem diversas linguagens de programação, algumas entendidas
+  diretamente pelos computadores, outras precisam ser 'traduzidas'.
+
+  As LPs são divididas em três tipos gerais:
+  
+  \begin{itemize}
+  \item Linguagens de Máquina
+  \item Linguagens Assembly
+  \item Linguagens de Alto-nível
+  \end{itemize}
+
+  \framebreak
+  
+  Um computador entende diretamente sua própria \textbf{linguagem de
+    máquina}, definida por seu projeto de hardware.
+  
+  São constituídas por sequências de bits (1s e 0s), instruções
+  associadas a operações elementares.
+  
+  São dependentes de máquina: uma linguagem de máquina particular
+  somente pode ser usada em um único tipo de computador.
+
+  São de difícil compreensão por humanos.
+
+  \framebreak
+
+  as sequências de bits (entendidas diretamente pelo computador) são
+  associadas à abreviações que representavam as operações elementares
+  (mnemônicos).
+  
+  Esses mnemônicos formaram as bases das \textbf{linguagens assembly}.
+  
+  O programa tradutor para converter os programas em linguagem
+  assembly para programas em linguagem de máquina chama-se Assembler.
+
+  O código é claro para o ser humano, mas incompreensível para a
+  máquina até ser traduzido.
+  
+  \framebreak
+  
+  Em assembly o programador precisa escrever muitas linhas de código
+  para tarefas simples.
+
+  \textbf{Linguagens de alto-nível} aceleraram o processo de criação
+  de softwares, onde instruções mais claras representam uma ou mais
+  instruções para o computador.
+  
+  Os compiladores traduzem programas em linguagem de alto-nível para
+  programas em linguagem assembly e/ou diretamente para linguagem de
+  máquina.
+  
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]{Compilação}
+
+  \begin{lstlisting}[style=normalc,caption=minimal.c]
+    #include <stdio.h>
+
+    int main()
+    {
+      int x = 42;
+      return 0;
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=code]
+    .file   "minimal.c"
+    .text
+    .p2align 4,,15
+    .globl  main
+    .type   main, @function
+    main:
+     push    ebp
+     mov     ebp, esp
+     and     esp, -16
+     sub     esp, 16
+     mov     DWORD PTR [esp+12], 42
+     mov     eax, 0
+     leave
+     ret
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=code]
+    55               push ebp
+    89 E5            mov ebp, esp
+    83 E4 F0         and esp, 0xfffffff0
+    83 EC 10         sub esp, 0x10
+    C7 44 24 0C 2A 00 00 00  mov DWORD PTR [esp+0xc],0x2a
+    B8 00 00 00 00   mov eax,0x0
+    C9               leave
+    C3               ret
+  \end{lstlisting}
+  
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Programas}
+
+  Programação Estruturada é uma metodologia de programação constituída
+  por sequências, desvios e repetições de instruções de uma linguagem
+  de programação.
+
+  \framebreak
+
+  C e C++ são duas das linguagens mais
+  \href{https://solutionshub.epam.com/blog/post/programming-language-popularity-on-github}{populares}
+  para o desenvolvimento de software.
+
+  A linguagem C foi desenvolvida por Dennis Ritchie na Bell
+  Laboratories. Vide \href{https://youtu.be/G1-wse8nsxY?si=lx0ygn0QGbFg_Bz0}{C Programming Language, Brian Kernighan and Lex Fridman}.
+
+  O uso de C em vários tipos de computadores levou a muitas variações
+  da linguagem.
+
+  \framebreak
+
+  C99 é o último padrão ANSI para a linguagem C.
+
+  C++, uma extensão de C, foi desenvolvida por Bjarne Stroustrup no
+  início dos anos 802, no Bell Laboratories.
+
+  C11, é o padrão atual da linguagem C++ (já existe o C14).
+  
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{desenvolvimento em C}
+
+  Passos comuns utilizados na criação e execução de um programa em C
+  (ou qualquer outra linguagem compilada).
+
+  Existem também as linguagens \textbf{interpretadas} como Python.
+
+  \framebreak
+
+  fase 1: criando um programa
+  
+  Esta fase consiste da edição de um arquivo com um programa editor de
+  texto (notepad, vi, Emacs, etc). Importante, não processadores de
+  texto como Word.
+
+  Você digita um programa C (programa fonte) usando o editor, faz as
+  correções necessárias e salva o programa em um dispositivo de
+  memória secundária, por exemplo, o HD.
+  
+  Os nomes de arquivos dos programas fonte C terminam com a extenção
+  \ilcode{.c}.
+
+  \framebreak
+
+  Uma IDE é um editor, que normalmente tem alguma interação com o
+  compilador, que facilita o desenvolvimento de programadas.
+
+  IDE offline: \href{https://code.visualstudio.com}{VS Code},
+  \href{https://www.gnu.org/software/emacs/}{Emacs}
+
+  IDEs online: \url{http://replit.com},
+  \url{https://github.com/features/codespaces} etc.
+  
+  \framebreak
+
+  Fase 2: Pré-processando 
+  
+  Um programa pré-processador executado automaticamente antes que a
+  fase de tradução do compilador inicie.
+  
+  O pré-processador obedece a comandos chamados diretivas do
+  pré-processador, que indicam que certas manipulações são realizadas
+  no programa antes da compilação.
+  
+  Estas manipulações usualmente juntam arquivos para serem compilados,
+  e podem realizar substituições no texto.
+
+  \framebreak
+
+  Fase 3: Compilando um Programa C
+  
+  O compilador traduz o código fonte (alto-nível) em um código de
+  linguagem de máquina (código objeto).
+
+  \framebreak
+
+  Fase 4: Ligação (linking)
+  
+  Tipicamente, um programa C contém referências para funções e dados
+  definidos em outros arquivos, bibliotecas.
+
+  O código objeto produzido pelo compilador C contém referências a
+  trechos definidos nas bibliotecas.
+
+  Um ligador (linker) liga o código objeto com o código das funções
+  ausentes para produzir um programa executável.
+
+  \framebreak
+
+  Fase 5: Carga (loading)
+  
+  Antes de um programa ser executado, ele deve ser primeiramente
+  colocado na memória (primária).
+
+  Isto é feito pelo carregador (loader), que toma a imagem executável
+  do disco e a transfere para a memória.
+
+  Bibliotecas podem ser também carregadas apenas neste momento.
+
+  \framebreak
+
+  Fase 6: Execução
+  
+  Finalmente, o computador, sob o controle de sua CPU, executa o
+  programa, uma instrução por vez.
+
+  A maioria das arquiteturas de computadores atuais podem executar
+  várias instruções em paralelo.
+
+  \framebreak
+
+  \vspace{1cm}
+  \begin{center}
+    \includegraphics[height=.8\textheight]{fases.png}
+  \end{center}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

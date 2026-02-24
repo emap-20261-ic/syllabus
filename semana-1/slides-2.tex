@@ -1,0 +1,194 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ representação de dados no computador}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{representação de dados}
+
+  Circuitos eletrônicos transmitem sinais. Mas como representar
+  informação com eletrecidade?
+
+  \begin{center}
+    \includegraphics[width=.7\textwidth]{computer-circuit-board.jpg}
+  \end{center}
+
+  \framebreak
+
+  Com um único fio condutor, podemos indicar dois estados (bits):
+  ligado e desligado. Sim/Não, 0/1, Verdade/Falso etc.
+
+  Mais fios, mais bits:
+  
+  \includegraphics[width=.8\textwidth]{wires.jpg}
+  
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{representação binária}
+
+  {\Large Em um computador, tudo são bits: 0 ou 1}
+
+  \framebreak
+  
+  Números decimais
+  \[
+    123 = 1 * 10^2 + 2 * 10^1 + 3* 10^0 = 100+20+3
+  \]
+
+  Números binários
+  \[
+    1101 = 1 * 2^3 + 1 * 2^2 + 0 * 2^1 + 1 * 2^0 = 8 + 4 + 0 + 1 = 13
+  \]
+  
+  \framebreak
+
+  \begin{center}
+    \begin{tabular}{rr}
+      \hline
+      binário & decimal\\
+      \hline
+      000 & 0\\
+      001 & 1\\
+      010 & 2\\
+      011 & 3\\
+      100 & 4\\
+      \ldots & \\
+      111 & $1 * 2^2 + 1 * 2^1 + 1 * 2^0 =  7$\\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  Para representar um número maior que 7? Maioria dos computadores
+  usam `palavras' de 8 bits ($11111111 = 255$), um byte.
+
+  Com 32 bits podemos representar $2^{32}$ (4 bilhões de números).
+  
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{representação de texto}
+
+  Um caractere pode ser representado por um byte.
+  \[
+    A = 65 = 01000001
+  \]
+
+  Um padrão de codificação foi definido, a tabela
+  \href{https://en.wikipedia.org/wiki/ASCII}{ASCII}.
+
+  Uma sequência de caracteres
+  \[
+    HI! = 01001000 01001001 00100001
+  \]
+  
+  \framebreak
+
+  Com 8 bits temos $2^8$ possíveis valores (0 até 255)
+
+  Para outros caracteres como acentos temos
+  \href{https://en.wikipedia.org/wiki/Unicode}{Unicode} que usa mais
+  bits por caractere.
+  
+  Um \href{https://en.wikipedia.org/wiki/Unicode}{emoji} é apenas um
+  número mapeado na tabela Unicode para uma descrição (diferentes
+  empresas usam diferentes imagens)
+
+  ``face with medical mask'' = 11110000 10011111 10011000 10110111
+
+  \framebreak
+
+  \includegraphics[width=.8\textwidth]{hexdump.png}
+  
+  \ldots não existem arquivos ``texto''!  Linha de comando? Vamos
+  falar sobre isso.
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{representando imagens}
+
+  Usando bits mapeamos números para cores também. Sistema mais usado é
+  o \href{https://en.wikipedia.org/wiki/RGB_color_model}{RGB}
+
+  \begin{center}
+    \raisebox{-0.5\height}{\includegraphics[width=.3\textwidth]{rgb.png}}
+    $\to$
+    \raisebox{-0.5\height}{\includegraphics[width=.2\textwidth]{rgb-color.png}}
+  \end{center}
+
+  \framebreak
+
+  Os pontos são pixels (3 bits) e um array de pixels compõe uma
+  imagem.
+
+  \begin{center}
+    \includegraphics[width=.9\textwidth]{pixels.png}
+  \end{center}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{áudios, vídeos e outros}
+
+  Vídeos são apenas sequencias de imagens como um flipbook.
+
+  \begin{center}
+    \includegraphics[width=.5\textwidth]{flipbook.jpg}
+  \end{center}
+
+  \framebreak
+  
+  Músicas também representadas como bits, o formato
+  \href{https://en.wikipedia.org/wiki/MIDI}{MIDI} com números
+  representando cada notas, duração e volume.
+
+  Outros formatos mais sofisticados existem que permitem compressão de
+  dados, combinação de conteúdos diversos (imagens, textos e áudio)
+  dentre outros recursos. Veja
+  \href{https://en.wikipedia.org/wiki/Netpbm}{PPM},
+  \href{https://en.wikipedia.org/wiki/MP3}{MP3} e
+  \href{https://en.wikipedia.org/wiki/Office_Open_XML_file_formats}{DOCX}.
+  
+  Diferentes empresas sugerem formatos para serem usados por seus
+  programas e organizações como a
+  \href{https://en.wikipedia.org/wiki/Unicode_Consortium}{Unicode
+    Consortium},
+  \href{https://en.wikipedia.org/wiki/Institute_of_Electrical_and_Electronics_Engineers}{IEEE},
+  \href{https://www.w3.org}{W3C} tentam padronizar formatos.
+
+\end{frame}
+
+
+\begin{frame}{Observação}
+
+  Uma observação interessante.
+
+  1 kilobyte tem $2^{10} = 1.024$ bytes e não $10^3 = 1.000$ bytes.
+
+  Lembre-se que computadores operam em binário, contam em potências de
+  2: 2, 4, 8, 16, 32 etc. 
+  
+  Usamos  $2^{10} = 1024$ bytes para um kilobyte porque os computadores operam em base 2 (binário), e potências de 2 são mais fáceis de manipular eletronicamente.
+  
+  \url{https://en.wikipedia.org/wiki/Binary_prefix}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,258 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ arquitetura básica dos computadores}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{O que é um computador}
+
+  O que diferencia um computador de outras máquinas que inventamos?
+  Um microondas? Um trator? Uma máquina de lavar louças?
+
+  Ao invés de nos ajudar com trabalhos manuais, movendo ou manipulando
+  coisas físicas, computadores nos ajudam a resolver equações,
+  rastrear estrelas no céu, etc.
+
+  Nos ajudam a manipular informações ou dados.
+
+  \framebreak
+
+  Os computadores processam \textbf{dados} executando uma sequência de
+  instruções, nós chamamos uma sequência de instruções de
+  \textbf{programa de computador}.
+
+  Os \textbf{programadores de computador} são as pessoas que criam
+  programas para serem executados por computadores.
+
+  \framebreak
+
+  Dentro de um computador temos cabos, circuitos, dispositivos de
+  entrada (teclado, mouse) e saída (monitor), placas de memória,
+  conectores, etc. São o que chamamos de \textbf{hardware}.
+
+  \textbf{Softwares} são os programas armazenados dentro do
+  computador, na memória secundária (disco). São os softwares que
+  'rodam' (executam) na máquina (computador).
+
+  Softwares podem ser jogos, planilhas, editores, editores de imagens,
+  etc.
+
+  \framebreak
+
+  Inicialmente com muitas partes mecânicas, depois com componentes
+  eletrônicos lentos (1920-30). Grandes calculadoras!
+
+  \includegraphics[width=.6\textwidth]{old-computer.jpg}
+
+  \framebreak
+
+  Tarefas que todos os computadores fazem:
+
+  \begin{description}
+  \item[input] receber entrada de dados, via teclado, mouse, via
+    portas conectadas a sensores etc.
+  \item[storage] armazenar informações/dados
+  \item[processing] processar informações transformando dados em
+    outros dados
+  \item[output] produzir saídas. vídeos, imagens, textos, sinais para
+    controladores etc.
+  \end{description}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Organização do computador}
+
+  Praticamente, todos os computadores podem ser divididos em seis
+  unidades lógicas:
+
+  \begin{itemize}
+  \item dispositivos de entrada
+  \item dispositivos de saída
+  \item armazenamento principal
+  \item armazenamento secundário
+  \item unidade de aritmética e lógica 
+  \item unidade central de processamento
+  \end{itemize}
+  
+  \framebreak
+
+  Os dispositivos de entrada
+
+  Obtém informações (dados e programas de computador) de dispositivos
+  de entrada e coloca essas informações à disposição das outras
+  unidades para o processamento.
+  
+  Os dispositivos de entrada mais comuns são teclados, touch screens e
+  mouse. Mas podemos usar microfone, digitalizar imagens e códigos de
+  barra; receber um vídeo de uma webcam; receber informações de uma
+  rede; obter dados de geo-posicionamento a partir de um GPS; coletar
+  informações de movimento e orientação de um acelerômetro
+  (smartphones); etc
+
+  \framebreak
+
+  Os dispositivos de saída
+
+  A maioria das informações enviadas para a saída de computadores é
+  exibida em telas, impressas em papel ou enviada para outros
+  dispositivos.
+  
+  Os computadores também podem gerar saída de suas informações para
+  redes, entre outros.
+
+  \framebreak
+
+  O armazenamento principal, ou memória principal (RAM).
+
+  Capaz de armazenar relativamente poucos dados mas com acesso rápido.
+
+  Armazena os programas de computador durante sua execução.
+
+  Retém informações que foram inseridas pela unidade de entrada, para
+  se tornarem imediatamente disponíveis para o processamento quando
+  for necessário.
+
+  As informações na unidade de memória são voláteis, são perdidas
+  quando o computador é desligado.
+
+  \framebreak
+
+  O armazenamento secundário. Unidades CDs, DVDs, HDs, etc.
+
+  Tem alta capacidade de armazenamento mas o acesso é mais
+  lento. Novos discos SSD são mais rápidos que HDD (partes mecânicas).
+  
+  As informações no armazenamento secundário são persistentes;
+  preservadas quando o computador é desligado. O custo por unidade de
+  armazenamento secundário é muito menor.
+
+  \framebreak
+
+  Unidade de aritmética e lógica (ALU) é responsável pela realização
+  de cálculos, como adição, subtração, multiplicação e divisão.
+  
+  Contém os mecanismos de decisão que permitem ao computador, por
+  exemplo, comparar dois itens da unidade de memória para determinar
+  se são iguais ou não.
+
+  Nos sistemas atuais, a ALU é usualmente implementada como uma parte
+  da CPU.
+
+  \framebreak
+
+  Unidade Central de Processamento (CPU) coordena todas as partes do
+  computador.
+
+  Muitos computadores de hoje têm múltiplas CPUs podendo realizar
+  muitas operações simultaneamente.
+  
+  Um processador multi-core implementa múltiplos processadores em um
+  único chip de circuito integrado; dual-core, quad-core etc.
+
+  \framebreak  
+
+  \begin{center}
+    \includegraphics[width=.9\textwidth]{arquitetura-computador.png}
+  \end{center}
+  
+\end{frame}
+
+
+\begin{frame}{}
+  
+  {\Large Para saber mais\ldots}
+
+  Material inspirado em
+  \href{https://youtube.com/playlist?list=PLzdnOPI1iJNcsRwJhvksEo1tJqjIqWbN-}{How
+    Computer Works}.
+  
+\end{frame}
+
+\begin{frame}[allowframebreaks]{circuitos}
+
+  sinais eléctricos produzidos na entrada são processados produzindo
+  sinais nas saídas. Bits devem ser combinados.
+
+  \includegraphics[width=.8\textwidth]{combinando-bits.jpg}
+
+  \framebreak
+
+  Componentes básicos chamados de \textbf{portas lógicas} produzem
+  novos bits a partir de bits que recebem.
+
+  \includegraphics[width=.8\textwidth]{logic-gates.jpg}
+
+  \framebreak
+
+  Estes componentes podem ser combinados em circuitos. Estes
+  circuitos podem ter tarefas especializadas
+
+  \includegraphics[width=.365\textwidth]{adder-1.jpg} \,
+  \includegraphics[width=.55\textwidth]{adder-2.jpg}
+
+  \framebreak
+
+  E podemos combinar circuitos formando circuitos mais complexos.  Um
+  operador de adição para números de 8 bits é formado por operadores
+  de adição de números de 1 bit.
+
+  \includegraphics[width=.8\textwidth]{8bit-adder-2.jpg}
+
+  \framebreak
+
+  Um multiplicador de binários:
+
+  \includegraphics[width=.8\textwidth]{binary-multiplier.png}
+
+  \framebreak
+
+  Nos antigos computadores os circuitos eram longos e demandavam
+  minutos para simples operações.
+
+  \includegraphics[width=.8\textwidth]{big-old-computer.jpg}
+
+  \framebreak
+
+  Mas a medida que os circuitos foram sendo miniaturizados, o
+  desempenho aumentou. Sinais transmitidos à velocidade da luz em
+  distâncias microscópias.
+
+  \includegraphics[width=.8\textwidth]{micro-circuit.jpg}
+  
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{transformando entradas em saídas}
+
+  Quando digitamos uma letra, digamos B, no teclado, bits são enviados
+  para a CPU. A CPU então calcula como desenhar o símbolo na tela.
+
+  \framebreak
+
+  \includegraphics[width=.8\textwidth]{input-to-cpu.jpg}
+
+  \framebreak
+
+  \includegraphics[width=.8\textwidth]{to-output.jpg}
+
+\end{frame}
+
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,211 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ hardware, software e sistema operacional}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{hardware e software}
+
+  A CPU é a unidade de processamento central, que coordena tudo que é
+  executado em um computador.
+
+  Sequencias de comandos armazenados na memória são enviados para a
+  CPU para serem executados.
+
+  Mas um computador pode estar rodando vários programas ao mesmo
+  tempo!  E todos os programas precisam estar armazenados no
+  computador para começar, certo?
+
+  \framebreak
+
+  O \textbf{sistema operacional} é o programa que gerencia o
+  computador, controlando como cada software usa cada parte do
+  hardware do computador.
+
+  \framebreak
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      São exemplos de sistemas operacionais: Linux, Windows, MacOS,
+      iOS, Android etc.\vspace{1cm}
+
+      Eles gerenciam todos os outros programas que rodam no computador
+      e quais dispositivos eles podem usar. Nele instalamos os
+      programas.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=.8\textwidth]{so.png}      
+    \end{column}
+  \end{columns}
+
+  \framebreak
+
+  A idéia de vários programas rodando `ao mesmo tempo' é criada pelo
+  SO, que permite que cada programa em execução tenha uma fração de
+  segundos da CPU por vez.
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]{sistema operacional}
+
+  Os sistemas operacionais modernos são acompanhados de vários
+  programas quando instalados.
+
+  Existem os \textbf{utilitários}: gerenciador de arquivos, drivers
+  para impressão, gerenciador de configurações, relógio,
+  \textbf{interpretador de comandos} etc.
+
+  Existem os \textbf{aplicativos}: editores de texto, editores de
+  imagem, navegadores etc.
+
+  Também podemos instalar novos programas desde que compatíveis com o
+  SO.
+
+  \framebreak
+
+  Os programas podem ser.
+
+  CLI (Command Line Interface) são aqueles que operam por meio de uma
+  interface texto, onde o usuário interage digitando texto e recebendo
+  texto como resposta, em um terminal. 
+
+  GUI (Graphical User Interface) são aqueles onde o usuário interage
+  por meio de elementos visuais, como botões, menus, janelas e ícones.
+
+  Neste curso vamos aprender a implementar programas CLI.
+
+  \framebreak
+
+  Todo sistema operacional moderno (que roda em laptops e desktops)
+  oferece dois utilitários muito importantes: gerenciador de arquivos
+  (geralmente GUI) e interpretador de comandos (CLI).
+
+  \framebreak
+
+  O \textbf{gerenciador de arquivos} é usado para manipular os
+  arquivos e diretórios armazenados no \textbf{sistema de arquivos}
+  mantido pelo SO e armazenado no \textbf{hard-drive} do computador.
+
+  Exemplos: Windows Explorer, Finder do MacOS, Nautilus (Linux).
+
+  Diferente do que ocorre no iOS? Como?
+
+  \framebreak
+
+  O \textbf{interpretador de comandos}, ou shell, permite ao usuário
+  interagir com o sistema operacional por meio de uma interface de
+  linha de comando. Ele é o responsável por ler os comandos digitados
+  pelo usuário e executá-los, além de fornecer informações sobre os
+  resultados.
+
+  O shell também gerencia as \textbf{variáveis de ambiente}, que são
+  valores que podem ser acessados pelos programas em execução. Além
+  disso, ele pode executar \textbf{scripts}, que são arquivos com uma
+  sequência de comandos que podem ser executados em lote.
+
+  Exemplos: CMD (Windows), bash, zsh, etc.
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{linha de comando}
+
+  Comandos básicos no Linux: pwd, cd, ls, cp, mv, mkdir, rm, rmdir,
+  touch, cat, tail, head, less, popd, pushd, ps, history, find, grep,
+  df, diff, echo, man, tar and zip, etc.
+
+  \href{https://github.com/JulianEducation/CommandLineBasics}{Tutorial
+    sobre linha de comando}.
+
+  Nomes de arquivos \ilcode{/Users/ar/work/teste.txt} (completo, nome
+  base e extensão).
+
+  Os diretórios \ilcode{.} e \ilcode{..}. 
+
+  Opções e argumentos, \ilcode{ls -l} ou \ilcode{rm -rf}.
+
+  \framebreak
+
+  Em sistemas Unix/Linux, programas CLI produzem \textbf{códigos
+    núméricos de retorno} para indicar como a execução ocorreu.
+
+  Outros programas ou scripts que chamam o programa em questão podem
+  usar este código para determinar se o processo foi executado com
+  êxito.
+
+  O código 0 indica sucesso. Outros códigos comuns: 1 para erro
+  genérico. 2 para erro na linha de comando. 126 para alguma permissão
+  negada. 127 para comando não encontrado e qualquer um acima de 128
+  para casos específicos.
+
+  Os códigos de retorno são normalmente documentados no manual do
+  programa.
+
+  \framebreak
+
+  Quando executamos mais de um comando, os seguintes operadores podem
+  ser usados:
+
+  \begin{tabularx}{\textwidth}{lX} \hline
+    \verb|A; B| & executa A e depois B\\ \hline
+    \verb|A && B| & B só será executado se A retornar zero\\ \hline
+    \verb$A || B$ & B só será executado se A retornar valor diferente de zero\\ \hline
+  \end{tabularx}
+  
+  \framebreak
+
+  Entre um programa e o seu ambiente (interpretador de comandos)
+  existem \textbf{canais de comunicação padrão}.
+
+  Estes canais são a entrada padrão (STDIN, por onde entram os dados),
+  saída padrão (STDOUT, por onde saem os dados) e saída de erros
+  (STDERR, usado para informar erros).
+
+  Geralmente estes fluxos de entrada e saída de um programa CLI são
+  herdado do processo `pai', o processo que evocou o programa,
+  geralmente o shell.
+  
+  Mas podemos \textbf{redirecionar} entrada e saídas para
+  arquivos. Ex: \texttt{ls -l > lista.txt}.
+
+  \url{https://bit.ly/423O3g9}
+
+\end{frame}
+
+
+\begin{frame}{Controle de Versão}
+
+  Um controlador de versão é uma ferramenta de software que permite
+  gerenciar as alterações feitas em arquivos de um projeto
+  (normalmente um diretório) ao longo do tempo.
+
+  O mais famoso controlador de versão atualmente é o
+  \href{https://git-scm.com/doc}{Git}, ver também
+  \url{https://rogerdudler.github.io/git-guide/}.
+
+  O site GitHub \url{https://docs.github.com/pt} é o maior site para
+  armazenamento de projetos opensource que usam Git.
+
+  Para saber mais:
+  \href{https://www.youtube.com/results?search_query=github+tutorial}{vídeos}
+  e
+  \href{https://www.coursera.org/learn/introduction-git-github}{curso}.
+
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

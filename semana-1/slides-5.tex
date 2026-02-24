@@ -1,0 +1,118 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ programação estruturada}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Programação Estruturada}
+
+  Um programa de computador executa uma sequência de instruções para
+  realizar uma tarefa. O conjunto destas instruções e como elas são
+  estruturadas é o que chamamos de \textbf{algoritmo}.
+
+  Na programação estruturada, estas instruções podem ser classificadas
+  em três tipos de estrutura:
+
+  Sequência, Decisão e Iteração.
+
+  As instruções de um programa podem ser representadas graficamente
+  por meio fluxogramas.
+
+  \framebreak
+
+  \begin{columns}
+    \begin{column}{.6\textwidth}
+      Uma \textbf{sequência} enfileirada de instruções, que são executadas
+      uma após a outra.\vspace{1cm}
+
+      No fluxograma são representadas em caixas e a ordem de realização
+      das instruções é indicada por setas interligando as caixas.
+    \end{column}
+    \begin{column}{.4\textwidth}
+      \includegraphics[width=.5\textwidth]{fluxo-seq.png}
+    \end{column}
+  \end{columns}
+  
+  \framebreak
+
+  \begin{columns}
+    \begin{column}{.6\textwidth}
+      Estruturas de \textbf{decisão} são utilizadas para realizar um
+      controle e um desvio nas instruções do programa, ou seja, algumas
+      ações somente serão realizadas se uma determinada condição for
+      atendida.
+    \end{column}
+    \begin{column}{.4\textwidth}
+      \includegraphics[width=\textwidth]{fluxo-decisao.png}
+    \end{column}
+  \end{columns}
+
+  \framebreak
+
+  \begin{columns}
+    \begin{column}{.6\textwidth}
+      Iterações (repetição ou laço) são utilizadas para realizar uma mesma
+      instrução (ou sequência) diversas vezes.\vspace{1cm}
+      
+      A repetição pode ocorrer um número pré-estabelecido de vezes ou
+      quando uma condição for satisfeita.
+    \end{column}
+    \begin{column}{.4\textwidth}
+      \includegraphics[width=\textwidth]{fluxo-repeticao.png}
+    \end{column}
+  \end{columns}
+  
+  \framebreak
+
+  Suponha que na aula de física você aprendeu a converter uma
+  temperatura de Celsius para Fahrenheit. A fórmula usada é:
+
+  \[
+    T_f = (T_c \times \frac{9}{5}) + 32
+  \]
+
+  Em uma sequência sistemática de passos com a lógica para a
+  transformação pode ser.
+
+  \framebreak
+
+  \vfill
+
+  \begin{center}
+    \includegraphics[height=.8\textheight]{fluxograma.png}
+  \end{center}
+
+  \framebreak
+
+  \vfill
+
+  \begin{center}
+    \includegraphics[height=.8\textheight]{fluxo-example.png}
+  \end{center}
+
+  \framebreak
+
+  \url{https://scratch.mit.edu}
+
+  Uma forma de programar de forma visual, quase como construíndo
+  fluxogramas.
+  
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
