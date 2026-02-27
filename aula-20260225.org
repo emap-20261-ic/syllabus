@@ -41,22 +41,22 @@ Por exemplo, se estamos em =/home/aluno/=, o caminho
 O terminal é uma interface onde digitamos comandos e recebemos
 respostas em texto. Seguem os comandos mais usados no dia a dia:
 
-- =pwd= :: mostra o diretório atual (/print working directory/)
-- =ls= :: lista o conteúdo de um diretório
-- =cd= :: muda de diretório (/change directory/)
-- =cat= :: exibe o conteúdo de um arquivo
-- =less= e =more= :: exibem o conteúdo de um arquivo com paginação,
-  úteis para arquivos longos
-- =rm= :: remove arquivos (cuidado, não há lixeira!)
-- =mv= :: move ou renomeia arquivos
-- =sort= :: ordena as linhas de um arquivo
-- =uniq= :: remove linhas duplicadas consecutivas (normalmente usado
+- =pwd= mostra o diretório atual (/print working directory/)
+- =ls= lista o conteúdo de um diretório
+- =cd= muda de diretório (/change directory/)
+- =cat= exibe o conteúdo de um arquivo
+- =less= e =more= exibem o conteúdo de um arquivo com paginação, úteis
+  para arquivos longos
+- =rm= remove arquivos (cuidado, não há lixeira!)
+- =mv= move ou renomeia arquivos
+- =sort= ordena as linhas de um arquivo
+- =uniq= remove linhas duplicadas consecutivas (normalmente usado
   após =sort=)
-- =wc= :: conta linhas, palavras e caracteres (/word count/)
-- =tr= :: substitui ou remove caracteres (/translate/)
-- =diff= :: compara dois arquivos e mostra as diferenças
-- =time= :: mede o tempo de execução de um comando
-- =cal= :: exibe um calendário
+- =wc= conta linhas, palavras e caracteres (/word count/)
+- =tr= substitui ou remove caracteres (/translate/)
+- =diff= compara dois arquivos e mostra as diferenças
+- =time= mede o tempo de execução de um comando
+- =cal= exibe um calendário
 
 Vejamos alguns exemplos práticos. Suponha que temos um arquivo
 =nomes.txt= com nomes, um por linha:
@@ -154,9 +154,9 @@ $ wc -l < nomes.txt
 
 Podemos encadear comandos com operadores lógicos:
 
-- =&&= :: executa o segundo comando *somente se* o primeiro teve
-  sucesso (retornou código 0)
-- =||= :: executa o segundo comando *somente se* o primeiro falhou
+- =&&= executa o segundo comando *somente se* o primeiro teve sucesso
+  (retornou código 0)
+- =||= executa o segundo comando *somente se* o primeiro falhou
   (retornou código diferente de 0)
 
 #+begin_src bash
@@ -182,12 +182,11 @@ adicionado ao arquivo de configuração do shell (como =~/.bashrc= ou
 
 ** Referências sobre linha de comando
 
-- https://github.com/JulianEducation/CommandLineBasics
-- [[https://linuxcommand.org/tlcl.php][The Linux Command Line]] :: livro completo e gratuito sobre a linha de
-  comando
+- [[https://github.com/JulianEducation/CommandLineBasics][command line basics]] :: tutorial interativo
+- [[https://linuxcommand.org/tlcl.php][The Linux Command Line]] :: livro completo sobre a linha de comando
 - [[https://swcarpentry.github.io/shell-novice/][Software Carpentry: The Unix Shell]] :: tutorial interativo
 
-  
+
 * Git
 
 ** O que é Git?
