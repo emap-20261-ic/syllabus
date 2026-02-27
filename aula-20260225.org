@@ -1,0 +1,288 @@
+#+title: aula 02
+
+* Linha de comando e Git
+
+Nesta aula trabalhamos com duas ferramentas essenciais para qualquer
+pessoa que trabalha com computação: o terminal (linha de comando) e o
+sistema de controle de versão Git. Ambas são ferramentas que vocês
+usarão durante todo o curso e na vida profissional.
+
+* Linha de comando
+
+** O sistema de arquivos
+
+Toda interação com um computador envolve, em algum momento, lidar com
+arquivos e diretórios. No terminal, precisamos saber nos localizar
+dentro da árvore de diretórios do sistema.
+
+Todo arquivo tem um *nome completo* (ou /fullpath/), que é o caminho
+desde a raiz do sistema até o arquivo. Por exemplo:
+
+#+begin_example
+/home/aluno/documentos/trabalho.c
+#+end_example
+
+Neste caminho, =/home/aluno/documentos/= é o diretório onde o arquivo
+se encontra e =trabalho.c= é o *basename*, o nome do arquivo em si.
+
+Além de caminhos absolutos (que começam com =/=), podemos usar
+*caminhos relativos*, que partem do diretório onde estamos no
+momento. Dois diretórios especiais nos ajudam na navegação:
+
+- =.= (ponto) representa o diretório atual
+- =..= (dois pontos) representa o diretório pai, um nível acima
+
+Por exemplo, se estamos em =/home/aluno/=, o caminho
+=../maria/notas.txt= se refere ao arquivo =/home/maria/notas.txt=. Já
+=./trabalho.c= se refere a =/home/aluno/trabalho.c=.
+
+** Comandos básicos
+
+O terminal é uma interface onde digitamos comandos e recebemos
+respostas em texto. Seguem os comandos mais usados no dia a dia:
+
+- =pwd= :: mostra o diretório atual (/print working directory/)
+- =ls= :: lista o conteúdo de um diretório
+- =cd= :: muda de diretório (/change directory/)
+- =cat= :: exibe o conteúdo de um arquivo
+- =less= e =more= :: exibem o conteúdo de um arquivo com paginação,
+  úteis para arquivos longos
+- =rm= :: remove arquivos (cuidado, não há lixeira!)
+- =mv= :: move ou renomeia arquivos
+- =sort= :: ordena as linhas de um arquivo
+- =uniq= :: remove linhas duplicadas consecutivas (normalmente usado
+  após =sort=)
+- =wc= :: conta linhas, palavras e caracteres (/word count/)
+- =tr= :: substitui ou remove caracteres (/translate/)
+- =diff= :: compara dois arquivos e mostra as diferenças
+- =time= :: mede o tempo de execução de um comando
+- =cal= :: exibe um calendário
+
+Vejamos alguns exemplos práticos. Suponha que temos um arquivo
+=nomes.txt= com nomes, um por linha:
+
+#+begin_src bash
+$ cat nomes.txt
+Maria
+João
+Ana
+Maria
+Pedro
+Ana
+#+end_src
+
+Podemos contar quantas linhas o arquivo tem:
+
+#+begin_src bash
+$ wc -l nomes.txt
+6 nomes.txt
+#+end_src
+
+Podemos ordenar os nomes e remover duplicatas:
+
+#+begin_src bash
+$ sort nomes.txt | uniq
+Ana
+João
+Maria
+Pedro
+#+end_src
+
+Ou contar quantas vezes cada nome aparece:
+
+#+begin_src bash
+$ sort nomes.txt | uniq -c | sort -rn
+      2 Ana
+      2 Maria
+      1 João
+      1 Pedro
+#+end_src
+
+** Comandos mais avançados: =sed= e =awk=
+
+Além dos comandos básicos, dois programas clássicos do Unix merecem
+menção: =sed= e =awk=. Ambos processam texto linha por linha e são
+muito poderosos.
+
+O =sed= (/stream editor/) permite fazer substituições e
+transformações em texto. Por exemplo, para trocar todas as ocorrências
+de "Maria" por "Mariana":
+
+#+begin_src bash
+$ sed 's/Maria/Mariana/g' nomes.txt
+#+end_src
+
+O =awk= é uma linguagem de processamento de texto orientada a
+colunas. Se temos um arquivo com dados separados por espaços ou
+tabulações, =awk= facilita a extração de campos específicos. Por
+exemplo, para imprimir apenas a segunda coluna de um arquivo:
+
+#+begin_src bash
+$ awk '{print $2}' dados.txt
+#+end_src
+
+Estes são programas muito ricos e que não vamos explorar em
+profundidade no curso, mas é importante saber que existem.
+
+** Redirecionamento e pipes
+
+Uma das ideias mais poderosas da linha de comando é a capacidade de
+*compor* comandos, conectando a saída de um na entrada de outro. Isto
+é feito com o operador =|= (pipe).
+
+Já vimos exemplos acima com =sort nomes.txt | uniq=. O que acontece é
+que a saída de =sort= (que iria para a tela) é redirecionada para a
+entrada do =uniq=.
+
+Além do pipe, podemos redirecionar a saída de comandos para arquivos:
+
+- =>= redireciona a saída para um arquivo, sobrescrevendo-o
+- =>>= redireciona a saída para o final de um arquivo, adicionando ao
+  conteúdo existente
+- =<= usa o conteúdo de um arquivo como entrada de um comando
+- =2>= redireciona a saída de erros (stderr) para um arquivo
+
+Exemplos:
+
+#+begin_src bash
+$ sort nomes.txt > nomes-ordenados.txt
+$ echo "Pedro" >> nomes.txt
+$ wc -l < nomes.txt
+#+end_src
+
+** Composição de comandos
+
+Podemos encadear comandos com operadores lógicos:
+
+- =&&= :: executa o segundo comando *somente se* o primeiro teve
+  sucesso (retornou código 0)
+- =||= :: executa o segundo comando *somente se* o primeiro falhou
+  (retornou código diferente de 0)
+
+#+begin_src bash
+$ gcc programa.c -o programa && ./programa
+#+end_src
+
+Neste exemplo, o programa só será executado se a compilação for
+bem-sucedida. Se =gcc= falhar, o =./programa= não será executado.
+
+** Alias
+
+Se usamos um comando com frequência, podemos criar um *alias*, um
+atalho. Um exemplo clássico:
+
+#+begin_src bash
+$ alias ll='ls -l'
+#+end_src
+
+A partir deste momento, digitar =ll= é equivalente a digitar =ls -l=.
+Para que o alias persista entre sessões do terminal, ele deve ser
+adicionado ao arquivo de configuração do shell (como =~/.bashrc= ou
+=~/.zshrc=).
+
+** Referências sobre linha de comando
+
+- [[https://linuxcommand.org/tlcl.php][The Linux Command Line]] :: livro completo e gratuito sobre a linha de
+  comando
+- [[https://swcarpentry.github.io/shell-novice/][Software Carpentry: The Unix Shell]] ::
+  tutorial interativo
+
+* Git
+
+** O que é Git?
+
+Git é um sistema de controle de versão. Ele permite que você mantenha
+um histórico completo de todas as alterações feitas em um conjunto de
+arquivos. Cada vez que você faz um /commit/, está salvando um snapshot
+do estado dos seus arquivos naquele momento. Isto permite voltar a
+versões anteriores, entender quando e por que uma mudança foi feita, e
+colaborar com outras pessoas sem conflitos.
+
+** Comandos básicos
+
+Para criar um repositório Git novo em um diretório local:
+
+#+begin_src bash
+$ mkdir meu-projeto
+$ cd meu-projeto
+$ git init
+#+end_src
+
+O comando =git init= cria um subdiretório oculto =.git/= onde o Git
+armazena todo o histórico do repositório.
+
+Depois de criar ou modificar arquivos, o fluxo básico é:
+
+1. *Verificar o estado* do repositório:
+
+#+begin_src bash
+$ git status
+#+end_src
+
+Este comando mostra quais arquivos foram modificados, quais são novos
+(untracked) e quais estão prontos para serem "commitados" (staged).
+
+2. *Adicionar arquivos* à área de staging:
+
+#+begin_src bash
+$ git add arquivo.c
+#+end_src
+
+Isto marca o arquivo para ser incluído no próximo commit. Podemos
+adicionar vários arquivos de uma vez com =git add .= (adiciona tudo no
+diretório atual).
+
+3. *Criar um commit*:
+
+#+begin_src bash
+$ git commit -m "mensagem descrevendo a alteração"
+#+end_src
+
+O commit salva o estado atual dos arquivos que estão no staging. A
+mensagem deve ser descritiva o suficiente para que, no futuro, você
+entenda o que foi feito.
+
+4. *Ver o histórico* de commits:
+
+#+begin_src bash
+$ git log
+#+end_src
+
+Este comando mostra todos os commits feitos, do mais recente para o
+mais antigo, com autor, data e mensagem.
+
+** Git no curso
+
+No nosso curso, o fluxo de trabalho com Git para as atividades será:
+
+1. *Clonar* o repositório de um assignment (atividade) para sua
+   máquina local:
+
+#+begin_src bash
+$ git clone <url-do-repositorio>
+#+end_src
+
+2. *Trabalhar* no código, fazendo as modificações necessárias.
+
+3. *Adicionar e fazer commit* das suas alterações:
+
+#+begin_src bash
+$ git add .
+$ git commit -m "resolução do exercício X"
+#+end_src
+
+4. *Enviar (push)* as alterações para o repositório remoto, o que
+   constitui a submissão da atividade:
+
+#+begin_src bash
+$ git push
+#+end_src
+
+Este fluxo — clone, modificação, commit, push — será repetido em todas
+as atividades do curso.
+
+** Referências sobre Git
+
+- [[https://git-scm.com/book/pt-br/v2][Pro Git]] :: livro oficial do Git, disponível gratuitamente em
+  português
+- [[https://git-scm.com/videos][Git em vídeos]] :: vídeos curtos explicando os conceitos fundamentais
