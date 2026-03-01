@@ -4,12 +4,16 @@ Professor: alexandre.rademaker@fgv.br
 
 ## Programa
 
-### semana 1 
+### semana 0
 
 - apresentação do curso
 - linha de comando e o comando git 
+
+### semana 1
+
 - arquitetura básica dos computadores
 - representação de dados no computador
+- programação estruturada
 
 ## critérios de avaliação
 
