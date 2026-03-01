@@ -1,0 +1,54 @@
+#+title: aula 06
+
+* Plano de aula
+
+Nesta aula cobriremos os slides-5 (programação estruturada) e
+iniciaremos as atividades do laboratório 1.
+
+* Programação estruturada (slides-5)
+
+** Algoritmos e estruturas
+
+Um programa de computador executa uma sequência de instruções para
+realizar uma tarefa. O conjunto dessas instruções e como elas são
+organizadas é o que chamamos de algoritmo.
+
+Na programação estruturada, as instruções são classificadas em três
+tipos de estrutura:
+
+- *Sequência*: instruções executadas uma após a outra, representadas
+  em caixas interligadas por setas no fluxograma.
+
+- *Decisão*: desvio condicional — algumas ações só são realizadas se
+  uma determinada condição for atendida.
+
+- *Iteração* (repetição ou laço): uma instrução ou sequência é
+  repetida um número pré-definido de vezes ou enquanto uma condição
+  for satisfeita.
+
+** Fluxogramas
+
+As instruções de um programa podem ser representadas graficamente por
+meio de fluxogramas. Mostrar os diagramas de cada estrutura
+(sequência, decisão, iteração).
+
+** Exemplo: conversão Celsius para Fahrenheit
+
+$$T_f = \left(T_c \times \frac{9}{5}\right) + 32$$
+
+Construir o fluxograma para este algoritmo simples: receber a
+temperatura em Celsius, aplicar a fórmula, exibir o resultado em
+Fahrenheit.
+
+** Programação visual
+
+Mencionar o [[https://scratch.mit.edu][Scratch]] como forma de programar visualmente, quase como
+construindo fluxogramas.
+
+* Laboratório 1
+
+Iniciar as atividades do laboratório (ver =semana-1/lab/README.org=).
+Os alunos que ainda não configuraram o ambiente de desenvolvimento
+devem começar pela Atividade 1 (instalação das ferramentas). Os que
+já estão com o ambiente pronto podem avançar para as demais
+atividades.
