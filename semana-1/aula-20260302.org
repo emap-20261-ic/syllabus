@@ -1,0 +1,91 @@
+#+title: aula 04
+
+* Plano de aula
+
+Nesta aula cobriremos os slides-1 (arquitetura básica dos
+computadores) e slides-2 (representação de dados no computador).
+
+* Arquitetura básica dos computadores (slides-1)
+
+** O que é um computador?
+
+Diferença entre um computador e outras máquinas: ao invés de ajudar
+com trabalhos manuais, computadores manipulam informações e
+dados. Computadores processam dados executando sequências de
+instruções — programas de computador.
+
+Distinção entre hardware (cabos, circuitos, dispositivos de entrada e
+saída, placas de memória) e software (programas armazenados no
+computador).
+
+Breve contexto histórico: computadores com partes mecânicas,
+componentes eletrônicos (anos 1920-30), grandes calculadoras.
+
+** Tarefas fundamentais
+
+Quatro tarefas que todo computador realiza:
+
+- input: receber dados
+- storage: armazenar informações
+- processing: transformar dados
+- output: produzir saídas
+
+** Organização do computador
+
+Seis unidades lógicas:
+
+1. Dispositivos de entrada (teclado, mouse, microfone, webcam, GPS,
+   acelerômetro)
+2. Dispositivos de saída (tela, impressora, rede)
+3. Armazenamento principal (RAM) — rápido, volátil, capacidade menor
+4. Armazenamento secundário (HD, SSD, CD) — mais lento, persistente,
+   maior capacidade
+5. Unidade de aritmética e lógica (ALU) — cálculos e comparações
+6. Unidade Central de Processamento (CPU) — coordena tudo,
+   processadores multi-core
+
+** Circuitos e portas lógicas
+
+Sinais elétricos processados por portas lógicas (AND, OR, NOT) que
+produzem novos bits. Composição de circuitos: somador de 1 bit
+combinado em somador de 8 bits, multiplicadores binários.
+
+Evolução: circuitos antigos eram grandes e lentos, a miniaturização
+permitiu desempenho enormemente superior.
+
+Referência: [[https://youtube.com/playlist?list=PLzdnOPI1iJNcsRwJhvksEo1tJqjIqWbN-][How Computers Work]]
+
+* Representação de dados (slides-2)
+
+** Bits
+
+Circuitos eletrônicos representam informação com dois estados:
+ligado/desligado, 0/1, verdade/falso. Com mais fios, mais bits
+simultâneos.
+
+Em um computador, tudo são bits.
+
+** Representação binária
+
+Números decimais usam base 10, números binários usam base 2. Tabela
+de conversão. Palavras de 8 bits (1 byte, 0 a 255). Com 32 bits,
+$2^{32}$ valores possíveis (~4 bilhões).
+
+Observação: 1 kilobyte = $2^{10}$ = 1024 bytes (e não 1000).
+
+** Representação de texto
+
+Caracteres mapeados por bytes usando a tabela
+[[https://en.wikipedia.org/wiki/ASCII][ASCII]]. Para acentos e outros
+símbolos, [[https://en.wikipedia.org/wiki/Unicode][Unicode]]. Emojis são
+números na tabela Unicode.
+
+Todo arquivo é uma sequência de bytes — não existem arquivos "texto"
+em sentido absoluto.
+
+** Imagens, áudio e vídeo
+
+Cores mapeadas pelo sistema [[https://en.wikipedia.org/wiki/RGB_color_model][RGB]] (3 valores de 8 bits). Pixels compõem
+imagens. Vídeos são sequências de imagens. Músicas representadas como
+bits (MIDI, MP3). Organizações como Unicode Consortium, IEEE e W3C
+padronizam formatos.

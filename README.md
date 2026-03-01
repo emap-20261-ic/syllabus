@@ -7,9 +7,9 @@ Professor: alexandre.rademaker@fgv.br
 ### semana 1 
 
 - apresentação do curso
+- linha de comando e o comando git 
 - arquitetura básica dos computadores
 - representação de dados no computador
-- linha de comando e o comando git 
 
 ## critérios de avaliação
 
