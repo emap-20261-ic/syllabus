@@ -117,72 +117,81 @@ Para todos os sistemas, instale a extensão [[https://marketplace.visualstudio.c
 oferece syntax highlighting, autocompletar e integração com o
 compilador.
 
-* Atividade 2: linha de comando
+* Atividade 2: tutorial da linha de comando
 
 Fazer o tutorial interativo
 https://github.com/JulianEducation/CommandLineBasics
 
-Depois de completar o tutorial, pratique os comandos em seu terminal:
+* Atividade 3: praticando a linha de comando
 
-1. Identifique o diretório corrente com =pwd= e mude o diretório
-   atual com =cd= usando caminhos relativos e absolutos.
+Depois de completar o tutorial, pratique os comandos em seu
+terminal. Antes de começar, clone o repositório do curso:
 
-2. Crie um arquivo texto usando =touch= e =cat= (com redirecionamento
-   e CTRL-c).
+#+begin_src bash
+$ git clone https://github.com/emap-20261-ic/syllabus.git
+#+end_src
 
-3. Crie um novo diretório com =mkdir= e mova arquivos criados no
-   passo anterior para esse diretório com =mv=.
+1. Identifique o diretório corrente com =pwd=.
 
-4. Copie um arquivo para um diretório diferente usando =cp=. Copie de
-   forma recursiva. Consulte a página =man cp=.
+2. Mude o diretório atual com =cd= para o diretório onde o =syllabus=
+   foi clonado. Navegue até =semana-1/lab= usando caminhos relativos e
+   absolutos.
 
-5. Explore o histórico de comandos com =history=, use TAB para
+3. Crie um arquivo texto com o nome =lab1.txt= usando =touch= e =cat=
+   (com redirecionamento; finalize a entrada com Ctrl-D; Ctrl-C
+   interrompe o comando).
+
+4. Crie um novo diretório chamado =tmp1= com =mkdir= e mova o arquivo
+   criado no passo anterior para esse diretório com =mv=.
+
+5. Copie o diretório =tmp1= para =tmp2= usando =cp -r= (cópia
+   recursiva). Consulte a página =man cp=.
+
+6. Explore o histórico de comandos com =history=, use TAB para
    auto-completar, setas para cima/baixo para navegar no histórico e
    =!NUM= para repetir comandos.
 
-6. Liste o conteúdo de um diretório com =ls=. Passe os parâmetros
+7. Liste o conteúdo de um diretório com =ls=. Passe os parâmetros
    =-l= e =-lh= e entenda a diferença.
 
-7. Redirecione a saída do =ls= para um arquivo.
+8. Redirecione a saída do =ls= para um arquivo no =tmp1=.
 
-8. Encontre todos os arquivos em um diretório que correspondem a um
-   padrão específico usando =find= e =xargs=. Por exemplo:
+9. Encontre todos os arquivos em um diretório que correspondem a um
+   padrão específico usando =find= e =xargs=. Por exemplo, mude para
+   o diretório =syllabus= e execute:
 
    #+begin_example
-   % find . -name '*.pdf' | xargs file
-   ./slides-2.pdf: PDF document, version 1.5
-   ./slides-3.pdf: PDF document, version 1.5
-   ./slides-1.pdf: PDF document, version 1.5
+   $ find . -name '*.pdf' | xargs file
    #+end_example
 
-9. Exiba o conteúdo de um arquivo de texto com =cat=, =less=, =tail=
-   e =head=. Conte linhas com =wc=.
+10. Exiba o conteúdo de um arquivo de texto com =cat=, =less=, =tail=
+    e =head=. Conte linhas com =wc=.
 
-10. Filtre linhas específicas de um arquivo com =grep=. Use =sort= e
+11. Filtre linhas específicas de um arquivo com =grep=. Use =sort= e
     =uniq=:
 
     #+begin_example
-    % grep -rh "include" *.c | sort | uniq -c
+    $ grep -rh "include" *.c | sort | uniq -c
       2 #include <ctype.h>
       1 #include <math.h>
      39 #include <stdio.h>
     #+end_example
 
-11. Experimente o sequenciamento de comandos. Assumindo que não exista
+12. Experimente o sequenciamento de comandos. Assumindo que não exista
     o arquivo =lixo= no diretório:
 
     #+begin_example
-    % ls ; echo $?
-    % rm lixo; echo $?
+    $ ls ; echo $?
+    $ rm lixo; echo $?
 
-    % rm lixo && echo 1
-    % rm lixo || echo 1
+    $ rm lixo && echo 1
+    $ rm lixo || echo 1
     #+end_example
 
-12. Monitore o uso de recursos do sistema com =top= e =ps=.
+13. Monitore o uso de recursos do sistema com =top= e =ps=.
     Experimente também =who=, =whoami= e =df=.
 
-* Atividade 3: compilando um programa em C
+* Atividade 4: compilando um programa em C
 
 Nesta atividade vamos usar o repositório do =assignment-00= para
 compilar e executar um programa em C.
@@ -202,9 +211,9 @@ compilar e executar um programa em C.
 3. Compile o arquivo =test.c= de diferentes formas:
 
    #+begin_example
-   % clang test.c -Wall
-   % clang test.c -Wall -o test
-   % make test
+   $ clang test.c -Wall
+   $ clang test.c -Wall -o test
+   $ make test
    #+end_example
 
    A flag =-Wall= habilita todos os avisos do compilador, o que ajuda
@@ -214,7 +223,7 @@ compilar e executar um programa em C.
 4. Execute o programa compilado:
 
    #+begin_example
-   % ./test
+   $ ./test
    #+end_example
 
 5. Abra o arquivo =test.c= no editor, faça uma modificação (por
@@ -224,13 +233,14 @@ compilar e executar um programa em C.
 6. Experimente também compilar com o =gcc=:
 
    #+begin_example
-   % gcc test.c -Wall -o test
+   $ gcc test.c -Wall -o test
    #+end_example
 
-* Atividade 4: usando o Git
+* Atividade 5: usando o Git
 
-Na Atividade 3, você já usou o Git para clonar um repositório. Agora
-vamos experimentar o fluxo completo de trabalho com Git.
+Nas atividades anteriores, você já usou o Git para clonar
+repositórios. Agora vamos praticar a criação de um repositório
+local. Vá para outra pasta de seu computador, fora do syllabus.
 
 1. Crie um repositório local do zero:
 
