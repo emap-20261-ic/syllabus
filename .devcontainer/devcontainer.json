@@ -2,14 +2,16 @@
   "name": "IC - Introducao a Computacao",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:2": {}
+    "ghcr.io/devcontainers/features/c-cpp:1": {}
   },
-  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y clang",
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-vscode.cpptools-extension-pack"
-      ]
+      ],
+      "settings": {
+        "C_Cpp.updateChannel": "Default"
+      }
     }
   }
 }
