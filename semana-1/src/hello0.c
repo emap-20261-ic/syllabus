@@ -1,6 +1,6 @@
 /*
-   exemplo de primeiro programa em C. O programa
-   imprime apenas 'hello world' e termina.
+   exemplo de primeiro programa em C. O programa imprime apenas 'hello world' e
+   termina.
 */
 
 #include <stdio.h>
