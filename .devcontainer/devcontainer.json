@@ -1,9 +1,6 @@
 {
   "name": "IC - Introducao a Computacao",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {
-    "ghcr.io/devcontainers/features/c-cpp:1": {}
-  },
+  "image": "mcr.microsoft.com/devcontainers/cpp:ubuntu-24.04",
   "customizations": {
     "vscode": {
       "extensions": [
