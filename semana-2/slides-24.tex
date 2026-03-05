@@ -1,0 +1,177 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ tipos, operadores e precisão}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Mario}
+
+  Vamos imprimir alguns blocos na tela, uma versão simplifica de
+
+  \url{https://en.wikipedia.org/wiki/Super_Mario_Bros.}
+
+  \begin{center}
+    \includegraphics[width=.4\textwidth]{mario-1}\hspace{.5cm}
+    \includegraphics[width=.4\textwidth]{mario-2}
+  \end{center}
+
+  \framebreak
+
+  \lstinputlisting[style=normalc,caption=src/mario0.c]{src/mario0.c}
+
+  Veja \ilcode{src/mario1.c}. Vamos testar? Vamos pedir entrada para
+  usuário?
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/mario2.c]{src/mario2.c}
+
+  Testar? O que ocorre com entradas como: 0, -1, 100, a, a10, 10a etc.
+
+  \framebreak
+
+  A função \ilcode{scanf} tenta ler da entrada ``buffer entrada''
+  (STDIN) um padrão de caracteres que possa ter interpretado como
+  inteiro. Se conseguir, retorna 1, do contrário retorna 0.
+
+  Caracteres não consumidos permanecem no buffer de entrada. Se nenhum
+  caracter for consumido então o valor na memória que deveria ser
+  alimentada como um inteiro pode conter ``lixo''.
+
+  Como saber mais? Como pedir ajuda?
+  \href{https://stackoverflow.com/a/74938900/121095}{aqui} e
+  \href{https://stackoverflow.com/a/1716066/121095}{aqui}.
+
+  Vamos tratar deste erro mais tarde!  
+
+  \framebreak
+
+  Vamos imprimir blocos bi-dimensionais?
+
+  \lstinputlisting[style=tinyc,caption=src/mario4.c]{src/mario4.c}
+
+\end{frame}
+
+
+\begin{frame}{Comentários}
+
+  \begin{quote}
+    A handy rule of thumb is: a comment should only be added to answer
+    a question that the code can't.
+  \end{quote}
+
+  O excesso de comentários polui o código! Comentários óbvios não
+  tornam programas ruins melhores.
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{tipos, operadores e precisão}
+
+  Tipos referem-se aos possíveis valores que podem ser armazenados em
+  variáveis. Uma variável do tipo \ilcode{char} pode armazenar
+  caracteres como \ilcode{'a'} ou mesmo \ilcode{'2'}.
+
+  Os tipos são importante por determinarem o limite de memória usado
+  para cada tipo. O maior valor para \ilcode{int} é de $2^{32}$.
+
+  \framebreak
+
+  Vamos lembrar de nossa calculadora.
+
+  \lstinputlisting[style=normalc,caption=src/calculator1.c]{src/calculator1.c}
+
+  \framebreak
+
+  \begin{lstlisting}[style=code]
+    > ./calculator1
+    x: 2000000000
+    y: 2000000000
+    -294967296
+  \end{lstlisting}
+  
+  O tipo 'int' tem um armazenamento limitado, normalmente 32 bits,
+  logo pode apenas conter $2^{32} = 4,294,967,296$ diferentes
+  valores. Mas como valores podem ser positivos ou negativos, nosso
+  limite é $2^{31} = 2,147,483,648$. \emph{integer overflow}
+
+  Vamos mudar para \ilcode{long} e testar? Vide \ilcode{src/calculator2.c}
+
+  \framebreak
+
+  Veja \ilcode{src/calculator3.c}.  Dividir dois números inteiros não
+  produz um \ilcode{float} mas um inteiro (truncado).
+
+  Isto é o que chamamos de \emph{floating-point imprecision}, não podemos
+  representar \textbf{todos} os números reais com um número finito de
+  bits.
+
+  Qualquer representação de ponto-flutuante terá algum limite de
+  precisão.
+
+  \begin{lstlisting}[style=code,basicstyle=\ttfamily\tiny]
+    > make calculator3
+    > ./calculator3
+    x: 2
+    y: 3
+    0.66666668653488159179687500000000000000000000000000
+    > ./calculator3
+    x: 1
+    y: 10
+    0.10000000149011611938476562500000000000000000000000
+  \end{lstlisting}
+
+  \framebreak
+
+  Ver também \url{https://en.wikipedia.org/wiki/Year_2000_problem}
+
+  \framebreak
+
+  Outro exemplo
+
+  \lstinputlisting[style=normalc,caption=src/cents0.c]{src/cents0.c}
+
+  \framebreak
+
+  Executando
+
+  \begin{lstlisting}[style=code,basicstyle=\ttfamily]
+    > make cents0
+    > ./cents0
+    Dollar Amount: .99
+    Cents: 99
+    > ./cents0
+    Dollar Amount: 1.23
+    Cents: 123
+    > ./cents0
+    Dollar Amount: 4.20
+    Cents: 419
+  \end{lstlisting}
+
+  Parece que o valor $4.20$ foi armazenado como $4.199999$.
+
+  \framebreak
+
+  A função \ilcode{round}. Vamos tentar resolver com explicito
+  arredondamento.
+
+  \lstinputlisting[style=normalc,caption=src/cents1.c]{src/cents1.c}
+  
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

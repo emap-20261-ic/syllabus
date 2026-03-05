@@ -1,0 +1,72 @@
+#+title: prime
+
+* objetivos
+
+- Practice using for loops
+- Using modulo
+- Creating a Boolean function
+
+* contexto
+
+Números primos são definidos como números inteiros maiores que 1 cujos
+únicos fatores são 1 e ele mesmo. Portanto, 3 é primo porque seus
+únicos fatores são 1 e 3, enquanto 4 é composto e não primo, porque é
+o produto =2×2=. Neste laboratório, você escreverá um algoritmo
+para gerar todos os números primos em um intervalo especificado pelo
+usuário.
+
+* detalhes para implementação
+
+A maneira mais fácil de verificar se um número é primo é tentar
+dividi-lo por todos os números de 2 até, mas não incluindo, o próprio
+número. Se qualquer número dividi-lo sem deixar resto, esse número não
+é primo.
+
+A função principal no código =prime.c= contém um loop =for= que itera
+pelo intervalo especificado pelo usuário, incluindo ambas as
+extremidades. Por exemplo, se o usuário digitar 1 para min e 100 para
+max, o loop for testará cada número, de 1 a 100. Cada um desses
+números é passado para uma função =prime= que você implementará para
+retornar =true= ou =false= dependendo se o número é primo.
+
+* pergunta
+
+Você pode tornar o algoritmo de localização de primos mais eficiente
+do que verificar se um número é divisível por todo número entre 2 e 1
+menor que ele mesmo? Você consegue pensar em outra maneira de gerar
+números primos?
+
+* testando
+
+Seu código deve se comportar assim:
+
+#+begin_example
+$ ./prime
+Minimum: 1
+Maximum: 100
+2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37
+41
+43
+47
+53
+59
+61
+67
+71
+73
+79
+83
+89
+97
+#+end_example

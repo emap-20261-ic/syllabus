@@ -1,0 +1,231 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ compilando primeiro programa em C}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Primeiro programa em C}
+
+  \lstinputlisting[caption=src/hello0.c,style=normalc]{src/hello0.c}
+
+  \framebreak
+
+  Comentários servem para documentar o código.
+
+  A importação do \ilcode{stdio.h}. Um arquivo de cabeçalho (header)
+  tem extensão \ilcode{.h} e contém declarações de funções e
+  definições de macros compartilhadas entre vários arquivos
+  \ilcode{.c}.
+
+  A função main é o `entry point' em um programa em C. Ela pode
+  receber parâmetros que permitem a comunicação entre o programa em C
+  e o sistema operacional.
+
+  Funções recebem lista de argumentos entre parênteses, e retornam
+  valores ou apenas produzem `efeitos colaterais'.
+
+  \framebreak
+
+  O nome
+  \href{https://man7.org/linux/man-pages/man3/printf.3.html}{printf} é
+  de `formatted string'.
+
+  O ponto-e-vírgula no final de todos os comandos.
+
+  O comando \ilcode{return} recebe um valor inteiro que será retornado
+  ao SO no final da execução, zero é `sem erro'.
+
+  A identação organiza o código em blocos lógicos e destacando a
+  estrutura de controle do programa e tornando-o mais legível.
+
+  Vamos editar no VS Code, Replit ou GitHub Codespaces e compilar!
+
+  \framebreak  
+
+  \includegraphics[width=\textwidth]{vs-code.png}
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Compilação}
+
+  \begin{lstlisting}[style=normalbash]
+    > make hello0
+    > ./hello0
+    > clang hello0.c 
+    > ./a.out
+    > clang -std=c17 -Wall -Wextra -Wpedantic -Werror hello0.c -o hello
+    > ./hello
+  \end{lstlisting}
+
+  O comando `make' é um utilitário.
+  
+  Em alguns ambientes, \ilcode{cc} ou \ilcode{gcc} ao invés de
+  \ilcode{clang}.
+  
+  \framebreak
+
+  \begin{lstlisting}[style=code]
+    > clang src/cents1.c
+    ...
+    clang: error: linker command failed with exit code 1 (...)
+
+    > clang src/cents1.c -lm
+  \end{lstlisting}
+
+  Em alguns casos poderão ser necessários parâmetros adicionais para o
+  compilador.
+
+  O programa usa a função \ilcode{round} da biblioteca matemática
+  (\ilcode{math.h}). No Linux, essa biblioteca (\ilcode{libm}) é
+  separada e precisa ser vinculada explicitamente com \ilcode{-lm}. No
+  macOS, a \ilcode{libm} faz parte da biblioteca do sistema
+  (\ilcode{libSystem}) e é vinculada automaticamente.
+
+  \framebreak
+
+  Compilar o código na verdade significa:
+
+  \begin{itemize}
+  \item pré-processamento (pre-processing)
+  \item compilação (compiling)
+  \item montagem (assembling)
+  \item vinculação (linking)   
+  \end{itemize}
+
+  \framebreak
+  
+  \lstinputlisting[style=normalc,caption=src/cents1.c]{src/cents1.c}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    ...
+    double round(double n);
+    ...
+    int scanf(string format, ...);
+    int printf(string format, ...);
+    ...
+
+    int main(void) {
+      float amount;
+      printf("Dollar amount: ");
+      scanf("%f", &amount);
+
+      int cents = round(amount * 100);
+      printf("Cents: %i\n", cents);
+    }
+  \end{lstlisting}
+  
+  \framebreak
+  
+  O código C será transformado em código do processador (arquitetura)
+  específica sendo usada.\vspace{.5cm}
+
+  \begin{lstlisting}[style=normalbash]
+    > clang -S -mllvm --x86-asm-syntax=intel hello0.c
+  \end{lstlisting}
+
+  Vide \ilcode{src/hello0.s}
+
+  \framebreak
+
+  \begin{lstlisting}
+    hello0.a  libm.a      libc.a
+    
+    01111111  0100010101  001100010001
+    00000010  0000000100  000001000000
+    00000000  0000000000  000000000000
+    00000000  0000000000  000000000000
+    00000001  0000000000  111110000000
+    00000001  0000000000  000100000000
+    00000000  0000000000  000000001000
+    00000000  0000000000  000000000000
+    00000000  0000000000  000000010000
+    00000000  0000000000  000000000000
+    10100000  0000001000  000010001000
+    00000000  0000000000  000000000000
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}
+    hello0
+    
+    01111111010001010100110001000110
+    00000010000000010000000100000000
+    00000000000000000000000000000000
+    00000000000000000000000000000000
+    00000001000000000011111000000000
+    00000001000000000000000000000000
+    00000000000000000000000000000000
+    00000000000000000000000000000000
+    00000000000000000000000000000000
+    00000000000000000000000000000000
+    10100000000000100000000000000000
+    00000000000000000000000000000000
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Erros}
+
+  Erros ocorrem, e precisamos aprender a lidar com eles!
+
+  \begin{itemize}
+  \item O que ocorre se removermos o \ilcode{\\n}?
+  \item O que ocorre se quebrarmos a string?
+  \item O que ocorre se esquecermos o ponto-e-vírgula?
+  \item O que ocorre se removermos a biblioteca?
+  \end{itemize}
+  
+  O símbolo \ilcode{\\n} e o `escape'.
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Um bom código C}
+
+  \begin{description}
+  \item[correção] seu código resolve o problema de forma correta?
+
+  \item[design] quão eficiente é seu código ou seu \emph{algorítmo}?
+
+  \item[estilo] quão bem escrito, formatado e legível é seu código?
+  \end{description}
+
+  \framebreak
+  
+  \begin{block}{}
+    ``Always code as if the guy who ends up maintaining your code will
+    be a violent psychopath who knows where you live'' -- John Woods
+  \end{block}
+  
+  \begin{block}{}
+    ``Programs must be written for people to read, and only
+    incidentally for machines to execute.''  -- Harold Abelson,
+    Structure and Interpretation of Computer Programs
+  \end{block}
+
+  Mantenha seu código legível! Mais
+  \href{https://www.goodreads.com/quotes/tag/programming}{quotes}!
+
+\end{frame}  
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

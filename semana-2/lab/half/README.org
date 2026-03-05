@@ -1,0 +1,54 @@
+#+title: half
+
+* objetivos
+
+- trabalhar com diferentes tipos de dados
+- praticar conversão de tipos
+- usar operações matemáticas
+- criar uma função com parâmetros de entrada e valor de retorno
+  
+* contexto
+
+Suponha que você esteja comendo em um restaurante com um amigo e
+queira dividir a conta igualmente. Você pode querer antecipar o valor
+que deve antes que a conta chegue com o imposto adicionado. Neste
+problema, você completará uma função para calcular o valor que cada um
+de vocês deve com base no valor da conta, do imposto e da gorjeta.
+
+* detalhes para implementação
+
+Sua função deve usar os parâmetros de entrada, bill (total), tax
+(imposto) e tip (gorgeta), para calcular o valor que cada pessoa deve
+pagar. No entanto, como esses valores são porcentagens, você terá que
+fazer algum trabalho para convertê-los em formatos mais apropriados
+para usar em seu cálculo.
+
+O imposto deve ser adicionado ao valor da conta antes de calcular a
+gorjeta. Por fim, você devolverá exatamente a metade do valor total,
+incluindo o valor da conta, o imposto e a gorjeta.
+
+* pergunta
+
+Por que você acha que existem diferentes tipos de dados em C?
+
+* testando
+
+#+begin_example
+$ ./half
+total da nota: 12.50
+percentual de imposto: 8.875
+percentual de gorgeta: 20
+valor individual: $8.17
+
+$ ./half
+total da nota: 23.50
+percentual de imposto: 7  
+percentual de gorgeta: 15
+valor individual: $14.46 
+
+$ ./half
+total da nota: 100
+percentual de imposto: 6.25
+percentual de gorgeta: 18
+valor individual: $62.69 
+#+end_example

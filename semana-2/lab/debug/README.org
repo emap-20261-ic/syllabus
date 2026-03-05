@@ -1,0 +1,29 @@
+#+title: erros de sintaxe
+
+* Objetivos 
+
+- familiarizar-se com a sintaxe da linguagem C
+- aprender o que significam as mensagens de erro do compilador C
+- praticar a depuração de programas C
+  
+* Contexto
+
+Existem dois tipos de erros que podem ocorrer ao escrever um
+programa. Os primeiros erros que você provavelmente encontrará são
+erros sintáticos. Além dos erros sintáticos, também podem ocorrer
+erros lógicos, que veremos em breve.
+
+Na computação, a sintaxe é importante para um computador entender suas
+intruções. Cada linguagem de programação tem suas próprias regras
+sintáticas, que incluem a combinação de palavras e pontuações.
+
+Neste laboratório temos vários arquivos C que contém um ou mais erros
+sintáticos. A ideia é tentar compilar os programas, aprender a
+interpretar as mensagens de erro bastante enigmáticas enviadas pelo
+compilador e depurar o programa.
+
+* Pergunta
+
+Por que você acha que C (assim como outras linguagens de programação)
+tem regras tão rígidas em relação à sintaxe?
+

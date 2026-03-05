@@ -1,0 +1,333 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ tipos de dados em C, entrada e saída}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{variáveis, literais e tipos}
+
+  \textbf{Variáveis} são nomes para localizações na memória que
+  poderão conter valores e um valor é sempre de um determinado
+  \textbf{tipo}.
+
+  O tipo só precisa ser especificado na declaração da variável. São
+  \textbf{palavras reservadas}.
+
+  Literais são notações para representar um valor.\vspace{.5cm}
+
+  \begin{lstlisting}[style=normalc]
+    int a = 12, b;
+    double pi = 3.14;
+    float b = 1.3E2;
+
+    char test;
+    test = 'a';
+  \end{lstlisting}
+
+  \framebreak
+  
+  Em C, cada \href{https://en.wikipedia.org/wiki/C_data_types}{tipo de
+    dado} é armazenado em uma certa quantidade de bytes.
+
+  \begin{description}
+  \item[bool] 1 byte
+  \item[char] 1 byte
+  \item[short] 2 bytes
+  \item[int] 4 bytes (32 bits) que podem representar até $2^{32}$
+    valores diferentes.
+  \item[long] 8 bytes    
+  \item[float] 4 bytes
+  \item[double] 8 bytes    
+  \end{description}
+
+  entre outros \ldots
+
+  \framebreak
+
+  Os identicadores (nomes) não pode ser uma \textbf{palavra reservada}
+  (\texttt{int}, \texttt{true}, \texttt{if}, \texttt{else} etc).
+
+  São formados por uma combinação de letras, dígitos e '\_'
+  (underline), começando sempre com uma letra ou '\_'.
+  
+  Letras maiúsculas e minúsculas são diferentes. para assegurar a
+  portabilidade use no máximo 31 caracteres. escolha nomes
+  \textbf{significativos} para clareza do código.
+
+  \framebreak
+
+  Alguns erros comuns:
+
+  \begin{lstlisting}[style=normalc]
+    int var1, 2var, _var3;
+    int int;
+    int double;
+  \end{lstlisting}
+
+  Variáveis podem ser declaradas em qualquer lugar de um programa C,
+  mas devem aparecer antes de serem usadas no programa. Variáveis tem
+  um escopo de vida, veremos mais à frente.
+
+  \framebreak
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{lstlisting}[style=normalc]
+        char c = 'a';
+        int b = 2630692;
+      \end{lstlisting}
+
+      \vspace{2cm}
+      Variáveis tem nome, valor e endereço (acessível via
+      {\color{red}\texttt{\&c}})
+      
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \includegraphics[width=.8\textwidth]{vars-memory.png}
+    \end{column}
+  \end{columns}
+  
+\end{frame}
+
+
+\begin{frame}[fragile]{operador de atribuição}
+
+  \begin{lstlisting}[style=normalc]
+    s = 10 + n;
+  \end{lstlisting}
+
+  \begin{itemize}
+  \item O {\color{red} =} é atribuição, não teste de igualdade. O
+    {\color{red} +} é a adição. Ambos binários.
+
+  \item A expressão à direita é avaliação e seu resultado atribuído a
+    variável {\color{red} s}.
+
+  \item Sempre usar espaços entre operadores e operandos, ajuda a
+    leitura.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{operadores aritméticos}
+
+  \begin{center}
+    \begin{tabular}{cc}
+      \hline
+      operação & operador\\
+      \hline
+      precedência & ( )\\
+      multiplicação & *\\
+      soma & +\\
+      subtração & -\\
+      divisão & /\\
+      resto / módulo & \%\\
+      \hline
+    \end{tabular}
+  \end{center}
+  
+  \vfill
+  
+  \begin{lstlisting}[style=normalc]
+    int a = (12 + 4) * 4 % 2;
+  \end{lstlisting}
+  
+\end{frame}
+
+
+\begin{frame}{entrada e saída}
+
+  Um programa precisa receber dados para processar (entrada) e
+  produzir uma saída.
+
+  Podemos passar dados por parâmetros na linha de comando, ler de um
+  arquivo ou solicitar interativamente ao usuário.
+
+  Para produzir dados, podemos imprimir na tela ou gravar dados em um
+  arquivo.
+
+  Entre outras formas!
+  
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{a função \texttt{printf}}
+
+  A função \ilcode{printf} é parte da biblioteca \ilcode{<stdio.h>}.
+
+  \texttt{printf({\color{red} <format-string>}, {\color{green} e1}, {\color{green} e2}, ...)}
+
+  onde $e1, e2,\ldots$ são expressão pode ser: um nome de variável, um
+  literal ou expressões envolvendo nomes e literais.\vspace{.6cm}
+
+  \begin{lstlisting}[style=normalc]
+    printf("hello world"); // certo
+
+    printf(12); // erro
+    int v = 12; 
+    print(v); // erro
+
+    printf("%d", v); // certo
+  \end{lstlisting}
+
+  \framebreak
+
+  Alguns possíveis 'especificadores' para o comando printf:
+  
+  \begin{itemize}
+  \item \texttt{\color{red} \%d} int (número inteiro)
+  \item \texttt{\color{red} \%ld} long long (número inteiro)
+  \item \texttt{\color{red} \%f} float (ponto flutuante)
+  \item \texttt{\color{red} \%lf} double (ponto flutuante)
+  \item \texttt{\color{red} \%c} char (caractere)
+  \item \texttt{\color{red} \%s} string (cadeia de caracteres)  
+  \end{itemize}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int a = 10;
+    int b = 20;
+    printf("Soma de %d e %d = %d\n", a, b, a + b);
+  \end{lstlisting}
+
+  Irá produzir
+
+  \texttt{Soma de 10 e 20 = 30}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    #include <stdio.h>
+
+    int main() {
+      printf("%-3s %8s\n"  , "Var", "Val");
+      printf("%-3s %8.2f\n", "x"  , 10.222);
+      printf("%-3s %8.2f\n", "y"  , 20.33);
+      printf("%-3s %8.2f\n", "z"  , 30E2);
+    }
+  \end{lstlisting}
+
+  \begin{lstlisting}[style=code]
+    Var      Val
+    x      10.22
+    y      20.33
+    z    3000.00
+  \end{lstlisting}
+
+  \framebreak
+
+  ainda temos os caracteres especias
+
+  \begin{itemize}
+  \item \verb|\n| quebra de linha, passa para a linha debaixo
+  \item \verb|\t| tabulação horizontal
+  \item \verb|\"| aspas duplas
+  \item \verb|\'| aspas simples ou apóstrofo
+  \item \verb|\\| barra invertida
+  \item \verb|\a| beep 
+  \end{itemize}
+
+\end{frame}  
+
+
+\begin{frame}[fragile,allowframebreaks]{a função \texttt{scanf}}
+
+  A função \ilcode{scanf} também é parte da biblioteca \ilcode{<stdio.h>}.
+  
+  Utilizada para ler da entrada padrão (terminal). O scanf tem algumas
+  (grandes) diferenças em relação ao printf.
+  
+  \begin{itemize}
+  \item A função printf imprime texto e o \textbf{valor} de variáveis
+  \item A função scanf \textbf{altera o conteúdo} das variáveis
+  \item Alterar conteúdo equivale a \textbf{modificar o que está na
+      memória}. Por esta razão, sempre passamos um \textbf{endereço de
+      memória} para a função scanf.
+  \end{itemize}
+
+  \framebreak
+
+  \texttt{scanf({\color{red} <format-string>}, {\color{green} addr1}, {\color{green} addr2}, ...)}
+
+  onde \texttt{addr1}, \texttt{addr2},\ldots são endereços de
+  memória.
+
+  \vspace{.6cm}
+
+  \begin{lstlisting}[style=normalc]
+    int x;
+    scanf("%d", &x);
+
+    scanf(x); // erro
+    scanf("%d", x); // erro
+  \end{lstlisting}
+    
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int n;
+    float m;
+    char c;
+    scanf("%d ",  &n);
+    scanf("%c ",  &c);
+    scanf("/%f/", &m);
+    printf("n:[%d] c:[%c] m:[%.3f] \n", n, c, m);
+  \end{lstlisting}
+
+  \begin{lstlisting}[style=code]
+    > clang test.c && ./a.out
+    123   a    /4.5/
+    n:[123] c:[a] m:[4.500]
+  \end{lstlisting}
+
+  Veja \ilcode{man 3 scanf}
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{exemplos}
+
+  \lstinputlisting[style=tinyc,caption=src/calculator1.c]{src/calculator1.c}
+
+  Por agora, apenas lembre-se que ao passar variáveis para o
+  \ilcode{scanf}, deve passar com o \ilcode{\&} na frente.
+
+  \framebreak
+
+  Vamos fazer uma média de 3 valores? O que iremos ver na saída?
+
+  \lstinputlisting[style=normalc,caption=src/scores0.c]{src/scores0.c}
+
+  \framebreak
+
+  \includegraphics[width=.9\textwidth]{scores-warn.png}
+
+  \framebreak
+
+  Soma de 3 {\color{red} int}eiros divididos por um {\color{red}
+    int}eiro é um {\color{red} int}eiro e o resto descartado.
+
+  `printf` está esperando um \ilcode{int} (\ilcode{\%d}) em seu
+  argumento \ilcode{format string} (string de formatação).
+
+  Mudando \ilcode{\%d} para \ilcode{\%f} \ldots A função `printf`
+  precisa saber como ler e escrever os bytes!
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

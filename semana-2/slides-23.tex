@@ -1,0 +1,130 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ estruturas básicas da linguagem C}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}{estruturas de programação}
+
+  \begin{itemize}
+  \item sequência
+  \item decisão
+  \item repetição
+  \end{itemize}
+
+  O sequenciamento de comandos é definido pelo operador \ilcode{;},
+  que termina cada instrução. Blocos de sequências são delimitados
+  pelas \{ e \}.
+  
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{condicionais e expressões lógicas}
+
+  Escreva um programa para encontrar as raízes de uma equação do
+  segundo grau:
+  \[ a x^2 + b x + c = 0 \]
+
+  Os coeficientes da equação são reais. O programa faz a alocação de 3
+  posições de memória para esses coeficientes, inicializando-os com o
+  valor zero.
+  
+  O programa efetua a leitura dos coeficientes através do teclado e,
+  em seguida, calcula o valor das raízes existentes.
+  
+  Caso não existam raízes reais, o programa deve informar este fato ao
+  usuário.
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/raiz.c]{src/raiz.c}
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/parity0.c]{src/parity0.c}
+
+  O operador \ilcode{\%} nos dá o 'resto' da divisão. Vamos compilar e
+  executar?
+
+  \framebreak
+  
+  \lstinputlisting[style=tinyc,caption=src/agree.c]{src/agree.c}
+
+  Para caracteres usamos `single quotes' e para strings `double
+  quotes'.
+
+  \framebreak
+
+  \begin{itemize}
+  \item operadores relacionais: \ilcode{a > b}, \ilcode{a < b},
+    \ilcode{a >= b}, \ilcode{a <= b}, \ilcode{a == b} e \ilcode{a !=
+      b} (diferente).
+
+  \item operadores lógicos: \ilcode{!p} (not), \ilcode{p \|\| q} (or),
+    \ilcode{p \&\& q} (and). Onde \ilcode{p} e \ilcode{q} são
+    expressões boleanas.
+  \end{itemize}
+
+  Em C os inteiros também são usados como valores booleanos: qualquer
+  valor não nulo (1) representa \textbf{true} e 0 representa
+  \textbf{false}. Biblioteca \ilcode{stdbool.h} declara estas
+  constantes.
+  
+  
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/area.c]{src/area.c}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{Repetição, repetição \ldots}
+
+  Todo bom programador é `preguiçoso'! Péssimo estilo de código. \vspace{.5cm}
+
+  \lstinputlisting[style=tinyc,caption=src/meow0.c]{src/meow0.c}
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/meow1.c]{src/meow1.c}
+    
+  \lstinputlisting[style=tinyc,caption=src/meow2.c]{src/meow2.c}
+
+  \framebreak
+
+  Podemos repetir para sempre \ldots
+
+  \begin{lstlisting}[style=normalc]
+    while (true)
+    {
+      printf("meow\n");
+    }
+  \end{lstlisting}
+
+  Precisamos de algumas bibliotecas adicionais para poder usar o valor
+  \ilcode{true}, a \ilcode{stdbool.h}.
+
+  Use \ilcode{CTRL+C} para terminar!
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/guess.c]{src/guess.c}
+  
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

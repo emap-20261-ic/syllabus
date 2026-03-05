@@ -1,0 +1,32 @@
+#+title: Laboratório 2
+
+* Conteúdo programatico
+
+- tipos de dados
+- expressões
+- instruções em C
+- compilando programas C
+- debug  
+  
+* Objetivos
+
+1. praticar o uso das ferramentas: linha de comando, editor,
+   compilador etc
+2. Praticar o uso dos tipos de dados básicos em C
+3. Familiarização com as estruturas sintáticas básicas da linguagem C
+
+* Atividade 1 (40 minutos)
+
+- revisão conceitos
+
+* Atividade 2 (20 minutos)
+
+[[file:debug/README.org]]
+
+* Atividade 3 (30 minutos)
+
+[[file:half/README.org]]
+
+* Atividade 4 (30 minutos)
+
+[[file:prime/README.org]]
