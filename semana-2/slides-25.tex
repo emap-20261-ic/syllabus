@@ -148,11 +148,39 @@
   Para chamar uma função, passamos os \emph{argumentos} adequados e
   usamos o \emph{retorno} de forma apropriada (tipo adequado).
 
-  Lembre-se que funções podem não receber argumentos, \ilcode{void}
-  nos parâmetros.
+  Funções podem não receber argumentos. Nesse caso, usamos
+  \ilcode{void} nos parâmetros para declarar explicitamente que a
+  função não aceita nenhuma entrada:
 
-  As vezes funções podem não retornar valor, declaramos que o retorno
-  é \ilcode{void}.
+  \begin{lstlisting}[style=normalc]
+    int get_size(void);   
+    int add(int a, int b); 
+  \end{lstlisting}
+
+  Em C, \ilcode{int f()} (parênteses vazios) \textbf{não} significa
+  ``zero argumentos'' --- significa ``número indeterminado de
+  argumentos''. Usar \ilcode{void} é a forma correta e precisa.
+
+  \framebreak
+
+  Quando usar \ilcode{void} nos parâmetros? Quando a função obtém seus
+  dados por outros meios (lendo do teclado, acessando variáveis
+  globais etc) ou simplesmente não precisa de entrada.
+
+  \begin{lstlisting}[style=normalc]
+    int get_size(void) {
+      int n;
+      scanf("%d", &n);
+      return n;
+    }
+  \end{lstlisting}
+
+  Da mesma forma, funções podem não retornar valor. Declaramos que o
+  retorno é \ilcode{void}:
+
+  \begin{lstlisting}[style=normalc]
+    void print_grid(int n); 
+  \end{lstlisting}
 
 \end{frame}
 

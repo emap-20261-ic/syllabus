@@ -11,4 +11,4 @@ all: $(PDF_FILES)
 	pdflatex $<
 
 clean:
-	rm -f *.aux *.log *.toc *.snm *.vrb *.nav *.out
+	rm -f *.aux *.log *.toc *.snm *.vrb *.nav *.out *.synctex.gz

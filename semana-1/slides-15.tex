@@ -58,20 +58,40 @@
 
 \begin{frame}[fragile,allowframebreaks]{Compilação}
 
+  O compilador \ilcode{clang} traduz código C em um executável. Na
+  forma mais simples:
+
   \begin{lstlisting}[style=normalbash]
-    > make hello0
-    > ./hello0
-    > clang hello0.c 
+    > clang hello0.c
     > ./a.out
+  \end{lstlisting}
+
+  Funciona, mas sem nenhuma verificação adicional. O compilador aceita
+  código que pode conter problemas. Para maior controle, passamos
+  flags:
+
+  \begin{lstlisting}[style=normalbash]
     > clang -std=c17 -Wall -Wextra -Wpedantic -Werror hello0.c -o hello
     > ./hello
   \end{lstlisting}
 
-  O comando `make' é um utilitário.
-  
   Em alguns ambientes, \ilcode{cc} ou \ilcode{gcc} ao invés de
   \ilcode{clang}.
-  
+
+  \framebreak
+
+  As flags do \ilcode{clang} nos dão controle sobre a compilação:
+
+  \begin{description}
+  \item[\texttt{-std=c17}] versão do padrão C a ser usada
+  \item[\texttt{-Wall -Wextra -Wpedantic}] ativam avisos (warnings)
+    que ajudam a encontrar erros no código
+  \item[\texttt{-Werror}] trata avisos como erros, forçando código
+    mais rigoroso
+  \item[\texttt{-o hello}] define o nome do executável de saída (sem
+    esta flag, o padrão é \ilcode{a.out})
+  \end{description}
+
   \framebreak
 
   \begin{lstlisting}[style=code]
@@ -90,6 +110,27 @@
   separada e precisa ser vinculada explicitamente com \ilcode{-lm}. No
   macOS, a \ilcode{libm} faz parte da biblioteca do sistema
   (\ilcode{libSystem}) e é vinculada automaticamente.
+
+  \framebreak
+
+  O comando
+  \href{https://www.gnu.org/software/make/}{\texttt{make}} é um
+  utilitário que automatiza a compilação. Ele executa uma sequência de
+  comandos (tipicamente chamadas ao compilador) seguindo regras
+  definidas em um arquivo chamado \ilcode{Makefile}.
+
+  \begin{lstlisting}[style=normalbash]
+    > make hello0
+    > ./hello0
+  \end{lstlisting}
+
+  Quando \textbf{não existe} um \ilcode{Makefile}, o \ilcode{make} tem
+  um comportamento \emph{default}: para \ilcode{make hello0}, ele
+  procura \ilcode{hello0.c} e chama o compilador com regras implícitas
+  (ex: \ilcode{cc hello0.c -o hello0}).
+
+  A limitação é justamente a falta de controle: com o \ilcode{make}
+  default, não escolhemos as flags passadas ao compilador.
 
   \framebreak
 
