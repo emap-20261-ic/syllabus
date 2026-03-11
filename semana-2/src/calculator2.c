@@ -1,3 +1,13 @@
+/*
+ * Solução para overflow: trocar int por long.
+ *
+ * Pontos a destacar:
+ * - long tem 64 bits → comporta até 2^63 ≈ 9.2 × 10^18
+ * - testar com x=2000000000 e y=2000000000: agora funciona corretamente
+ * - especificador %li para long (não %d nem %i)
+ * - scanf também usa %li para long
+ * - lição: escolher o tipo adequado ao problema; int nem sempre é suficiente
+ */
 // addition with long
 #include <stdio.h>
 
