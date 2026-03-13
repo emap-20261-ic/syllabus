@@ -9,6 +9,10 @@ int main(void) {
   // check whether agreed
   if (c == 'Y' || c == 'y')
     printf("Agreed.\n");
-  else if (c == 'N' || c == 'n')
-    printf("Not agreed.\n");
+  else
+    if (c == 'N' || c == 'n')
+      printf("Not agreed.\n");
+    else
+      return 1;
+  return 0;
 }
