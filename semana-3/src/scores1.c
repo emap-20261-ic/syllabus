@@ -2,17 +2,7 @@
 
 int main(void) {
 
-  int n = 0;
-  printf("Quantos valores? "); scanf("%d", &n);
-
-  int scores[n]; 
-  int total = 0;
+  int scores[] = {1, 2, 3};
   
-  for(int i = 0; i < n; i++) {
-    printf("entre com valor [%d]: ", i);
-    scanf("%d", &scores[i]);
-    total = total + scores[i];    
-  }
-    
-  printf("average: %f\n", total / (float) n);
+  printf("Average: %f\n", (scores[1] + scores[2] + scores[3]) / 3.0);
 }

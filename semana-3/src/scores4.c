@@ -19,7 +19,7 @@ float average(int length, int array[])
 
 int main(void)
 {
-  int n = get_value("How many scores? ");
+  int n = get_value("How many values? ");
   int scores[n];
   for (int i = 0; i < n; i++)
     scores[i] = get_value("Score: ");
