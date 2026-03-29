@@ -20,7 +20,7 @@ void read(char *filename, t_person db[], int *n) {
 
   FILE *file = fopen(filename, "r");
   if (file == NULL) {
-    printf("Erro: arquivo invalido.\n");
+    printf("Error: invalid file.\n");
     exit(1);
   }
 
@@ -40,7 +40,7 @@ void save(char *filename, t_person db[], int n) {
 
   FILE *file = fopen(filename, "w");
   if (file == NULL) {
-    printf("Erro: arquivo invalido.\n");
+    printf("Error: invalid file.\n");
     exit(1);
   }
 

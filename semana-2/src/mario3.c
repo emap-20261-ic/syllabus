@@ -2,13 +2,13 @@
 
 int main(void)
 {
-  // leitura
+  // input
   int n;
   do {
     printf("size: "); scanf("%d", &n);
   } while (n < 1);
 
-  // producao saida
+  // output
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++)
       printf("#");

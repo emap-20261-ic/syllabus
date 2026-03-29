@@ -16,7 +16,7 @@ void selection_sort (int a[], int n) {
     for (int j = i; j < n; j++) {
       if (a[j] < a[m]) m = j;
     }
-    // troca de valor
+    // swap values
     t = a[i]; a[i] = a[m]; a[m] = t;
   }
 }

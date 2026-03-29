@@ -1,14 +1,14 @@
 /*
- * Solução para imprecisão float: função round().
+ * Fix for float imprecision: the round() function.
  *
- * Pontos a destacar:
- * - #include <math.h> e flag -lm para compilar
- * - round(x): arredonda para o inteiro mais próximo (retorna double)
+ * Key points:
+ * - #include <math.h> and flag -lm to compile
+ * - round(x): rounds to the nearest integer (returns double)
  * - round(4.19999... * 100) = round(419.9999...) = 420.0 → int: 420
- * - testar com os mesmos valores de cents0.c: agora 4.20 → 420 ✓
- * - round() vs truncamento: sem round, 419.999 → 419; com round → 420
- * - lição: ao trabalhar com valores monetários, cuidado com float;
- *   alternativa robusta: trabalhar sempre em centavos (inteiros)
+ * - test with the same values as cents0.c: now 4.20 → 420 ✓
+ * - round() vs truncation: without round, 419.999 → 419; with round → 420
+ * - lesson: when working with monetary values, beware of float;
+ *   robust alternative: always work in cents (integers)
  */
 #include <math.h>
 #include <stdio.h>

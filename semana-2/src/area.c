@@ -1,19 +1,19 @@
 #include <stdio.h>
 
 int main() {
-  // declaracao da constante Pi
+  // Pi constant
   const double PI = 3.141592;
-  double raio;
+  double radius;
 
-  printf("Digite o raio circulo: ");
-  scanf("%lf", &raio);
+  printf("Enter circle radius: ");
+  scanf("%lf", &radius);
 
-  if (raio < 0) {
-    printf("Erro: valor de raio negativo.\n");
+  if (radius < 0) {
+    printf("Error: negative radius.\n");
     return 1;
   }
 
-  double area = PI * raio * raio;
-  printf("area do circulo: %lf\n", area);
+  double area = PI * radius * radius;
+  printf("circle area: %lf\n", area);
   return 0;
 }

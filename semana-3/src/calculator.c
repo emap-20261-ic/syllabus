@@ -1,15 +1,15 @@
 /*
-- mais operacoes
+- more operations
 - integer overflow: int ~> long
-- comportamento scanf
-- codigos de erro
+- scanf behavior
+- error codes
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int soma(int a, int b);
-int subtracao(int a, int b);
+int add(int a, int b);
+int subtract(int a, int b);
 int calc(char op, int a, int b, int* result);
 
 int main(void)
@@ -25,7 +25,7 @@ int main(void)
   printf("y: ");
   scanf("%d", &y);
 
-  printf("operacao [a|s]: ");
+  printf("operation [a|s]: ");
   scanf(" %c", &op);
 
   // validating and processing
@@ -44,11 +44,11 @@ int main(void)
 int calc(char op, int a, int b, int* r){
   switch (op) {
   case 'a': case 'A':
-    *r = soma(a, b);
+    *r = add(a, b);
     break;
 
   case 's': case 'S':
-    *r = subtracao(a, b);
+    *r = subtract(a, b);
     break;
 
   default:
@@ -58,10 +58,10 @@ int calc(char op, int a, int b, int* r){
 }
 
 
-int soma(int a, int b) { 
+int add(int a, int b) { 
   return a + b;
 }
 
-int subtracao(int a, int b) {
+int subtract(int a, int b) {
   return a - b;
 }

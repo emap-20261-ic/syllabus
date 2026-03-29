@@ -2,38 +2,38 @@
 #include <ctype.h>
 
 int main() {
-  
-    FILE *arquivo = fopen("entrada.txt", "r");
-    if (arquivo == NULL) {
-        perror("Erro ao abrir o arquivo");
+
+    FILE *file = fopen("input.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
         return 1;
     }
 
-    char palavra[1024]; 
+    char word[1024];
     int i = 0;
     int c;
 
-    while ((c = fgetc(arquivo)) != EOF) {
+    while ((c = fgetc(file)) != EOF) {
         if (isspace(c)) {
-	  // acabei de ler um palavra
-	  if (i > 0) { // só imprime se houver algo no buffer
-	    palavra[i] = '\0'; // finaliza a string
-	    printf("Palavra: %s\n", palavra);
-	    i = 0; // reinicia o índice para a próxima palavra
+	  // just finished reading a word
+	  if (i > 0) { // only print if there is something in the buffer
+	    word[i] = '\0'; // terminate the string
+	    printf("Word: %s\n", word);
+	    i = 0; // reset index for the next word
 	  }
         } else {
-	  // lendo uma palavra
-	  palavra[i++] = c;
+	  // reading a word
+	  word[i++] = c;
         }
     }
 
-    // Se o arquivo não terminar com um espaço, imprime a última palavra
+    // if the file does not end with a space, print the last word
     if (i > 0) {
-        palavra[i] = '\0';
-        printf("Palavra: %s\n", palavra);
+        word[i] = '\0';
+        printf("Word: %s\n", word);
     }
 
-    fclose(arquivo);
+    fclose(file);
     return 0;
 }
 

@@ -1,17 +1,17 @@
 /*
- * Jogo de adivinhar: do-while e #define.
+ * Guessing game: do-while and #define.
  *
- * Sintaxe do-while:
- *   do { <corpo> } while (<condição>);
- *   O corpo é executado PELO MENOS UMA VEZ, depois a condição é verificada.
+ * do-while syntax:
+ *   do { <body> } while (<condition>);
+ *   The body runs AT LEAST ONCE, then the condition is checked.
  *
- * Pontos a destacar:
- * - diferença do while: aqui faz sentido perguntar antes de checar
- * - #define target 10: macro de pré-processador (não é variável!)
- *   o pré-processador substitui o texto "target" por "10" antes de compilar
- *   convenção: nomes de macros em MAIÚSCULAS
- * - variável n para contagem de tentativas: incrementada a cada iteração
- * - testar: o que acontece se o usuário digitar 10 na primeira vez?
+ * Key points:
+ * - difference from while: here it makes sense to ask before checking
+ * - #define target 10: preprocessor macro (not a variable!)
+ *   the preprocessor replaces "target" with "10" before compiling
+ *   convention: macro names in UPPERCASE
+ * - variable n counts attempts: incremented each iteration
+ * - test: what happens if the user types 10 on the first try?
  */
 #include <stdio.h>
 

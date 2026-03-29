@@ -66,7 +66,7 @@ bool binary_search(t_node *root, int n) {
 
 
 
-// QUEUE para BFS na arvore usando ARRAY
+// QUEUE for BFS on the tree using ARRAY
 
 #define MAX_QUEUE_SIZE 100
 
@@ -123,7 +123,7 @@ t_node* dequeue(t_queue* queue) {
 }
 
 
-// navegando pela arvore
+// traversing the tree
 
 void inorder(t_node* root) {
   if (root != NULL) {
@@ -192,7 +192,7 @@ void bfs1(t_node* root){
 
 void test1() {
   
-  // testando navegacoes na arvore
+  // testing tree traversals
 
     /*
               1
@@ -246,7 +246,7 @@ int main(int argc, char* argv[]) {
 
   int target = atoi(argv[2]);
   
-  printf("busca %i is %i\n",
+  printf("search %i is %i\n",
 	 target,
 	 binary_search(root, target));
 
@@ -274,13 +274,13 @@ int main(int argc, char* argv[]) {
 
   % time ./a.out ../../semana-5/exercicios/sort/reversed50000.txt 45
   The tree has height 50000
-  busca 45 is 1
+  search 45 is 1
   ./a.out ../../semana-5/exercicios/sort/reversed50000.txt 45
   10.09s user 0.01s system 99% cpu 10.141 total
 
   % time ./a.out ../../semana-5/exercicios/sort/random50000.txt 45
   The tree has height 40
-  busca 45 is 1
+  search 45 is 1
   ./a.out ../../semana-5/exercicios/sort/random50000.txt 45
   0.03s user 0.01s system 62% cpu 0.059 total
   

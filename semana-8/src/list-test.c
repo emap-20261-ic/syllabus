@@ -28,10 +28,10 @@ int main(int argc, char *argv[]) {
   while (fgets(line, sizeof(line), fp) != NULL) 
     alist = list_insert(atoi(line), alist);
 
-  // problemas da reverse_rec, reverse e reverse?
+  // issues with reverse_rec, reverse and reverse?
 
   int res = list_foldr(alist, sum, 0);
-  printf("a soma é = %d\n", res);
+  printf("sum = %d\n", res);
 
   return 0;
 

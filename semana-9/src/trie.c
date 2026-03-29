@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// estrutura e funções
+// structure and functions
 
 #define SIZE_OF_ALPHABET 26
 #define MAXLEN 40
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 
     int nwords = 0;
     statitics(root, &nwords);
-    printf("numero de palavras: %d\n", nwords);
+    printf("number of words: %d\n", nwords);
 
     unload(root);
     fclose(infile);
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
 
 
 
-// implementação das funções
+// implementation of functions
 
 void print_trie_node(node *cursor, FILE* stream) {
   if (cursor->is_word > 0)

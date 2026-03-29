@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int search(int *vetor, int tamanho, int valor) {
-  for (int i = 0; i < tamanho; i++){
-    if (vetor[i] == valor) {
+int search(int *arr, int size, int value) {
+  for (int i = 0; i < size; i++){
+    if (arr[i] == value) {
       return i;
     }
   }
@@ -27,7 +27,7 @@ int* generate_array2() {
 int main() {
   int a[] = {1,2,3,4,5,6,7,8,9,10};
 
-  int r = search(a, 10, 3);
+  int r = search(a, 10, 3); // search for value 3
   printf("fount at %d\n", r);
   
   int *ptr = generate_array1();

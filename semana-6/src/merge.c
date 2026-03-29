@@ -2,9 +2,9 @@
   code adapted from
   https://rosettacode.org/wiki/Sorting_algorithms/Merge_sort#C
 
-  - versão interativa e recursiva do merge
-  - uso do STDERR para debug
-  - se chamar ./sort apenas, Ctrl+D interrompe entrada.
+  - iterative and recursive versions of merge
+  - using STDERR for debug output
+  - if called as ./sort alone, Ctrl+D terminates input.
 */
 
 #include <stdio.h>
@@ -17,8 +17,8 @@ void merge_i (int ns[], int l, int m, int u, int c) {
   fprintf(stderr, "debug[%d]: merge_i l=%d m=%d u=%d\n", c, l, m, u);
   int t[u - l + 1];
   for (int k = 0, a = l, b = m + 1; k < (u - l + 1); k++) {
-    t[k] =  (a > m ? ns[b++]      // lista esq vazia
-	     :  (b > u ? ns[a++]  // lista dir vazia
+    t[k] =  (a > m ? ns[b++]      // left list empty
+	     :  (b > u ? ns[a++]  // right list empty
 		 : (ns[a] < ns[b] ? ns[a++] : ns[b++])));
   }
 
