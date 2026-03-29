@@ -1,10 +1,3 @@
-/*
-- more operations
-- integer overflow: int ~> long
-- scanf behavior
-- error codes
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
