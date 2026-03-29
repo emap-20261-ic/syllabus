@@ -1,0 +1,140 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+
+\input{../helper}
+
+\title{Introdução à Computação \\ bubble sort}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Ordenação (sort)}
+
+  Vamos considerar dois algorítmos para esta tarefa:
+
+  \begin{itemize}
+  \item selection sort
+  \item \emph{bubble sort}
+  \item merge sort
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Bubble Sort}
+
+  \begin{lstlisting}[style=code]
+    Repeat n - 1 times
+      For i from 0 to n - 2
+        If numbers[i] and numbers[i + 1] out of order
+            Swap them
+  \end{lstlisting}
+
+  No \emph{bubble sort} vamos realizar trocas sucessivas de elementos
+  adjacentes até que nenhuma troca seja possível.
+
+  Por que o loop mais externo é de $n - 1$ passos?
+
+  \framebreak
+
+  \begin{lstlisting}[style=code]
+    5 2 7 4 1 6 3 0
+    ^ ^
+    2 5 7 4 1 6 3 0
+      ^ ^
+    2 5 7 4 1 6 3 0
+        ^ ^
+    2 5 4 7 1 6 3 0
+          ^ ^
+    2 5 4 1 7 6 3 0
+            ^ ^
+    2 5 4 1 6 7 3 0
+              ^ ^
+    2 5 4 1 6 3 7 0
+                ^ ^
+    2 5 4 1 6 3 0 7
+  \end{lstlisting}
+
+  \framebreak
+
+  Agora o maior número está no final da lista, e podemos continuar 
+
+  \begin{lstlisting}[style=code]
+   2 5 4 1 6 3 0 | 7
+   ^ ^
+   2 5 4 1 6 3 0 | 7
+     ^ ^
+   2 4 5 1 6 3 0 | 7
+       ^ ^
+   2 4 1 5 6 3 0 | 7
+         ^ ^
+   2 4 1 5 6 3 0 | 7
+           ^ ^
+   2 4 1 5 3 6 0 | 7
+             ^ ^
+   2 4 1 5 3 0 | 6 7
+  \end{lstlisting}
+  
+  A cada passada, a lista de números que precisamos examinar é menor.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/bubble.c]
+    void bubble_sort (int a[], int n) {
+      int i, t, j = n;
+      bool s = true;
+      
+      while (s) {
+        s = false;
+        for (i = 1; i < j; i++) {
+          if (a[i] < a[i - 1]) {
+            t = a[i];
+            a[i] = a[i - 1];
+            a[i - 1] = t;
+            s = true;
+          }
+        }
+        j--;
+      }
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  Epa! Tem alguma coisa diferente em relação ao pseudo-código! O que?
+
+  Ao invés de passar $n - 1$ vezes na lista, passamos enquanto
+  trocas forem feitas!
+
+  A troca de valores entre duas posições de um array está ficando
+  repetitiva, não?! Vamos falar disso depois\ldots
+
+  \framebreak
+
+  Sobre complexidade? Na versão original
+
+  \begin{align*}
+    (n - 1) \times (n - 1) & = \\
+    n^2 - 2n + 1 & = O(n^2) 
+  \end{align*}
+  e também $\Omega(n^2)$.
+
+  Mas com nossa otimização, reduzimos o melhor caso (lista já
+  ordenada) para $\Omega(n)$.
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

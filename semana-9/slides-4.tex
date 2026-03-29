@@ -1,0 +1,83 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ travessia de árvores}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{travessia de árvores}
+  
+  Podemos realizar a travessia (para impressão, por exemplo) de uma
+  árvore de várias formas.
+
+  Por profundidade (DFS) ou por largura (BFS). Na DFS usamos uma
+  \emph{pilha} ou recursão. Na BFS usamos uma \emph{fila}.
+
+  Por profundidade pode ser: pré-ordem, pós-ordem ou em-ordem.
+
+  \framebreak
+
+  \includegraphics[width=.8\textwidth]{tree-bfs.png}
+
+  Ordem BFS: 1, 2, 3, 4, 5, 6
+
+  \framebreak
+
+  \includegraphics[width=.8\textwidth]{tree-inorder.png}
+
+  Em ordem: 4, 2, 5, 1, 6, 3
+  
+  \framebreak
+  
+  \includegraphics[width=.8\textwidth]{tree-preorder.png}
+
+  Pré ordem: 1, 2, 4, 5, 3, 6
+
+  \framebreak
+  
+  \includegraphics[width=.8\textwidth]{tree-postorder.png}
+
+  Pós ordem: 4, 5, 2, 6, 3, 1
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{travessia de árvores em C}
+  
+  \begin{lstlisting}[style=normalc,caption=src/tree.c]
+    void inorder(t_node* root) {
+      if (root != NULL) {
+        inorder(root->left);
+        printf("%d ", root->key);
+        inorder(root->right);
+      }
+    }
+
+    void preorder(t_node* root) {
+      if (root != NULL) {
+        printf("(%d ", root->key);
+        preorder(root->left);
+        preorder(root->right);
+        printf(")");
+      }
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

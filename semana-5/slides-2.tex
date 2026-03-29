@@ -1,0 +1,126 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+
+\input{../helper}
+\graphicspath{{../img/}}
+
+\title{Introdução à Computação \\ análise de algorítmos (cont.)} 
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{análise de algorítmos}
+
+  Como determinar a complexidade assintótica de um algoritmo?
+
+  Vamos começar com alguns códigos simples.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int main() {
+      int a[n] = {...}, s = 0;
+      for(int i = 0; i < n; i++) 
+        s += a[i];
+    }
+  \end{lstlisting}
+
+  Complexidade $O(n)$ passos, são $n$ instruções de soma elementares.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int main() {
+      int a[n] = {...}, s = 0;
+      for(int i = 0; i < n; i++) 
+        for(int j = 0; j < n; j++) 
+          s += a[i] * a[j];
+    }
+  \end{lstlisting}
+
+  Complexidade $O(n^2)$, desconsiderando fatores multiplicativos
+  constantes (adição e multiplicação).
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int main() {
+      int a[n] = {...}, s = 0;
+      for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) 
+          s += a[i] * a[j];
+        for(int j = 0; j < n; j++) 
+          for(int k = 0; k < n; k++) 
+            s += a[i] - a[k];
+      }
+    }
+  \end{lstlisting}
+
+  Neste caso, $O(n (n + n^2)) = O(n^2 + n^3) = O(n^3)$.
+  
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int main() {
+      int a[n] = {...}, b[m] = {...}, s = 0;
+      for(int i = 0; i < n; i++) 
+        for(int j = 0; j < m; j++) 
+          s += a[i] * b[j];
+    }
+  \end{lstlisting}
+
+  Complexidade $O(nm)$, desconsiderando fatores multiplicativos
+  constantes (adição e multiplicação).
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int main() {
+      int a[n] = {...}, s = 0;
+      for(int i = 0; i < n; i++) {
+        if(a[i] > a[i+1])
+          break;
+      }
+    }
+  \end{lstlisting}
+  
+  Melhor caso? Pior caso? Caso médio?
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int func(int a[], n) {
+      int s = 0;
+      for(int i = 0; i < n; i++) 
+        for(int j = 0; j < n; j++) 
+          s += a[i] * a[j];
+      return s;
+    }
+    
+    int main() {
+      int a[n] = {...};
+      int s = func(a, n);
+    }
+  \end{lstlisting}
+  
+  Qual a complexidade? Qual a complexidade de + para valores grandes?
+  Qual a complexidade de \ilcode{atoi} da \ilcode{stdlib.h}.
+  
+  
+\end{frame}
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,101 @@
+\documentclass{beamer}
+
+\input{../helper}
+
+\title{Introdução à Computação \\ operação com strings}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{o tamanho de uma string}
+
+  Podemos calcular o tamanho de uma string:
+
+  \lstinputlisting[style=normalc,caption=src/length0.c]{src/length0.c}
+
+  \framebreak
+
+  E criar uma função para realizar esta tarefa para qualquer string:
+
+  \lstinputlisting[style=normalc,caption=src/length1.c]{src/length1.c}
+
+  \framebreak
+
+  Mas alguém já implementou isso! função \ilcode{strlen} da
+  \ilcode{string.h}!
+
+  \lstinputlisting[style=normalc,caption=src/length2.c]{src/length2.c}
+
+  \framebreak
+
+  Veja
+  \href{https://man7.org/linux/man-pages/man3/string.3.html}{string
+    man page} ou digite `man string' (Linux ou MacOS).
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{imprimindo strings}
+
+  Podemos imprimir uma string caractere por caractere. 
+
+  \lstinputlisting[style=normalc,caption=src/string0.c]{src/string0.c}
+
+  \framebreak
+
+  Como tornar o código mais eficiente? Não precisamos recalcular a
+  cada interação o tamanho da string!
+
+  Veja que `strlen' agora é usada apenas uma vez na declaração de
+  \ilcode{n}.
+
+  \framebreak
+
+  \lstinputlisting[style=normalc,caption=src/string1.c]{src/string1.c}
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{transformando em maiúsculas}
+
+  Vamos implementar um programa para transformar caracteres em
+  minúsculas para maiúsculas?
+
+  \framebreak
+
+  \lstinputlisting[style=normalc,caption=src/uppercase0.c]{src/uppercase0.c}
+
+  \framebreak
+
+  \includegraphics[width=\textwidth]{ascii-tab.png}
+
+  \framebreak
+
+  Novamente, podemos \emph{reusar} códigos implementados na
+  \ilcode{ctype.h}.
+
+  \lstinputlisting[style=ssc,caption=src/uppercase1.c]{src/uppercase1.c}
+
+  \framebreak
+
+  E podemos simplificar.  Na computação, sempre que possível devemos
+  \emph{reusar}! Mas existem desvantagens em alguns casos. Quais?
+
+  \lstinputlisting[style=ssc,caption=src/uppercase2.c]{src/uppercase2.c}
+
+    
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

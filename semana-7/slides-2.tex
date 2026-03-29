@@ -1,0 +1,56 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ passagem de valores por referência}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{troca (swap)}
+
+  Queremos trocar dois valores de lugar. Lembra do \textbf{selection
+    sort}?
+
+  \lstinputlisting[style=normalc,captionpos=t]{src/swap0.c}
+  
+  \framebreak
+
+  Como vimos, C usa como padrão a estratégia de chamar as funções por
+  valor
+  (\href{https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_value}{call-by-value}).
+
+  A função \ilcode{swap} recebeu uma cópia dos valores, isto é, os
+  valores foram copiados para uma nova região da memória.
+
+  Mas ponteiros nos permitem controlar esta estratégia.
+
+  \framebreak
+
+  \lstinputlisting[style=normalc,captionpos=t,caption=swap1.c]{src/swap1.c}
+
+\end{frame}
+
+\begin{frame}{organização da memória}
+
+  O que aconteceu na memória com swap?
+
+  \foreach \n in {2,...,37}{
+    \includegraphics<\n>[width=.9\textwidth]{swap/swap-\n.png}}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

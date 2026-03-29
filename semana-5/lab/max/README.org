@@ -1,0 +1,47 @@
+#+title: Máximo
+
+* objetivos
+
+- passagem de arrays para funções
+- achar máximo
+
+* detalhes  
+
+A função =main= inicializa o array a partir do arquivo passado pelo
+usuário. Então chama a função =max= que deve identificar o maior valor
+no array.
+
+Conclua a função =max= iterando em todos os elementos do array e
+retorne o maior valor.
+
+#+begin_example
+> ./a.out input1.txt
+size: 3
+ max: 10
+ pos: 1
+
+> ./a.out input2.txt
+size: 4
+ max: -3
+ pos: 2
+
+> ./a.out input3.txt
+size: 10000
+ max: 10000
+ pos: 5394
+#+end_example
+
+Os arquivos de entrada devem seguir o padrão:
+
+1. na primeira linha, um número capaz de ser armazenado em um =int=
+   contém a quantidade de números a serem lidos das demais linhas.
+
+2. cada linha depois da primeira é um número que deverá ser lido para
+   ser armazenado no array.   
+
+* pergunta
+
+É mesmo necessário, para este problema, ler todos os números na
+memória para então calcular o maior valor?
+
+

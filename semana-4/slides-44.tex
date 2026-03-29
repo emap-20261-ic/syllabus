@@ -1,0 +1,273 @@
+\documentclass{beamer}
+
+\input{../helper}
+
+\title{Introdução à Computação \\ escopo de variáveis e  arrays}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{variáveis e escopo}
+
+  Escopo é uma característica de uma variável que define a partir de
+  quais funções essa variável pode ser acessada.
+  
+  As variáveis \emph{locais} só podem ser acessadas dentro das funções nas
+  quais são criadas.
+
+  Variáveis \emph{globais} podem ser acessadas por qualquer função no
+  programa.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int triple(int x)
+    {
+      return x * 3;
+    }
+    
+    int main(void)
+    {
+      int result = triple(5);
+    }
+
+  \end{lstlisting}
+
+  \ilcode{x} é local na função \ilcode{triple} e \ilcode{result} é
+  local na \ilcode{main}.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    #include <stdio.h>
+    
+    float global = 0.5050;
+
+    void triple(void)
+    {
+      global *= 3;
+    }
+    
+    int main(void)
+    {
+      triple();
+      printf("%f\n", global);
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  Na maioria das vezes, as variáveis locais em C são passadas por
+  valor nas chamadas de função.
+  
+  Quando uma variável é passada por valor, a função \emph{chamada}
+  recebe uma cópia da variável passada, não a própria variável.
+
+  Isso significa que a variável no \emph{chamador} permanece
+  inalterada, a menos que seja substituída.
+
+  \framebreak
+  
+  O que será impresso? 4 ou 12?
+  
+  \begin{lstlisting}[style=ssc]
+    int triple(int x) {
+      return x *= 3;
+    }
+    
+    int main(void) {
+      int foo = 4;
+      triple(foo);
+      printf("%d", foo);
+    }
+  \end{lstlisting}
+
+  \begin{lstlisting}[style=ssc]
+    int triple(int x) {
+      return x *= 3;
+    }
+    
+    int main(void) {
+      int foo = 4;
+      foo = triple(foo);
+      printf("%d", foo);
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  As coisas podem ficar particularmente enganadora se o mesmo nome de
+  variável aparecer em várias funções, o que é perfeitamente
+  aceitável, desde que as variáveis existam em escopos diferentes.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,escapechar={|}]
+    int main(void)
+    {
+      int |\color{cyan}x |= 1;
+      int y;
+      y = increment(|\color{cyan}x|);
+      printf("x is %i, y is %i\n", |\color{cyan}x|, y);
+    }
+    
+    int increment(int |\color{orange}x|)
+    {
+      |\color{orange}x|++;
+      return |\color{orange}x|;
+    }
+  \end{lstlisting}
+
+  {\centering x is 1, y is 2}
+  
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{arrays}
+
+  Um array é um bloco de espaço contíguo na memória
+  
+  que foi particionado em pequenos blocos de espaço de tamanho
+  idêntico chamados elementos
+  
+  cada um dos quais pode armazenar uma certa quantidade de dados
+  
+  todos do mesmo tipo de dados, como \ilcode{int} ou \ilcode{char}
+
+  e que pode ser acessado diretamente por um índice.
+
+  \framebreak
+
+  Em C, os $n$ elementos de um array são indexados a partir de 0. O
+  último elemento estará na posição $n-1$
+
+  C é muito indulgente. Nada irá prevenir que você \emph{saia dos
+    limites} de seu array; tome cuidado!
+
+  \framebreak
+
+  Declaração
+
+  {\texttt {\color{green} type} {\color{red} name}[{\color{blue} size}];}
+
+  Exemplo
+
+  {\texttt {\color{green} int} {\color{red} student\_grades}[{\color{blue} 30}];}
+
+  \framebreak
+
+  você pode realizar as mesmas operações com um elemento do array que
+  faria com variáveis do mesmo tipo.\vspace{.5cm}
+
+  \begin{lstlisting}[style=normalc]
+    bool truthtable[10];
+    
+    truthtable[2] = false;
+    
+    if(truthtable[7] == true) {
+      printf("TRUE!\n");
+    }
+    truthtable[10] = true;
+  \end{lstlisting}
+
+  \framebreak
+
+  Para declarar e inicializar um array, temos um ``açucar sintático''!\vspace{.5cm}
+
+  \begin{lstlisting}[style=ssc,escapechar={|}]
+    // instantiation syntax
+    bool truthtable|\color{red}[]| = { false, true, true };
+
+    // individual element syntax
+    bool truthtable[3];
+    truthtable[0] = false;
+    truthtable[1] = true;
+    truthtable[2] = true;
+  \end{lstlisting}
+
+  \framebreak
+
+  Arrays podem ter mais do que uma dimensão!
+
+  \begin{lstlisting}[language=C,escapechar={|},basicstyle=\ttfamily]
+    bool battleship[10][10];
+  \end{lstlisting}
+
+  Na memória, de fato, apenas um array de 100 dimensões.
+
+  \framebreak
+
+  Embora possamos tratar elementos individuais dos arrays como
+  variáveis, não podemos tratar arrays inteiros como variáveis.
+  
+  Não podemos, por exemplo, atribuir um array a outro usando o
+  operador de atribuição.
+
+  Em vez disso, devemos usar um loop para copiar os elementos um de
+  cada vez.
+
+  \begin{lstlisting}[language=C,escapechar={|},basicstyle=\ttfamily]
+    int foo[5] = { 1, 2, 3, 4, 5 };
+    int bar[5];
+    |{\color{red} \st{bar = foo;}|
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[language=C,escapechar={|},basicstyle=\ttfamily]
+    int foo[5] = { 1, 2, 3, 4, 5 };
+    
+    int bar[5];
+    for(int j = 0; j < 5; j++)
+    {
+      bar[j] = foo[j];
+    }    
+  \end{lstlisting}
+
+  \framebreak
+
+  Lembre-se que variáveis em C são passadas \emph{por valor} nas chamadas de função.
+  
+  Arrays não seguem esta regra. Eles são passados \emph{por
+    referência}. A função chamada recebe o array, não uma cópia dele.
+  
+  O que isso significa quando a função chamada manipula elementos do array?
+  
+  Por enquanto, apenas vamos entender que arrays têm essa propriedade
+  especial, mas voltaremos ao assunto em breve!
+
+  \framebreak
+
+  \begin{lstlisting}[style=ssc]
+    void set_array(int array[4]) {
+      array[0] = 22;
+    }
+    
+    void set_int(int x) {
+      x = 22;
+    }
+    
+    int main(void)
+    {
+      int a = 10; int b[4] = { 0, 1, 2, 3 };
+      set_int(a);
+      set_array(b);
+      printf("%d %d\n", a, b[0]); // prints 10, 22
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

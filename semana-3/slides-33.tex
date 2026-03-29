@@ -1,0 +1,134 @@
+\documentclass{beamer}
+
+\input{../helper}
+
+\title{Introdução à Computação \\ arrays e strings}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Array}
+
+  \lstinputlisting[style=tinyc,caption=src/scores0.c]{src/scores0.c}
+
+  Nomes distintos para cada posição na memória! Não necessariamente
+  alocados de forma contínua! Podemos simplificar?
+
+  \framebreak
+
+  Isto torna o código mais
+  \href{https://en.wikipedia.org/wiki/Code_smell}{elegante}?
+
+  \lstinputlisting[style=tinyc,caption=src/scores1.c]{src/scores1.c}
+
+  \framebreak
+
+  \includegraphics[width=.9\textwidth]{scores.png} 
+
+\end{frame}  
+
+
+\begin{frame}[fragile,allowframebreaks]{caracteres e inteiros}
+
+  \lstinputlisting[style=normalc,caption=src/hi0.c]{src/hi0.c}
+
+  \begin{lstlisting}[style=normalbash]
+    > clang hi0.c
+    > ./a.out
+    HI!
+  \end{lstlisting}
+
+  \framebreak
+
+  \lstinputlisting[style=normalc,caption=src/hi1.c]{src/hi1.c}
+  \begin{lstlisting}[style=normalbash]
+    > ./a.out
+    72 73 33
+  \end{lstlisting}
+  Os \ilcode{char} são armazenados como inteiros (códigos ASCII).
+  
+  \framebreak
+
+  \ilcode{printf} fez uma conversão \emph{implícita}, mas também
+  podemos converter explicitamente. \vspace{.5cm}
+
+  \begin{lstlisting}[style=normalc]
+    printf("%i %i %i\n", (int) c1, (int) c2, (int) c3);
+  \end{lstlisting}
+
+  Mas conversões podem \emph{perder} informação, por exemplo, de
+  \ilcode{float} para \ilcode{int}.
+  
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Strings}
+
+  Representamos \emph{strings} como arrays de caracteres (cada um com
+  8 bits ou um byte), um tipo que na verdade não é primitivo em C.
+
+  \lstinputlisting[style=normalc,caption=src/hi2.c]{src/hi2.c}
+
+  \framebreak
+
+  \lstinputlisting[style=normalc,caption=src/hi3.c]{src/hi3.c}
+  \begin{lstlisting}[style=normalbash]
+    > ./a.out
+    72 73 33
+  \end{lstlisting}
+
+  \framebreak
+
+  \includegraphics[width=.45\textwidth]{chars.png}\hfill
+  \includegraphics[width=.45\textwidth]{string.png}
+
+  Em C, strings terminam com o char \ilcode{'\\0'} ou inteiro
+  \ilcode{0}, ou um byte com todos os bits 0, marcando a
+  \emph{terminação} da string. Este é o chamado 'NUL'. Então
+  precisamos sempre de um byte adicional.
+
+  Outros tipos de dados de tamanho \emph{fixo} não precisam de tal
+  mecanismo. Mas bibliotecas que oferecem representação de variadas
+  precisões numéricas podem usar também tal recurso.
+
+  \framebreak
+
+  \lstinputlisting[style=normalc,caption=src/hi4.c]{src/hi4.c}
+  \begin{lstlisting}[style=normalbash]
+    > ./a.out
+    72 73 33 0
+  \end{lstlisting}
+
+  \framebreak
+
+  \lstinputlisting[style=normalc,caption=src/hi5.c]{src/hi5.c}
+
+  \framebreak
+
+  \includegraphics[width=.9\textwidth]{hi-bye.png}
+
+  \framebreak
+
+  Um array de strings ou um array de array de caracteres.
+
+  \lstinputlisting[style=normalc,caption=src/hi6.c]{src/hi6.c}
+
+  \framebreak
+
+  Na memória, este array está armazenado da seguinte forma.
+
+  \includegraphics[width=.9\textwidth]{string-matrix.jpg}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

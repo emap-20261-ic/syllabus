@@ -1,0 +1,228 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ tipos abstratos, pilhas}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[allowframebreaks]{tipos abstratos de dados e estruturas de dados}
+
+  Um \emph{tipo abstrato de dados} (ADT) é um modelo para tipos de
+  dados definido por seu comportamento do ponto de vista de um usuário
+  dos dados, especificamente em termos de valores possíveis, operações
+  possíveis em dados de esse tipo e o comportamento dessas operações.
+
+  Uma \emph{estrutura de dados} é um formato especializado para
+  organizar, processar, recuperar e armazenar dados. Existem vários
+  tipos (básicos e avançados) de estruturas de dados, geralmente
+  projetadas para finalidades específicas como garantir uma dada
+  complexidade para alguma operação.
+
+  \framebreak
+
+  O tipo \texttt{int} de C é um tipo de dados que implementa o tipo de
+  dados abstrato \emph{inteiro}.
+
+  Inteiros podem ser representados como números binários, na maioria
+  das vezes como \textbf{complemento de dois}, mas podem ser
+  \textbf{decimais codificados em binário} ou em \textbf{complemento
+    de um}.
+
+  Usamos inteiros e as operações sobre inteiros sem nos preocupar com
+  a implementação binária dos inteiros e como as operações são
+  implementadas em termos da codificação binária.
+
+  \framebreak
+
+  O tipo abstrato de dados \emph{lista} (ou sequência) representa uma
+  coleção de valores ordenada.
+
+  Sequências podem ser implementadas como \textbf{arrays} ou
+  \textbf{listas encadeadas}.
+
+  As operações mais comuns são: incluir um elemento, acessar o nésimo
+  elemento, remover um elemento, localizar um elemento, concatenar
+  duas sequências, ordenar, etc.
+  
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{pilhas}
+
+  Em uma pilha (stack), a manipulação dos elementos é realizada em
+  apenas uma das extremidades, chamada de topo, em oposição a outra
+  extremidade, chamada de base.
+
+  \begin{center}
+    \includegraphics[width=.6\textwidth]{stack.png}
+  \end{center}
+
+  \framebreak
+
+  Pilha um tipo abstrato de dados do tipo ``Last-In, First Out''
+  (LIFO), ou seja ``o último que entra é o primeiro que sai''.
+
+  Pilhas podem ser implementadas em estruturas de dados concretas como
+  arrays e listas encadeadas.
+  
+  \framebreak
+
+  As operações básicas de uma pilha são:
+
+  \begin{description}
+  \item[push] insere um novo elemento no topo
+  \item[pop] remove o elemento do topo
+  \item[peek] retorna o elemento no topo sem remover da pilha
+  \item[isEmpty] testa se a pilha está vazia.
+  \item[size] retorna o tamanho da pilha, quantos elementos ela
+    contém.
+  \end{description}
+
+  Todas podem ter complexidade $O(1)$ quando pilhas são implementadas
+  usando arrays ou listas encadeadas.
+
+  \framebreak
+
+  Pilhas podem ser usadas para reverter uma sequência (lista encadeada
+  ou array) e ordenar uma sequência.
+
+  Verificar se uma expressão aritmética tem os parênteses
+  balanceados. Por exemplo, a expressão $(2 + (8 / y))$ e a expressão
+  $(2 + (8 / y)$.
+
+  Implementar um mecanismo de 'desfazer' operações.
+
+  Pilhas são ainda usadas para implementar buscas em grafos, conversão
+  de expressões aritméticas em notação infixada ($2 + 3$) para
+  pré-fixada ($+ 2 3$) ou pós-fixada ($2 3 +$).
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{pilhas usando array}
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{stack-as-array.png}
+  \end{center}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    // maximum size of the stack
+    #define MAX_SIZE 100 
+
+    typedef struct stack {
+      int stack[MAX_SIZE];
+      int top; 
+    } t_stack;
+    
+  \end{lstlisting}
+
+  Implementando com array! Desvantagem, alocação estática com limite
+  pré-definido de elementos. Vantagem, simplicidade.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/stack-array.c]
+    t_stack* make_stack(){
+      t_stack *t = malloc(sizeof(t_stack));
+      t->top = -1;
+      return t;
+    }
+    
+    void push(t_stack *s, int data) {
+      assert(s->top < MAX_SIZE - 1);
+      s->stack[++s->top] = data;
+    }
+    
+    int pop(t_stack *s) {
+      assert(s->top > -1);
+      return s->stack[s->top--];
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{pilhas usando listas encadeadas}
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{stack-as-list.png}
+  \end{center}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    typedef struct node {
+      int number;
+      struct node *next;
+    } t_node;
+  \end{lstlisting}
+
+  Mesma \texttt{struct} declarada anteriormente para listas
+  encadeadas. Nenhuma inicialização é necessária.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/stack-list.c]
+    int pop(t_node **p) {
+      assert(*p != NULL);
+      int r = (*p)->number;
+      t_node *t = *p; *p = (*p)->next; free(t);
+      return r;
+    }
+    
+    void push(t_node **p, int e) {
+      t_node* n = malloc(sizeof(t_node));
+      assert(n != NULL); n->number = e; n->next = *p;
+      *p = n;
+    }
+
+    int peek(t_node *p) {
+      assert(p != NULL); return p->number;
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int main(int argc, char *argv[]) {
+      t_node *s = NULL;
+      push(&s, 1); 
+      push(&s, 2); 
+      push(&s, 3);
+      
+      printf("popped %d \n", pop(&s));
+    }
+  \end{lstlisting}
+
+  \texttt{push} e \texttt{pop} alteram a pilha, por isso passamos o
+  endereço de \texttt{s} (endereço da variável que é um endereço de um
+  \texttt{t\_node}) não o valor de \texttt{s} (endereço de um
+  \texttt{t\_node}).
+
+  \texttt{push} e \texttt{pop} alteram o valor de \texttt{s}, declarada
+  na \texttt{main}.
+
+  \framebreak
+
+  \begin{center}
+    \includegraphics[width=\textwidth]{double-pointer.png}
+  \end{center}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,189 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ montando uma biblioteca em C}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]{montando uma biblioteca}
+
+  Temos uma coleção de funções para manipular listas encadeadas.
+
+  Como transforma-las em uma biblioteca? Como compartilha-las entre
+  vários programas que precisem de listas encadeadas?
+
+  Como compilar a biblioteca separadamente dos programas que a
+  utilizem?
+
+\end{frame}
+
+
+\begin{frame}[fragile]{O arquivo list.h}
+
+  \begin{lstlisting}[style=normalc,caption=src/list.h]
+    typedef struct node t_node;
+
+    int     list_nth(t_node *list, int n);
+    ...
+    
+    t_node* list_insert(int element, t_node* list);
+    t_node* list_reverse(t_node *a);
+    t_node* list_create(int arr[], int N);
+    t_node* list_append(t_node *a, t_node *b);
+    ...
+
+    void    list_nconc(t_node *a, t_node *b);
+    void    list_print(t_node *list);
+    ...
+  \end{lstlisting}
+
+  Neste arquivo vamos \textbf{declarar} os nomes (símbolos).
+
+\end{frame}
+
+
+\begin{frame}[fragile]{O arquivo list.c}
+
+  \begin{lstlisting}[style=normalc,caption=src/list.c]
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include "list.h"
+
+    typedef struct node {
+      int number;
+      struct node *next;
+    } t_node;
+
+    ...
+  \end{lstlisting}
+
+  Neste arquivo vamos \textbf{definir} a estrutura e as funções.
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{O arquivo test.c}
+
+  \begin{lstlisting}[style=normalc, caption=src/list-test.c]
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include "list.h"
+    
+    int main(int argc, char *argv[]) {
+      int tmp[] = {10, 20, 30};
+      t_node *a = list_create(tmp, 3);
+      list_print(a);
+      t_node *ac = list_copy(a);
+      list_print(ac);
+      list_print(list_reverse(ac));
+      t_node *s = list_append(a, a); 
+      list_print(s);
+      list_nconc(ac, ac);
+      list_print(ac); // Ops!
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=code,language=lisp]
+    CL-USER> (setf *print-circle* t)
+    T
+    CL-USER> (let ((a (list 1 2 3))
+                   (b (list 10 20 30)))
+               (values a b (nconc a a)))
+    #1=(1 2 3 . #1#)
+    (10 20 30)
+    #1=(1 2 3 . #1#)
+  \end{lstlisting}
+
+  Qual o bug?! Testes que faltam!?
+  
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{a compilação}
+
+  Imagine que \texttt{list-test.c} é um programa que use nossa
+  biblioteca. Poderiam haver outros.
+
+  Queremos separar a compilação da biblioteca da compilação dos programas que usam a biblioteca.
+
+  Afinal, em algum momento nossa biblioteca ficará \textbf{estável} e
+  não irá sofrer alterações.
+
+  \framebreak
+
+  Compilando a biblioteca geramos o \texttt{list.o}:
+
+  \texttt{clang -c -Wall list.c}
+
+  Compilando o programa \texttt{list-test.c} que usa a biblioteca e
+  incorporando o binário da biblioteca no arquivo binário (executável)
+  final.
+  
+  \texttt{clang -Wall list-test.c list.o -o test}
+
+  \framebreak
+
+  Também podemos não incorporar o binário da biblioteca no executável
+  final, criando um \textbf{shared library}, várias outras podem ser
+  encontradas no \texttt{/usr/local/lib}.
+
+  \texttt{clang -shared list.o -o list.so}
+
+  seguido de
+
+  \texttt{clang -Wall list-test.c list.so -o test}
+
+  \framebreak
+
+  Mas podemos usar \texttt{make} para nos ajudar!
+
+  O \texttt{make} lê um arquivo \texttt{Makefile} e determina: 1) que
+  comandos deve executar; 2) em qual ordem eles devem ser executados.
+
+  Considere o comando:
+
+  \texttt{clang -c -Wall list.c}
+
+  A entrada é o arquivo \texttt{list.c} e ele produz o arquivo
+  \texttt{list.o}, então o \texttt{make} saberá que rodar este comando
+  só será necessário se a \textbf{data da última alteração} de
+  \texttt{list.c} for mais recente que a \textbf{data de criação} de
+  \texttt{list.o}.
+
+  \framebreak
+
+  \begin{lstlisting}[style=code,language=make,caption=src/Makefile]
+    OPT=-g -Wall ...
+
+    all: test
+
+    list.o: list.c
+      clang -c ${OPT} list.c
+
+    list.so: list.o
+      clang -shared list.o -o list.so
+
+    test: list.so list.h list-test.c
+      clang ${OPT} list-test.c list.so -o test
+
+    clean:
+      rm test list.o list.so
+  \end{lstlisting}
+  
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

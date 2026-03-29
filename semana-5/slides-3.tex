@@ -1,0 +1,225 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+
+\input{../helper}
+\graphicspath{{../img/}}
+
+
+\title{Introdução à Computação \\ busca linear vs busca binária}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Busca linear}
+
+  Queremos localizar um valor em um array. O computador só consegue
+  examinar uma posição de memória por vez!
+
+  Se nada pudermos assumir sobre a ordem dos valores no array, temos
+  que olhar posição por posição. Buscando por 0.
+
+  \begin{lstlisting}[basicstyle=\ttfamily]
+  For each position from left to right
+    If number is equal 0
+      Return true
+  Return false  
+  \end{lstlisting}
+
+  Busca linear é $O(n)$ e $\Theta(n)$. Por que?
+
+  \framebreak
+
+  \lstinputlisting[style=normalc,caption=src/numbers1.c]{src/numbers1.c}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/names0.c]
+    int main() {
+      string names[] =
+        {"Bill", "Charlie", "Fred",
+         "George", "Ginny", "Percy", "Ron"};
+  
+       for (int i = 0; i < 7; i++) {
+         if (names[i] == "Ron") {  // BUG
+           printf("Found\n");
+           return 0;
+         }
+       }
+       printf("Not found\n");
+       return 1;
+     }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/names1.c]
+    int main() {
+      string names[] =
+        {"Bill", "Charlie", "Fred",
+         "George", "Ginny", "Percy", "Ron"};
+      
+       for (int i = 0; i < 7; i++) {
+         if (strcmp(names[i], "Ron") == 0) {
+           printf("Found\n");
+           return 0;
+         }
+       }
+       printf("Not found\n");
+       return 1;
+     }
+  \end{lstlisting}
+
+  \framebreak
+
+  {\color{red} atenção} Usando o código abaixo teríamos o oposto do
+  que queremos, pois valores diferentes de zero seriam considerados
+  `true'. Vide \href{https://man7.org/linux/man-pages/man3/strcmp.3.html}{strcmp}.
+
+  \begin{lstlisting}[style=normalc]
+    if(strcmp(names[i], "Ron")) { ... }
+  \end{lstlisting}
+
+  Usando a negação funcionaria neste caso, mas seria um código pior,
+  pois não verifica explicitamente o valor 0, que desejamos.
+
+  \begin{lstlisting}[style=normalc]
+    if(!strcmp(names[i], "Ron")) { ... }
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Busca binária}
+
+  Queremos localizar um valor em um array. O computador só consegue
+  examinar uma posição de memória por vez!
+
+  Se pudermos assumir que os valores estão \textbf{ordenados}, podemos
+  usar a busca binária. Buscando por N.
+
+  \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+    If no position
+     Return false
+    If number in middle position equals N
+     Return true
+    Else if N < number in the middle position
+     Search left half
+    Else if N > number in the middle position
+     Search right half
+  \end{lstlisting}
+
+  Busca binária é $O(\log n)$ e $\Omega(1)$. Por que? 
+
+  \framebreak
+
+  algumas considerações \ldots
+
+  É muito mais eficiente que a busca linear, mas requer que o array
+  esteja \textbf{ordenado}.
+
+  Podemos ordenar o array antes\ldots Mas isso também irá demandar
+  tempo. Se várias buscas forem ser executadas, a ordenação pode valer
+  à pena (bancos de dados).
+
+\end{frame}  
+
+
+\begin{frame}[fragile,allowframebreaks]{Busca Binária Interativa em C}
+
+  \begin{lstlisting}[style=tinyc,caption=src/numbers2.c]
+  int binary_search(int a[], int n, int x) {
+    int low = 0, high = n - 1;
+    while (low <= high) {
+      int k = (high + low) / 2;
+      if      (a[k] == x) return k;
+      else if (a[k] <  x) low  = k + 1;
+      else                high = k - 1;
+    }
+    return -1;
+  }
+
+  int main(int argc, string argv[]) {
+    int q, a[] = {-31, 0, 1, 2, 2, 4, 65, 83, 99, 782};
+  
+    if (argc > 1)  q = atoi(argv[1]);
+    else           return 1;
+    
+    int n = sizeof(a)/sizeof(a[0]), i = binary_search(a, n, q);
+    if (i >= 0) {
+      printf("%d is at index %d.\n", q, i);
+    }
+    else {
+      printf("%d is not found.\n", q);
+    }
+    return 0;
+  }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{center}
+    \begin{tabular}{|r|r|r|r|r|r|r|r|r|r|r|}
+      \hline
+      v & -31 & 0 & 1 & 2 & 2 & 4 & 65 & 83 & 99 & 782\\
+      \hline
+      p & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  Buscando por 99, números são posições do array
+  
+  \begin{center}
+    \begin{tabular}{rrrr}
+      low & high & k & n\\ \hline
+      0 & 9 & 4 & 10\\
+      5 & 9 & 7 & 10\\
+      8 & 9 & 8 & 10\\
+    \end{tabular}
+  \end{center}
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Observações}
+
+  Mas o código C mostrado é \textbf{interativo}, bem diferente do
+  pseudo-código que é \textbf{recursivo}!
+
+  A
+  \href{https://man7.org/linux/man-pages/man0/stdlib.h.0p.html}{stdlib.h}
+  onde achamos a função
+  \href{https://man7.org/linux/man-pages/man3/atoi.3p.html}{atoi}.
+
+  O operador \href{https://en.wikipedia.org/wiki/Sizeof}{sizeof} de C.
+
+  Podemos \textbf{instrumentar} o código para entender seu funcionamento?
+
+  \framebreak
+
+  Podemos prever este tipo de erro? Como preparar o programa para um
+  usuário menos \textbf{colaborativo}?
+
+  \vspace{1cm}
+  
+  \begin{lstlisting}[basicstyle=\ttfamily]
+    > ./numbers2 hello
+    0 is at index 1.
+  \end{lstlisting}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

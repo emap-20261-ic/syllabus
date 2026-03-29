@@ -1,0 +1,212 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ tries e hash tables}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{trie}
+
+  Trie (nome derivado de `retrieval') é um tipo de árvore de pesquisa
+  k-ária usada para armazenar e pesquisar uma chave específica de um
+  conjunto. Usando Trie, as complexidades de pesquisa pode ser
+  limitada ao (comprimento da maior chave).
+
+  Também chamadas árvores de prefixos, uma vez que prefixos comuns
+  compartilham os mesmos ramos (branches).
+
+  Podem ser usadas para armazenar um arrays associativos em que as
+  chaves são normalmente cadeias de caracteres.
+
+  \framebreak
+
+  Imagine armazenarmos strings (chaves) em uma árvore binária de busca
+  balanceada.
+
+  Para localizar uma chave, precisariamos de um tempo proporcional a
+  $M \log N$, onde M é o comprimento máximo das chaves e N é o número
+  de chaves na árvore.
+
+  Usando Trie, a chave pode ser pesquisada em tempo O(M). No entanto,
+  a penalidade está nos requisitos de armazenamento do Trie.
+
+  \framebreak
+
+  Uma trie é uma árvore onde os nós armazenam algum valor e um array
+  de ponteiros para outros nós, uma posição para cada elemento do
+  alfabeto das chaves.
+
+  \framebreak
+
+  Uma trie com a palavra `hagrid' ficaria
+
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{trie_with_hagrid.png}
+  \end{center}
+
+  \framebreak
+
+  A medida que mais nomes forem armazenados, mais reuso de espaço é
+  possível: `hagrid', `harry' e `hermione'.
+
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{trie_with_multiple_names.png}
+  \end{center}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{trie em C}
+  
+  Podemos definir uma \textbf{trie} em C com
+
+  \begin{lstlisting}[style=normalc]
+    typedef struct node
+    {
+      bool is_word;
+      struct node *children[SIZE_OF_ALPHABET];
+    } t_node;
+  \end{lstlisting}
+
+  Valor \ilcode{bool} indica se este nó indica final de uma palavra
+  armazenada. Mas poderíamos armazenar outros valores associados a
+  chave que representa o prefixo até o dado nó.
+
+  O array de ponteiros para os próximos nós `filhos', próximo
+  caractere da chave.
+
+  \framebreak
+
+  A altura da \textbf{trie} é o tamanho da maior palavra armazenada.
+
+  Independente do número de palavras, o tempo de busca de uma palavra
+  será o tamanho desta palavra.
+
+  Mas muitos espaços estarão desocupados com \ilcode{null}.
+  
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{hash table}
+  \parskip=2pt
+  
+  \begin{center}
+    \includegraphics[width=.6\textwidth]{hash-1.png}
+  \end{center}
+
+  {\tiny \url{https://en.wikipedia.org/wiki/Hash_table}}
+
+  \framebreak
+
+  cada chave tem apenas um valor, mas colisões podem ocorrer
+
+  \begin{center}
+    \includegraphics[width=.6\textwidth]{hash-2.png}
+  \end{center}
+
+  {\tiny \url{https://en.wikipedia.org/wiki/Hash_table}}
+
+  \framebreak
+
+  Podemos pensar nas chaves como as letras A até Z, e inserir nomes de
+  acordo com as iniciais.
+
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{hash-az.png}
+  \end{center}
+
+  \framebreak
+
+  E os conflitos quando tivermos que armazenar nomes com mesmas
+  iniciais.
+
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{hash-az-conflict.png}
+  \end{center}
+
+  \framebreak
+
+  Cada nós terá um array de caracteres pré-allocado, de tamanho máximo
+  \ilcode{LONGEST_WORD + 1} para armazenar o nome sendo guardado. O
+  ponteiro \ilcode{next} aponta para outro nó, se houver conflito.
+
+  \begin{lstlisting}[style=tinyc]
+    typedef struct node
+    {
+      char word[LONGEST_WORD + 1];
+      struct node *next;
+    }
+    node;
+  \end{lstlisting}
+
+  Um array de ponteiros para \ilcode{node}s com um número de `lugares'
+  pré-definido, como 26, no exemplo acima (A-Z).
+
+  \begin{lstlisting}[style=normalc]
+    node *hash_table[NUMBER_OF_BUCKETS];
+  \end{lstlisting}
+
+  \framebreak
+
+  Lembrando que a função hash mapea cada nome para uma localização
+  possível da tabela hash, neste caso uma letra A-Z (ou seu código
+  ASCII)
+
+  \begin{center}
+    \includegraphics[width=.55\textwidth]{hash-func.png}
+  \end{center}
+
+  \framebreak
+
+  Os endereços na tabela hash, se associados aos códigos ASCII,
+  poderiam ser traduzidos em posições diretamente.
+
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{hash-az-num.png}
+  \end{center}
+  
+  \framebreak
+
+  Para reduzir os conflitos (e tamanho das sequências lineares de
+  nós), poderíamos mudar as chaves para as \textbf{duas letras
+    iniciais}
+  
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{hash-haha.png}
+  \end{center}
+  
+  agora teríamos 676 posições na tabela, para todas as combinações das
+  2 primeiras letras.
+
+  \framebreak
+
+  Podemos tentar aumentar o `buckets' para $26^3$ (3 iniciais)
+  
+  \begin{center}
+    \includegraphics[width=.8\textwidth]{hash-hag.png}
+  \end{center}
+
+  reduzindo conflito mais aumentando possíveis endereços não
+  ocupados. Pior caso de busca são todos os valores em uma mesma
+  posição, $O(n)$, busca na lista encadeada.
+  
+\end{frame}
+
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -2,10 +2,7 @@
 
 int main(void) {
 
-  int score1 = 1;
-  int score2 = 2;
-  int score3 = 4;
+  int scores[] = {1, 2, 3};
   
-  printf("Average: %f\n",
-	 (score1 + score2 + score3) / 3);
+  printf("Average: %f\n", (scores[1] + scores[2] + scores[3]) / 3.0);
 }

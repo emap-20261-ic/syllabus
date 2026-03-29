@@ -1,0 +1,33 @@
+#+title: Laboratório 7
+
+* Conteúdo programatico
+
+- manipulação de arquivos
+- alocação dinâmica de memória
+
+* Objetivos
+
+1. praticar o uso de ponteiros
+
+* Atividade 1 (30 minutos)
+
+revisão sobre:
+
+- malloc e free
+- fopen, fclose 
+- leitura e gravação de dados, fread, fwrite
+
+* Atividade 2 (20 minutos)
+
+- a turma resolve o problema license
+- corrigir e explicar
+  
+* Atividade 3 (20 minutos)
+
+- a turma resolve o problema volume
+- corrigir e explicar
+  
+* Atividade 4 (30 minutos)
+
+- a turma resolve o problema bottom up
+- corrigir e explicar

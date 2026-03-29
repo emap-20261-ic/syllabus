@@ -1,0 +1,152 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\input{../helper}
+
+
+\title{Introdução à Computação \\ uso dos números hexadecimais}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Uso de hexadecimais}
+
+  Vamos usar hexadecimais para representar endereços da memória.
+
+  \begin{center}
+    \includegraphics[width=.7\textwidth]{addresses.png}    
+  \end{center}
+
+  \framebreak
+
+  Com 4 bytes (32 bits), só poderíamos contar até cerca de 4 bilhões,
+  ou cerca de 4 GB de memória.
+
+  \begin{align*} 
+    2^{32} & = 4294967296_{10} \\
+          & = 11111111111111111111111111111111_2 \\
+          & = FFFFFFFF_{16} 
+  \end{align*}
+  
+  O número hexadecimal é bem mais compacto.
+
+  \framebreak
+
+  Em computadores modernos, usamos 64 bits para endereçar os bytes de
+  memória disponíveis (na verdade mais do que podemos efetivamente
+  construir):
+
+  \[
+    2^{64} = 18.446.744.073.709.551.616 = 16\ exibytes
+  \]
+
+  \framebreak
+
+  Os valores na memória de um computador ainda são armazenados como
+  binários, mas essa forma de representação nos ajuda a representar
+  valores numéricos maiores com menos dígitos.
+
+  Com 8 bits em binário (1 byte), o maior valor que podemos contar é
+  255 (11111111). Dois dígitos em hexadecimal podem representar o
+  valor de um byte em binário.
+  
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Pixels}
+
+  Mas os números hexadecimais também são usados para representar
+  cores!
+
+  Aprendemos como arrays representam espaços contínuos da memória
+  usados para armazenar valores de um mesmo tipo.
+
+  Também já vimos que toda imagem só pode armazenar um valor finito de
+  bits. Cada ponto da imagem chamamos de \textbf{pixel} e uma imagem é
+  um array de pixels.
+
+  \framebreak
+
+  Em imagens PB (preto e branco), cada pixel armazena um bit, 1
+  (preto) e 0 (branco). 
+
+  \begin{center}
+    \includegraphics[width=.7\textwidth]{smiley.png}
+  \end{center}
+
+  \framebreak
+
+  Uma imagem pode ser também uma matriz de \ilcode{char} da tabela
+  ASCII (caracteres), as chamadas \href{https://www.asciiart.eu}{ASCII
+    art}. \vspace{1cm}
+  
+  \begin{center}
+    \begin{lstlisting}[basicstyle=\ttfamily\Large]
+     / \__
+    (    @\___
+    /         O
+   /   (_____/
+  /_____/   U    
+   \end{lstlisting}
+  \end{center}
+
+  \framebreak
+
+  Mas também podemos ter imagens coloridas, com uma certa quantidade
+  de {\color{red} vermelho}, {\color{green} verde} e {\color{blue}
+    azul} por pixel.
+
+  \begin{center}
+    \includegraphics[width=.4\textwidth]{eyes.png}
+  \end{center}
+  
+  \framebreak
+
+  Em programas editores de imagens, a escolha de uma certa tonalidade
+  de verde, vermelho ou azul está associada a valores em
+  hexadecimais. \vspace{.7cm}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{center}
+        \includegraphics[width=.9\textwidth]{color_picker.png}
+      \end{center}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{center}
+        \begin{tabular}{ll} \hline
+          code & color \\ \hline
+          {\ttfamily \#000000} & black\\
+          {\ttfamily \#FFFFFF} & {\color{white} \colorbox{black}{white}}\\
+          {\ttfamily \#FF0000} & {\color{red} Red} \\
+          {\ttfamily \#00FF00} & {\color{green} Green}\\
+          {\ttfamily \#0000FF} & {\color{blue} Blue}\\ \hline
+        \end{tabular}
+      \end{center}
+    \end{column}
+  \end{columns}
+
+  Ver \href{https://htmlcolorcodes.com/color-picker/}{seletor de cores} e
+  \href{https://en.wikipedia.org/wiki/White}{branco}.
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

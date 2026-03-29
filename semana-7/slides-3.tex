@@ -1,0 +1,125 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ lendo e escrevendo em arquivos}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{scanf}
+
+  \ilcode{scanf} recebe uma string template que contém designadores de
+  tipos como \ilcode{\%i}, então a entrada padrão (STDIN) é lida até
+  que o padrão seja reconhecido.
+
+  Par cada designador mencionado no template, um parâmetro adicional
+  deve ser passado, um endereço para um tipo compatível com o
+  designador.
+
+  \ilcode{scanf} deverá efetivamente modificar o endereço indicado,
+  preenchendo o valor lido, ou seja precisamos passar uma
+  'referência'.
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=scanf1.c]{src/scanf1.c}
+
+  Veja o \ilcode{bus error}! Não alocamos memória para armazenar o
+  valor lido. Mas como fazer isso? Qual tamanho devemos alocar?
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/scanf2.c]{src/scanf2.c}
+
+  \ldots ou seja, usar \ilcode{scanf} para ler strings pode ser
+  perigoso! 
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/scanf3.c]{src/scanf3.c}
+
+  e ainda existem \ilcode{fgets} e \ilcode{gets}.  No MacOS ou Linux,
+  use as \textbf{man pages} com \ilcode{man gets}.
+
+\end{frame}  
+
+
+\begin{frame}[allowframebreaks,fragile]{lendo e escrevendo em arquivos}
+
+  Todas as principais funções para ler e escrever em arquivos ficam na
+  biblioteca \ilcode{stdio.h}.
+
+  As funções mais comuns são: \ilcode{fopen}, \ilcode{fclose},
+  \ilcode{fgetc}, \ilcode{fputc}, \ilcode{fread}, \ilcode{fwrite},
+  \ilcode{fscanf}, \ilcode{fprintf}.
+
+  \framebreak
+
+  Veja arquivo phonebook.c
+  % \lstinputlisting[style=tinyc,caption=src/phonebook.c]{src/phonebook.c}
+
+  A função \ilcode{fopen}, o tipo \ilcode{FILE} e \ilcode{fprintf} é a
+  versão de \ilcode{printf} que escreve em um arquivo.
+
+  \framebreak
+
+  antes
+
+  \begin{lstlisting}[style=code,caption=phonebook.csv,autogobble]
+  name,number
+  \end{lstlisting}
+
+  depois
+
+  \begin{lstlisting}[style=code,caption=phonebook.csv,autogobble]
+    name,number
+    Alexandre Rademaker,+55 21 12345
+  \end{lstlisting}
+
+  \framebreak
+
+  Podemos ler arquivos \href{https://www.file-recovery.com/jpg-signature-format.htm}{jpeg}
+
+  \lstinputlisting[style=tinyc,caption=jpeg.c,autogobble]{src/jpeg.c}
+
+  \framebreak
+
+  O formato \href{https://en.wikipedia.org/wiki/BMP_file_format}{BMP}
+  é outro formato popular para armazenar imagens. 
+
+  \begin{lstlisting}[style=tinyc,autogobble,caption=src/filter]
+    #include "helpers.h"
+  
+    void filter(int height, int width, RGBTRIPLE image[height][width])
+    {
+      // Loop over all pixels
+      for (int i = 0; i < height; i++)
+      {
+        for (int j = 0; j < width; j++)
+        {
+          image[i][j].rgbtBlue = 0x00;
+          image[i][j].rgbtGreen = 0x00;
+        }
+      }
+    }
+  \end{lstlisting}
+
+  A função acima percorre todos os pixels em um array bidimensional
+  e define os valores de azul e verde como 0.
+  
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

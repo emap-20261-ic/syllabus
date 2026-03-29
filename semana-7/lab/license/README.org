@@ -1,0 +1,62 @@
+#+title: license
+
+* objetivos
+
+- praticar o uso de ponteiros para abrir, fechar, ler e escrever em
+  arquivos.
+- praticar o uso de arrays e strings.
+- praticar a verificação de 'memory leaks'
+
+* contexto
+
+Suponha que você trabalha para uma empresa que desenvolve tecnologia
+de reconhecimento de placas de veículos com inteligência
+artificial. Para implementar a tecnologia, você pode querer usar
+números de placas reais como dados de teste. Você possui um arquivo de
+texto com alguns números de placa que deseja analisar, então primeiro
+tenta ler do arquivo de texto e imprimir as placas de carro, para
+testar sua lógica de leitura de arquivos. Mas quando você executa seu
+programa, somente o último número é impresso 8 vezes! O que deu
+errado?
+
+* detalhes
+
+Se você abrir o arquivo =plates.txt=, notará que na verdade existem 8
+números de placas diferentes. Existem alguns erros no arquivo
+=license.c= que estão causando o comportamento indesejado. 
+
+Primeiro, verificamos os argumentos da linha de comando, pois
+=argv[1]= deve ser o arquivo de texto que contém as placas. Em
+seguida, criamos um array de caracteres de comprimento 7, pois os
+números das placas têm 6 caracteres e precisamos armazenar o
+terminador NUL. Agora criamos um array de =char *= (ponteiros de
+caracteres, ou strings! semelhante ao =argv=) para armazenar os 8
+números de placas. Criamos um ponteiro para nosso arquivo de texto,
+criamos uma variável para conter o índice de cada elemento do array e
+começamos a ler o arquivo e salvar os números das placas no
+array. Finalmente, para testar se fizemos isso corretamente,
+imprimimos os valores no array.
+
+No entanto, quando compilamos e executamos esse código, algo está
+claramente errado. Você precisará fazer as devidas correções!
+
+Dê uma olhada nos valores que estão sendo armazenados no array, você
+pode tentar usar o 'debug' do VS Code.
+
+- o que exatamente a variávbel =buffer= contém que está sendo
+  atribuido a cada elemento do array =plates=?
+- note que o array =plates= é um array de ponteiros.
+- então quando atribuimos o =buffer= para um =char *=, o que ocorre?
+  
+Temos uma forma melhor de armazer os valores lidos?
+
+- será que usando =strcpy= funcionaria aqui?
+- se copiar dados para um ponteiro, para onde efetivamente os dados
+  vão?
+- temos que alocar espaço com =malloc=? E lembre-se que todo espaço
+  alocado com =malloc= deve ser liberado com =free=.
+
+Sobre o último ponto acima, se a alocação de memória não for liberada,
+você terá um memory leak, consegue identificar com algums dos
+utilitários apresentados? Se sim, descreva em um arquivo =report.txt=
+o que descobriu e como corrigiu.

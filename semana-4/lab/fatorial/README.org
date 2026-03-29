@@ -1,0 +1,27 @@
+#+title: fatorial com ponteiros
+
+Complete =factorial.c= que calcula o fatorial de um número usando
+ponteiros.
+
+Sua saída deverá ser:
+
+#+begin_example
+$ ./a.out 0
+fact 0 = 1
+
+$ ./a.out 1
+fact 1 = 1
+
+$ ./a.out 5
+fact 5 = 120
+#+end_example
+
+* detalhe
+
+Note que a função =factorial= não retorna valor, você não deve alterar
+a assinatura (tipo das entradas e saída) da função, apenas preencher o
+código fazendo com que =factorial= use o argmento =f= para armazenar o
+resultado.
+
+A função =factorial= não deve ser recursiva!
+

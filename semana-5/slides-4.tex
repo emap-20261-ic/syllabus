@@ -1,0 +1,133 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+
+\input{../helper}
+\graphicspath{{../img/}}
+
+\title{Introdução à Computação \\ estruturas em C}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{motivação}
+
+  Em um aplicativo de contatos, telefones e nomes não são informações
+  separadas, certo?
+
+  Um \textbf{contato} representa uma entrada no banco de dados e cada
+  entrada terá \textbf{campos} que descrevem as informações que temos
+  sobre o referido contato: nome, telefone, endereço, etc.
+
+  Durante uma busca e/ou ordenação, em geral, queremos podemos
+  escolher o campo: por nome, por telefone, por empresa, etc.
+
+  \framebreak
+
+  Vamos imaginar que nossos contatos só tivessem nome e telefone.
+
+  Poderíamos tentar manter os dados em dois diferentes arrays, mas
+  como garantir a sincronia? Os elementos em posições iguais nos dois
+  arrays correspondem a informações relacionadas ao mesmo contato.
+
+  Manter sincroniza em ambos pode ser difícil.
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/phonebook0.c]{src/phonebook0.c}
+
+\end{frame}  
+
+
+\begin{frame}[fragile,allowframebreaks]{structuras em C}
+
+  Mas podemos definir nossas próprias estruturas de dados
+
+  \lstinputlisting[style=tinyc,caption=src/phonebook1.c]{src/phonebook1.c}
+
+  \framebreak
+
+  Isto é encapsulamento (encapsulation).
+
+  A idéia de que dados relacionados são agrupados, neste caso, nome e
+  número, na mesma estrutura de dados.
+
+  A cor de um pixel, com valores de vermelho, verde e azul, também
+  pode ser bem representada por uma estrutura de dados.
+
+  Também podemos imaginar que estruturas para armazenar valores
+  racionais ou inteiros grandes. E estruturas podem ter arrays ou
+  outras estruturas como \textbf{membros} (campos).
+
+  \href{https://en.wikipedia.org/wiki/Struct_(C_programming_language)}{para saber mais}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    struct pointer {
+      int x;
+      int y;
+    } ;
+    
+    int main(void) {
+      struct pointer p; // need the 'struct'
+      p.x = 10;
+      p.y = 20;
+      printf("Point: %d %d\n", p.x, p.y);
+    }
+  \end{lstlisting}
+
+  A estrutura foi definida e depois uma variável do tipo foi
+  declarada.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int main(void) {
+      struct {
+        int x;
+        int y;
+      } p;
+      
+      p.x = 10;
+      p.y = 20;
+      printf("Point: %d %d\n", p.x, p.y);
+    }
+  \end{lstlisting}
+
+  A estrutura foi definida e uma variável declarada ao mesmo tipo. Não
+  é possível reusar a definição (não foi nomeada).
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    typedef struct point {
+      int x;
+      int y;
+    } t_point;
+    
+    int main(void) {
+      t_point p;
+      p.x = 10;
+      p.y = 20;
+      printf("Point: %d %d\n", p.x, p.y);
+    }
+  \end{lstlisting}
+
+  O nome \ilcode{pointer} é opcional, mas necessário para estruturas
+  recursivas (mais tarde!)
+  
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

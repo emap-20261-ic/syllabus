@@ -1,0 +1,84 @@
+\documentclass{beamer}
+
+\input{../helper}
+
+\title{Introdução à Computação \\ argumentos de linha de comando e retorno de valor}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{argumentos}
+  
+  Lembrando que programas CLI podem receber argumentos!
+
+  Podemos carregar o programa e solicitar ao usuário os valores
+  desejados.
+
+  Em C, a função mais pode receber dois argumentos: \ilcode{argc}
+  (quantidade de argumentos) e \ilcode{argv} (array dos argumentos).
+
+  \framebreak
+
+  Podemos fazer novos programas receber valores da linha de comando!
+  Veja o condicional \ilcode{if}!
+
+  \lstinputlisting[style=normalc,caption=src/argv0.c]{src/argv0.c}
+
+  \framebreak
+
+  E podemos imprimir todos os argumentos passados
+
+  \lstinputlisting[style=normalc,caption=src/argv1.c]{src/argv1.c}
+
+  Repetição com \ilcode{for}!
+
+  \framebreak
+  
+  Queremos somar um número não pré-determinado de valores.
+
+  Vamos receber da linha de comando a quantidade de números e
+  perguntar para o usuário um número por vez.
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/scores3.c]{src/scores3.c}
+
+  \framebreak
+
+  Se não passarmos na linha de comando o argumento esperado?
+
+  Se o argumento não for um número que possa ser representado como um
+  \ilcode{int}?
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{retornando valores}
+
+  Podemos sinalizar que o programa não executou como deveria:
+
+  \lstinputlisting[style=normalc,caption=src/exit.c]{src/exit.c}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalbash]
+    > ./exit 12 && echo "Tudo bem"
+    hello, 12
+    Tudo bem
+    > ./exit && echo "Tudo bem"
+    Missing arguments
+  \end{lstlisting}
+    
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

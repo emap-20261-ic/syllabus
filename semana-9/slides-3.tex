@@ -1,0 +1,235 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ árvores binárias de busca}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{árvores}
+
+  Uma árvore é um tipo de dados que representa um conjunto de nós
+  conectados em uma estrutura hierárquica.
+
+  Cada nó de uma árvore pode ser conectado a um número qualquer de
+  \emph{filhos} - dependendo do tipo de árvore - mas apenas à um
+  \emph{pai}. Um único nó, chamado \emph{raiz}, não tem pai.
+
+  Isto siginifica que árvores não podem conter \emph{ciclos} e que
+  cada nó pode ser considerado raiz de uma sub-árvore.
+
+  Com isso, \emph{recursão} é uma técnica útil para travesia da
+  árvore.
+
+  \framebreak
+
+  \begin{columns}
+    \begin{column}{.4\textwidth}
+      \begin{itemize}
+      \item raiz
+      \item folhas
+      \item sub-árvores
+      \item grau
+      \item nível
+      \item altura
+      \end{itemize}
+    \end{column}
+    \begin{column}{.6\textwidth}
+      \begin{center}
+        \includegraphics[width=.9\textwidth]{trees.png}
+      \end{center}
+    \end{column}
+  \end{columns}
+  
+  \framebreak
+
+  \emph{Árvores binárias} são um tipo de árvore onde cada nó pode
+  conter até dois filhos.
+
+  Quando a ordem dos filhos é relevante, chamamos de \emph{árvore
+    ordenada}.
+
+  Valores podem ser associados a cada nó na árvore ou, as vezes,
+  apenas aos nós \emph{folhas} - nós que não tem filhos.
+
+  \framebreak
+
+  aplicações:
+
+  \begin{itemize}
+  \item sistema de arquivos dos sistemas operacionais
+  \item DOM de páginas HTML e arquivos XML
+  \item árvores de busca para armazenamento de dados de forma a
+    permitir buscas eficientes.
+  \item árvores sintáticas no processamento de linguagem natural.
+  \end{itemize}
+
+  \framebreak
+
+  Um \emph{tipo abstrato de dados} pode ser representado de diferentes
+  formas.
+
+  Na memória, tipicamente nós são alocados dinamicamente com ponteiros
+  para os filhos, pais, ou ambos, além dos dados associados ao nó.
+
+  Se o número de filhos é variado, a cada nó podemos usar um array ou
+  lista encadeada para armazenar ponteiros para os filhos.
+
+  Também podemos representar a árvore com duas listas, uma para os nós
+  e outra para as relações pai-filho (lista de adjacencias), ou um
+  array onde os relacionamentos (pai-filho) são determinados pelas
+  posições no array.
+
+  \framebreak
+
+  \begin{lstlisting}[style=code,language=lisp]
+    '(2 (7 (2) (10) (6 (5) (11))) 
+        (5 (9 (4))))
+  \end{lstlisting}
+
+  Se nossa implementação de lista encadeada permitisse que elementos
+  da lista fossem de qualquer tipo, incluíndo listas\ldots
+
+  também poderíamos implementar uma árvore como uma lista de listas,
+  onde o primeiro elemento de cada sublista é a raiz da sub-árvore.
+
+  Para saber \href{https://en.wikipedia.org/wiki/Tree_(data_structure)}{mais}!
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks, fragile]{árvores binárias de busca}
+
+  Uma árvore binária de busca, também chamada de árvore binária
+  ordenada, é uma árvore binária onde o valor de cada nó interno é
+  maior que todos os valores na subárvore esquerda do respectivo nó e
+  menor que as de sua subárvore direita.
+
+  A complexidade de tempo das operações na árvore de busca binária é
+  diretamente proporcional à altura da árvore.
+
+  Buscas binárias podem ser facilmente implementadas em árvores
+  binárias de busca.
+
+  \framebreak
+
+  \includegraphics[width=.6\textwidth]{btree.png}
+  
+  \framebreak
+  
+  Em C, os nós precisam ser agora declarados com
+
+  \begin{lstlisting}[style=normalc,caption=src/tree.c]
+    typedef struct node {
+      int key;
+      struct node *left, *right;
+    } t_node;
+  \end{lstlisting}
+
+  \framebreak
+
+  Para inserir um novo elemento, uma função auxiliar que cria um novo
+  nó:
+
+  \begin{lstlisting}[style=normalc,caption=src/tree.c]
+    t_node* new_node(int item) {
+      t_node* t = malloc(sizeof(struct node));
+      assert(t != NULL);
+      t->key = item;
+      t->left = t->right = NULL;
+      return t;
+    }
+  \end{lstlisting}
+
+  Notação \texttt{a = b = expressão}!
+
+  \framebreak
+
+  Agora a inserção, seja o nó corrente com valor V, devemos comparar
+  com o valor X sendo inserido. Se X menor, movemos para a árvore à
+  esquerda. Se X maior, para árvore da direita.
+
+  \begin{lstlisting}[style=normalc,caption=src/tree.c]
+    t_node* insert(t_node* node, int key) {
+      if (node == NULL)
+        return new_node(key);
+      
+      if (key < node->key)
+        node->left = insert(node->left, key);
+      else if (key > node->key)
+        node->right = insert(node->right, key);
+      
+      return node;
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  \includegraphics[width=.8\textwidth]{btree-insert.png}
+
+  \framebreak
+
+  Nós criados de forma dinâmica precisam ser liberados.
+
+  \begin{lstlisting}[style=normalc, caption=src/tree.c]
+    void free_tree(node *root) {
+      if (root == NULL)
+        return;
+
+      free_tree(root->left);
+      free_tree(root->right);
+      free(root);
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]{busca binária}
+
+  Usando esta estrutura, podemos então realizar buscas\vspace{.5em}
+
+  \begin{lstlisting}[style=normalc,caption=src/tree.c]
+    bool binary_search(t_node *root, int n) {
+      if (root == NULL)
+        return false;
+      else if (n < root->key)
+        return binary_search(root->left, n);
+      else if (n > root->key)
+        return binary_search(root->right, n);
+      return (n == root->key);
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      Mas temos que 'balancear' a árvore, para não terminar com uma
+      estruta ineficiente.\vspace{1em}
+
+      Em uma árvore balanceada, busca e inserção são $O(\log n)$, mas
+      em uma árvore não balanceada, pode ser $O(n)$.
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{center}
+        \includegraphics[width=.8\textwidth]{imbalanced_tree.png}
+      \end{center}
+    \end{column}
+  \end{columns}
+    
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

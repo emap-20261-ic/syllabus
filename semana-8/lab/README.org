@@ -1,0 +1,57 @@
+#+title: Laboratório 8
+
+Vamos praticar alguns algorítmos usando listas encadeadas.  Você não
+deverá alterar o arquivo =list.h=. Apenas os arquivos =list.c= e
+=tests.c=.
+
+Nossa biblioteca de listas encadeadas ainda pode ser melhorada. Você
+deve implementar:
+
+* tarefa 1 (20 minutos)
+
+Implementar a função =list_array= que converte uma lista encadeada em
+array, realizando o inverso da =list_create= que recebe um array e
+cria uma lista encadeada.
+
+* tarefa 2 (40 minutos)
+
+Implemente a função =list_split= que recebe uma lista encadeada como
+primeiro argumento e dois parâmetros com referências para ponteiros do
+tipo =t_node=. A função deve dividir a lista em duas metades, se a
+lista tiver tamanho ímpar, a primeira metade terá um elemento à mais.
+
+* tarefa 3 (20 minutos)
+
+A função =list_nconc= quando passamos a mesma lista nos dois
+parâmetros, cria um loop. Implemente a função =list_hasloop= para
+detectar loops. Ela deve retornar 0 (se não houver loops) e 1 caso
+encontre um loop.
+
+* tarefa 4 (40 minutos)
+
+Uma função de =sort= baseada no algoritmo 'merge sort'. A função agora
+deve receber uma lista encadeada e altera-la de forma que os elementos
+estejam ordenados. A assinatura das funções é dada no arquivo
+=list.h=, a função principal é =merge_sort= e duas funções auxiliares
+serão necessárias: a =list_split= que já foi implementada e a
+=merge_sorted=.
+
+* testes
+
+Considere os testes existentes no arquivo =test.c=. São suficientes?
+Acrescente os testes que julgar adequados.
+
+* perguntas para discussão
+
+Imagine que algum amigo, programador em C, descubra sua
+biblioteca. Que documentação você precisaria fornecer para evitar que
+seu amigo tenha problemas ao usar a biblioteca? Quais detalhes sobre
+cada função podem não ser óbvios para alguém que tenha apenas acesso
+ao arquivo =list.h=?
+
+* dica
+
+Para detecção de loops e divisão de uma lista em duas metades,
+considere aprender sobre o [[https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare][algorítmo de Floyd]].
+
+

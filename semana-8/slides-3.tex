@@ -1,0 +1,185 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ operações sobre listas encadeadas}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]{uma biblioteca de listas encadeadas}
+
+  Vamos pensar em quais funções são necessárias e úteis para manipular
+  listas encadeadas?
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{inserir na frente da lista}
+
+  \begin{lstlisting}[style=normalc]
+    t_node* list_insert(int element, t_node* list) {
+      t_node* n = malloc(sizeof(t_node));
+      n->number = element;
+      n->next = list;
+      return n;
+    }
+
+    
+    t_node *my = NULL;
+    my = list_insert(5, my);
+  \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]{algumas funções}
+
+  \begin{lstlisting}[style=normalc]
+    void list_print(t_node *list) {
+      for(t_node *t = list; t != NULL; t = t->next) {
+        printf("%i ", t->number);
+      }
+      printf("\n");
+    }
+
+    
+    list_print(my);
+  \end{lstlisting}
+
+  Complicado decidir cmo uma lista deve ser mostrada!
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int list_nth(t_node *list, int n) {
+      int c = 0;
+      for(t_node *t = list; t != NULL; t = t->next)
+        if(c++ == n) return t->number;
+      exit(1);
+    }
+
+    
+    int a = list_nth(my, 2);
+  \end{lstlisting}
+
+  Esta não é uma função total! Se $n$ for maior que a quantidade de
+  elementos? O que fazer?
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    int list_size(t_node *list){
+      int n = 0;
+      for(t_node *t = list; t != NULL; t = t->next) n++;
+      return n;
+    }
+    
+
+    int n = list_size(my);
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    t_node* list_reverse(t_node *a) {
+      t_node *new = NULL;
+      for(t_node* t = a; t != NULL; t = t->next) {
+        new = list_insert(t->number, new);
+      }
+      return new;
+    }
+  \end{lstlisting}
+
+  Reuso da função \texttt{list\_insert}! 
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{juntando duas listas}
+
+  \begin{lstlisting}[style=tinyc]
+    void list_nconc(t_node *a, t_node *b){
+      if (a == NULL) return b;
+      t_node *t;
+      for(t = a; t->next != NULL; t = t->next);
+      t->next = b;
+      return a;
+    }
+
+    t_node *a = list_insert(1, list_insert(2, list_insert(3, NULL)));
+    t_node *b = list_insert(10, list_insert(20, list_insert(30, NULL)));
+    list_nconc(a, b);
+  \end{lstlisting}
+
+  O que será impresso? Por que retorna \ilcode{void}? Vantagem?
+  Desvantagem?
+
+  \framebreak
+
+  \begin{center}
+    \includegraphics[width=.9\textwidth]{list-nconc.png}
+  \end{center}
+  
+  \framebreak
+
+  \begin{lstlisting}[style=tinyc]
+    t_node* list_append(t_node *a, t_node *b){
+      if (a == NULL) return b;
+      t_node *t;
+      t_node *new = list_copy(a);
+      list_nconc(new, b);
+      return new;
+    }
+
+    t_node *a = list_insert(1, list_insert(2, list_insert(3, NULL)));
+    t_node *b = list_insert(10, list_insert(20, list_insert(30, NULL)));
+    t_node *c = list_append(a, b);
+  \end{lstlisting}
+
+  Como implementar \texttt{list\_copy}?
+
+  \framebreak
+
+  \begin{center}
+    \includegraphics[width=.9\textwidth]{list-append.png}
+  \end{center}
+
+  Mas os nós de \texttt{b} ainda são compartilhados! Vantagem?
+  Desvantagem?
+
+  \framebreak
+
+  \begin{lstlisting}[style=code,language=lisp]
+    CL-USER> (let ((a (list 1 2 3))
+                   (b (list 10 20 30)))
+               (values a b (append a b)))
+    (1 2 3)
+    (10 20 30)
+    (1 2 3 10 20 30)
+
+    CL-USER> (let ((a (list 1 2 3))
+                   (b (list 10 20 30)))
+               (values a b (nconc a b)))
+    (1 2 3 10 20 30)
+    (10 20 30)
+    (1 2 3 10 20 30)
+  \end{lstlisting}
+
+  Funções destrutivas e não destrutivas!
+  
+\end{frame}
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,90 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ debugando erros na gerência de memória}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{debugging}
+
+  \lstinputlisting[style=tinyc,caption=src/memory.c]{src/memory.c}
+
+  Temos o que chamamos de `memory leak'. Como detectar estes
+  vazamentos?
+
+  \framebreak
+
+  Leaks no MacOS\\
+  \url{https://youtu.be/bhhDRm926qA}
+
+  Valgrind e GDB no Linux \\
+  \url{https://youtu.be/8JEEYwdrexc}
+
+  Ferramentas dependem do sistema operacional, versão do compilador e
+  dialeto da linguagem sendo usado. Muita documentação em
+  \url{https://clang.llvm.org}.
+
+  \framebreak
+
+  No MacOS
+
+  \begin{lstlisting}[style=code]
+  clang -g -I/usr/local/include memory.c -lm -o memory
+  leaks --list --atExit -- ./memory
+  export MallocStackLogging=1
+  leaks --list --atExit -- ./memory
+  unset MallocStackLogging
+  \end{lstlisting}
+ 
+  Linha 1 adiciona a chamada do compilador o parâmetro \ilcode{-g}. A
+  linha 3 declara uma variável de ambiente que nos permite encontrar a
+  posição do vazamento (linha do código).
+   
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{lixo na memória}
+
+  Vejam isso
+
+  \lstinputlisting[style=tinyc,caption=src/garbage0.c]{src/garbage0.c}
+
+  Que valores serão impressos?
+
+  \framebreak
+
+  Vamos examinar este código
+
+  \lstinputlisting[style=tinyc,caption=src/garbage1.c]{src/garbage1.c}
+
+  Quais erros temos aqui? \href{https://www.youtube.com/watch?v=3uLKjb973HU}{\ldots uma dica}
+  
+\end{frame}
+
+
+\begin{frame}{Problemas comuns}
+
+  \begin{description}
+  \item[heap overflow] se usarmos \ilcode{malloc} para pedir muita memória
+  \item[stack overflow] se chamarmos muitas funções em cadeia sem
+    retornar delas (tipicamente funções recursivas que se chamam)
+  \end{description}
+
+  Veja também \href{https://en.wikipedia.org/wiki/Buffer_overflow}{buffer overflow}.
+   
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

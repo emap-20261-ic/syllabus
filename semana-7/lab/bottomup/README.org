@@ -1,0 +1,55 @@
+#+title: Bottom Up
+
+- aprender a trabalhar com imagens
+- aprender sobre metadados
+- usando =struct=
+
+* descrição
+
+Imagine que uma imagem importante para você foi corrompida! Ao
+investigar, você descobre que a imagem está praticamente
+intacta. Exceto que ela parece estar de cabeça para baixo!
+
+Lembre-se de que um arquivo de imagem digital é apenas uma sequência
+de bits, organizados de alguma forma. Um arquivo 24-bit BMP é
+essencialmente apenas uma sequência de bits.
+
+Mas um arquivo BMP também contém alguns 'metadados', informações como
+altura e largura da imagem. Esses metadados são armazenados no início
+do arquivo na forma de duas estruturas de dados geralmente chamadas de
+'cabeçalhos'. O primeiro desses cabeçalhos, chamado
+=BITMAPFILEHEADER=, tem 14 bytes de comprimento. (Lembre-se de que 1
+byte equivale a 8 bits). O segundo desses cabeçalhos, chamado
+=BITMAPINFOHEADER=, tem 40 bytes de comprimento.
+
+Imediatamente após esses cabeçalhos está o bitmap real: uma matriz de
+bytes, triplas representam a cor de um pixel.
+
+Seu trabalho é editar os metadados programaticamente (escrevendo um
+programa C) para que a linha superior do bitmap seja a primeira e a
+linha inferior seja a última. Melhor evitar editar os pixels
+diretamente, para não corromper ainda mais o arquivo!
+
+dicas
+
+- Certifique-se de examinar cuidadosamente os membros da estrutura
+  =BITMAPINFOHEADER= em =bmp.h=.
+  
+- Se você ler a [[https://learn.microsoft.com/en-us/previous-versions//dd183376(v=vs.85)][documentação]] de cada um desses membros, qual deve
+  modificar?
+
+- A solução mais simples envolve apenas uma linha de código,
+  modificando apenas um valor de uma das estruturas dos metadados.
+
+- você não precisa se preocupar com isso, mas se ficar curioso sobre a
+  razão da variável =padding=, leia [[https://stackoverflow.com/questions/2601365/padding-in-24-bits-rgb-bitmap][aqui]].
+
+* detalhes
+
+No arquivo 'bmp.h', visite as URL indicadas nas definições de
+BITMAPFILEHEADER e BITMAPINFOHEADER. Dê uma olhada nos membros da
+estrutura BITMAPINFOHEADER. Use essas informações para completar o
+código em =bottomup.c= para alterar a imagem como indicado. O código
+em questão não precisa ser muito complicado, principalmente se você
+souber o que está fazendo!
+

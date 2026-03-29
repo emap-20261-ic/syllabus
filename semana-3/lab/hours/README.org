@@ -1,0 +1,63 @@
+#+title: hours
+
+Você pode estar se perguntando quantas horas você gastou aprendendo
+ciência da computação, em média ou no total! Neste programa, você
+completará uma função que calcula, com base na entrada do usuário, um
+número total de horas ou um número médio de horas ao longo de um
+determinado número de dias.
+
+Dicas:
+
+1. Para somar números de um array, você pode primeiro inicializar uma
+   variável com zero. Depois usar um loop que adicione cada valor do
+   array nesta variável.
+
+2. Por fim, cuidado ao dividir dois inteiros para obter a média!   
+
+Seu programa deverá se comportar assim:
+
+#+begin_example
+> clang hours.c
+
+> ./a.out
+número de semanas: 2
+semana 1: 1
+semana 2: 2
+entre T ou M: t
+3.0 hours
+
+> ./a.out
+número de semanas: 2
+semana 1: 1
+semana 2: 2
+entre T ou M: M
+1.5 hours
+
+> ./a.out
+número de semanas: 2
+semana 1: 1
+semana 2: 2
+entre T ou M: y
+entre T ou M: m
+1.5 hours
+#+end_example
+
+* detalhes
+
+A função =main= solicita ao usuário o número de semanas e, em seguida,
+cria um =array= do tamanho adequado. Observe que, após recuperar
+alguns dados, o programa solicita que o usuário digite =T= (para total
+de horas) ou =M= (para média). Observe que o loop do =while= usa
+=toupper= para colocar em maiúscula a letra que é inserida antes de
+ser salva na variável de saída. Em seguida, a função =printf= chama
+=calc_hours=. Observe a sintaxe envolvida ao passar um array para uma
+função.
+
+Para completar =calc_hours=, primeiro totalize as horas salvas no
+array recebido. Em seguida, dependendo do valor da saída, retorne essa
+soma ou o número médio de horas.
+
+* pergunta
+
+Qual a vantagem de usar uma função para calcular as horas? Por que não
+colocar o código na própria função =main=?

@@ -1,0 +1,186 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\input{../helper}
+
+
+\title{Introdução à Computação \\ números hexadecimais}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{números hexadecimais}
+
+  A maior parte das culturas ocidentais usa o sistema decimal
+  (base-10) para contagem:
+
+  \[ 0 \quad 1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \quad 9 \quad 10 \]
+
+  Como já vimos, os computadores usam o sistema binário, base-2, para
+  representar dados.
+
+  \[ 0 \quad 1 \]
+
+  \framebreak
+
+  Como programadores, seria conveniente representarmos e usarmos os
+  dados em binário, como os computadores.
+
+  No entanto, entender uma cadeia muito longa de 0s e 1s pode ser bem
+  complicado.
+
+  \url{https://en.wikipedia.org/wiki/Hexadecimal}
+
+  \framebreak
+
+  A representação em hexadecimais é bem mais concisa para representar
+  dados.
+
+  \[
+    0 \quad 1 \quad 2 \quad 3 \quad 4 \quad 5 \quad 6 \quad 7 \quad 8 \quad 9 \quad A \quad B \quad C \quad D \quad E \quad F 
+  \]
+
+  O mapeamento de hexadecimais para binários é simples. Um grupo de 4
+  bits é capaz de representar 16 diferentes combinações, cada uma
+  delas mapeada para um único hexadecimal.
+
+  \framebreak
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      \begin{tabular}{ccc}
+        \hline
+        dec & bin & hex \\
+        \hline
+        0 & 0000 & 0\\
+        1 & 0001 & 1\\
+        2 & 0010 & 2\\
+        3 & 0011 & 3\\
+        4 & 0100 & 4\\
+        5 & 0101 & 5\\
+        6 & 0110 & 6\\
+        7 & 0111 & 7\\
+        \hline
+      \end{tabular}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \centering
+      \begin{tabular}{ccc}
+        \hline
+        dec & bin & hex \\
+        \hline
+        8 & 1000 & 8\\
+        9 & 1001 & 9\\
+        10 & 1010 & A\\
+        11 & 1011 & B\\
+        12 & 1100 & C\\
+        13 & 1101 & D\\
+        14 & 1110 & E\\
+        15 & 1111 & F\\
+        \hline
+      \end{tabular}
+    \end{column}
+  \end{columns}
+
+  \framebreak
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      \begin{tabular}{ccc}
+        \hline
+        dec & bin & hex\\
+        \hline
+        0 & 0000 & {\color{orange} 0x}0\\
+        1 & 0001 & {\color{orange} 0x}1\\
+        2 & 0010 & {\color{orange} 0x}2\\
+        3 & 0011 & {\color{orange} 0x}3\\
+        4 & 0100 & {\color{orange} 0x}4\\
+        5 & 0101 & {\color{orange} 0x}5\\
+        6 & 0110 & {\color{orange} 0x}6\\
+        7 & 0111 & {\color{orange} 0x}7\\
+        \hline
+      \end{tabular}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \centering
+      \begin{tabular}{ccc}
+        \hline
+        dec & bin & hex\\
+        \hline
+        8 & 1000 & {\color{orange} 0x}8\\
+        9 & 1001 & {\color{orange} 0x}9\\
+        10 & 1010 & {\color{orange} 0x}A\\
+        11 & 1011 & {\color{orange} 0x}B\\
+        12 & 1100 & {\color{orange} 0x}C\\
+        13 & 1101 & {\color{orange} 0x}D\\
+        14 & 1110 & {\color{orange} 0x}E\\
+        15 & 1111 & {\color{orange} 0x}F\\
+        \hline
+      \end{tabular}
+    \end{column}
+  \end{columns}
+
+  \framebreak
+
+  Assim como ocorre no sistema binário ($2^0$, $2^1$, $2^2$) e decimal
+  ($10^0$, $10^1$, $10^2$, $10^3$, etc), a posição do algarismo no
+  sistema hexadecimal também altera seu valor.
+
+  \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|l|c|c|c|}
+      \hline
+      & $16^2$ & $16^1$ & $16^0$ \\
+      \hline
+      & 256 & 16 & 1\\
+      \hline
+      0x & 3 & 9 & 7\\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  $397_{16} = (3 \times 16^2) + (9 \times 16^1) + (7 \times 16^0) = 919_{10}$
+
+  \framebreak
+
+  Mas como converter binários em hexadecimais?
+
+  Vamos agrupar os bits em grupos de 4, da direita para a esquerda,
+  adicionado zeros à esquerda se necessário.
+
+  Então usamos a tabela de conversão apresentada nos slides
+  anteriores.
+
+  \framebreak
+
+  \[ 01000110101000101011100100111101 \]
+
+  \[ 0100 \quad 0110 \quad 1010 \quad 0010 \quad 1011 \quad 1001 \quad 0011 \quad 1101 \]
+
+  \[ 4 \qquad 6 \qquad A \qquad 2 \qquad B \qquad 9 \qquad 3 \qquad D \]
+
+  \[ 0x46A2B93D \]
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

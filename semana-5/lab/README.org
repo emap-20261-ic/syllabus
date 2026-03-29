@@ -1,0 +1,25 @@
+#+title: Laboratório 4
+
+* Conteúdo programático
+
+- complexidade algorítmos
+- algoritmos de busca: linear e binária
+- uso de =struct=
+  
+* Objetivos
+
+1. praticar o uso de =struct=
+2. praticar a implementação de algorítmos recursivos
+3. fortalecer os conhecimentos sobre algorítmos de ordenação e busca
+
+* Atividade 1 (40 minutos)
+
+- revisão conceitos
+
+* Atividade 2 (30 minutos)
+
+[[file:max/README.org]]
+
+* Atividade 3 (60 minutos)
+
+[[file:snackbar/README.org]]

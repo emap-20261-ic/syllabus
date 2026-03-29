@@ -1,0 +1,156 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ tipos abstratos, filas}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{filas}
+
+  Outro tipo abstrato de dados é a \textbf{fila}, onde valores são
+  colocados em uma extremidade e retirados da extremidade oposta.
+
+  \begin{center}
+    \includegraphics[width=.6\textwidth]{queue.png}
+  \end{center}
+
+  \framebreak
+
+  Fila um tipo abstrato de dados do tipo ``First-In, First Out''
+  (FIFO), ou seja ``o primeiro que entra é o primeiro que sai''.
+
+  Filas podem ser implementadas com listas encadeadas, arrays, arrays
+  circulares. 
+
+  \framebreak
+
+  Filas são usadas em várias áreas da computação onde o acesso a algum
+  recurso é controlado e requisições devem aguardar para serem
+  atendidas: CPU, fila de impressão, roteadores etc.
+
+  Na navegação em grafos, \emph{buscas em profundidade} são
+  implementadas com \emph{pilhas} e \emph{buscas em largura} com
+  \emph{filas}.
+
+  \framebreak
+
+  As duas principais operações com filas são:
+
+  \begin{description}
+  \item[dequeue] retira um elemento da frente da fila. Na
+    implementação com arrays pode ser $O(n)$ mas com listas encadeadas
+    é $O(1)$.
+  \item[enqueue] insere um elemento no final da fila. Complexidade
+    $O(1)$.
+  \end{description}
+
+  Outras operações possíveis (e auxiliares): imprimir a fila,
+  inspecionar o primeiro elemento, inspecionar o último elemento,
+  determinar se a fila está vazia, tamanho da fila, etc.
+
+  \framebreak
+
+  Em C, vamos implementar uma \texttt{struct} contendo dois ponteiros,
+  um para a \emph{frente} e outro para o \emph{final} da fila.
+
+  \begin{center}
+    \includegraphics[width=.9\textwidth]{queue-c.png}
+  \end{center}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{filas em C}
+  
+  Além da estrutura já criada para listas encadeadas, uma estrutura
+  adicional para conter os o ponteiro para o início da fila (front) e
+  final da fila (rear).
+
+  \begin{lstlisting}[style=normalc,caption=src/queue-list.c]
+    typedef struct node {
+      int number;
+      struct node *next;
+    } t_node;
+    
+    typedef struct queue {
+      t_node *front;
+      t_node *rear;
+    } t_queue;
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/queue-list.c]
+    void enqueue(t_queue* q, int k) {
+      t_node* temp = create_node(k);
+
+      // if empty
+      if (q->rear == NULL) {
+        q->front = q->rear = temp;
+        return;
+      }
+      
+      q->rear->next = temp;
+      q->rear = temp;
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/queue-list.c]
+    void dequeue(t_queue* q) {
+      // if empty
+      if (q->front == NULL) return;
+
+      // save previous front and move
+      t_node* temp = q->front;
+      q->front = q->front->next;
+
+      // if front becomes NULL
+      if (q->front == NULL)
+        q->rear = NULL;
+      
+      free(temp);
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  Using it
+
+  \begin{lstlisting}[style=normalc]
+    t_queue* create_queue() {
+      t_queue *q = malloc(sizeof(t_queue));
+      q->front = q->rear = NULL;
+      return q;
+    }
+    
+    int main(int argc, char *argv[]) {
+      t_queue *q = create_queue();
+      enqueue(q, 1);
+      enqueue(q, 2);
+      dequeue(q);
+      enqueue(q, 3);
+      enqueue(q, 4);
+      dequeue(q);
+    }
+  \end{lstlisting}
+  
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

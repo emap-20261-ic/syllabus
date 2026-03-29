@@ -1,0 +1,150 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ listas encadeadas}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]{listas encadeadas}
+
+  Com as listas encadeadas (linked lists) podemos armazenar valores em
+  diferentes posições de memória (não contínuas).
+
+  Com isso, podemos acrescentar novos valores na lista continuamente,
+  sem necessidade de estabelecer um limite `a priori' nem realocação
+  quando o limite é atingido.
+
+  \framebreak
+
+  Para cada valor, alocamos também o endereço do próximo valor na
+  lista, o par é uma \href{https://en.wikipedia.org/wiki/Cons}{cons
+    cell}.
+
+  \begin{center}
+    \includegraphics[width=.9\textwidth]{linked-list.png}
+  \end{center}
+  
+  \framebreak
+
+  Em C, podemos implementar uma \textbf{cons cell} (node) com o código.
+  
+  \vspace{.4cm}
+
+  \begin{lstlisting}[style=normalc]
+    typedef struct node
+    {
+      int number;
+      struct node *next;
+    } t_node;
+  \end{lstlisting}
+
+  Trata-se de uma estrutura de dados recursiva.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc]
+    // lista vazia
+    t_node *list = NULL; 
+
+    t_node *n = malloc(sizeof(t_node));
+    if (n != NULL) {
+      n->number = 5;  // same as (*n).number
+      n->next = NULL;
+    }
+    
+    list = n;
+  \end{lstlisting}
+
+  A partir da lista vazia, adicionamos o número 5 na frente da lista.
+
+  \framebreak
+
+  Graficamente, podemos representar o resultado do código anterior com
+
+  \begin{center}
+    \includegraphics[width=.5\textwidth]{list_with_one_node_n.png}
+  \end{center}
+
+\end{frame}
+
+
+\begin{frame}{lista encadeada na memória}
+
+  \foreach \n in {1,...,25}{
+    \includegraphics<\n>[width=.9\textwidth]{ll/ll-\n.png}}
+
+\end{frame}
+
+
+\begin{frame}{como \textbf{não} fazer}
+
+  \foreach \n in {1,...,5}{
+    \includegraphics<\n>[width=.9\textwidth]{ll/error-\n.png}}
+
+\end{frame}
+
+\begin{frame}{como \textbf{não} fazer}
+
+  Não podemos atualizar o ponteiro \ilcode{list} antes de armazenar
+  seu valor em \ilcode{n->next}.
+  
+\end{frame}
+
+
+\begin{frame}{adicionando elementos no início}
+
+  adicionar um elemento no início tem custo $O(1)$
+
+  \foreach \n in {1,...,6}{
+    \includegraphics<\n>[width=.9\textwidth]{ll/ll0-\n.png}}
+  
+\end{frame}
+
+\begin{frame}{adicionando elementos em uma posição qualquer}
+
+  após localizar o elemento, eventualmente $O(n)$, custo de $O(1)$
+
+  \foreach \n in {1,...,3}{
+    \includegraphics<\n>[width=.9\textwidth]{ll/llx-\n.png}}
+  
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Sumário}
+
+  \includegraphics[width=.9\textwidth]{linked-lists.png}
+
+  \textbf{arrays} também são chamados \textbf{vectors}.
+
+  \framebreak
+
+  complexidade deve ser avaliada para cada operação
+
+  \begin{itemize}
+  \item para recuperar o elemento da posição $n$? \\ \textbf{R}: array $O(1)$, lista $O(n)$    
+  \item inserir elemento no início \\ \textbf{R}: array $O(n)$, lista $O(1)$
+  \item inserir elemento no final \\ \textbf{R}: array $O(1)$/$O(n)$, lista
+    $O(n)$
+  \item inserir elemento no meio da estrutura?
+  \item busca de um elemento na estrutura não ordenada?
+  \item busca de um elemento na estrutura ordenada?
+  \end{itemize}
+  
+\end{frame}
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

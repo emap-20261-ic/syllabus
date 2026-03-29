@@ -1,0 +1,114 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+
+\input{../helper}
+
+\title{Introdução à Computação \\ selection sort}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Ordenação (sort)}
+
+  Dado uma lista de valores, possívelmente desordenada, queremos
+  escrever um algorítmo que ordena esta lista, segundo algum critério.
+
+  Por exemplo, para a lista
+  \[
+    [ 6 \; 3 \; 8 \; 5 \; 2 \; 7 \; 4 \; 1 ]
+  \]
+  queremos produzir
+  \[
+    [ 1 \; 2 \; 3 \; 4 \; 5 \; 6 \; 7 \; 8 ]
+  \]
+
+  \framebreak
+
+  Vamos considerar dois algorítmos para esta tarefa:
+
+  \begin{itemize}
+  \item \emph{selection sort}
+  \item bubble sort
+  \item merge sort
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Selection Sort}
+
+  Dada uma lista de números
+
+  \begin{lstlisting}[style=code,basicstyle=\ttfamily\scriptsize]
+    For i from 0 to n - 1
+     Find smallest between nums[i] and nums[n - 1]
+     Swap smallest number with nums[i]
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=code]
+    5 2 7 4 1 6 3 0
+
+    5 2 7 4 1 6 3 0
+                  ^
+
+    0 | 2 7 4 1 6 3 5
+    
+    0 | 2 7 4 1 6 3 5
+              ^    
+
+    0 1 | 7 4 2 6 3 5
+              ^
+	  
+    0 1 2 | 4 7 6 3 5
+                  ^
+  \end{lstlisting}
+
+  \framebreak
+
+  Para este algorítmo, considerando uma lista de $n$
+  elementos. Começamos olhando para $n$ elementos, depois para $n - 1$
+  etc.
+
+  \begin{align*}
+    n + (n - 1) + (n - 2) + \ldots + 1 & = \\
+    \frac{(n^2 + n)}{2} = \frac{n^2}{2} + \frac{n}{2} & = O(n^2) 
+  \end{align*}
+
+  No melhor caso, quando a lista já estiver ordenada, ainda assim
+  temos que olhar para todos os números, logo também $\Omega(n^2)$.
+  
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/selection.c]
+    void selection_sort (int a[], int n) {
+      int m, t;
+      for (int i = 0; i < n; i++) {
+        for (int j = i, m = i; j < n; j++) {
+          if (a[j] < a[m])
+          m = j;
+        }
+        t = a[i];
+        a[i] = a[m];
+        a[m] = t;
+      }
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

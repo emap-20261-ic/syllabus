@@ -1,0 +1,83 @@
+#+title: Volume
+
+Vamos escrever um programa que modifica o volume de um arquivo de áudio.
+
+#+begin_example
+$ ./volume INPUT.wav OUTPUT.wav 2.0
+#+end_example
+
+onde =INPUT.wav= é o nome do arquivo original, e =OUTPUT.wav= é o nome
+do arquivo que será criado a partir da modificação do arquivo de
+entrada.
+
+* formato WAV
+
+[[https://docs.fileformat.com/audio/wav/][O formato WAV]] é usado para representar áudio. Os arquivos WAV
+armazenam o áudio como uma sequência de 'amostras': números que
+representam o valor de algum sinal de áudio em um determinado
+momento. Os arquivos WAV começam com um “cabeçalho” de 44 bytes que
+contém informações sobre o próprio arquivo, incluindo o tamanho do
+arquivo, o número de amostras por segundo e o tamanho de cada
+amostra. Após o cabeçalho, o arquivo WAV contém uma sequência de
+amostras, cada uma com um único inteiro de 2 bytes (16 bits)
+representando o sinal de áudio em um determinado ponto no tempo.
+
+Escalar cada valor de amostra por um determinado fator tem o efeito de
+alterar o volume do áudio. Multiplicar cada valor de amostra por 2,0,
+por exemplo, terá o efeito de dobrar o volume do áudio de
+origem. Multiplicar cada amostra por 0,5, entretanto, terá o efeito de
+cortar o volume pela metade.
+
+* tipos
+
+Até agora, vimos vários tipos de dados diferentes em C, incluindo
+=int=, =bool=, =char=, =double=, =float= e =long=. Dentro de um
+arquivo de cabeçalho chamado =stdint.h= estão as declarações de vários
+outros tipos que nos permitem definir com muita precisão o tamanho (em
+bits) e o sinal (com ou sem sinal) de um inteiro. Dois tipos em
+particular serão úteis para nós neste laboratório.
+
+- =uint8_t= é um tipo que armazena um inteiro de 8 bits sem sinal (ou
+  seja, não negativo). Podemos tratar cada byte do cabeçalho de um
+  arquivo WAV como um valor =uint8_t=.
+  
+- =int16_t= é um tipo que armazena um inteiro com sinal de 16 bits (ou
+  seja, positivo ou negativo). Podemos tratar cada amostra de áudio em
+  um arquivo WAV como um valor =int16_t=.
+
+
+* detalhes
+
+Conclua a implementação de =volume.c=, de modo que o programa altere o
+volume de um arquivo de som por um determinado fator.
+
+O programa aceita três argumentos de linha de comando:
+
+1. =input= representa o nome do arquivo de áudio original
+
+2. =output= representa o nome do novo arquivo de áudio que deve ser
+   gerado e
+
+3. =factor= é a quantidade pela qual o volume do arquivo de áudio
+   original deve ser dimensionado
+   
+Por exemplo, se o fator for 2.0, seu programa deve dobrar o volume do
+arquivo de áudio na entrada e salvar o arquivo de áudio recém-gerado
+na saída.
+
+Seu programa deve primeiro ler o cabeçalho do arquivo de entrada e
+escrever o cabeçalho no arquivo de saída. Lembre-se de que esse
+cabeçalho sempre tem exatamente 44 bytes de comprimento. Observe que o
+=volume.c= já define uma variável para você chamada =HEADER_SIZE=,
+igual ao número de bytes no cabeçalho.
+
+Seu programa deve então ler o restante dos dados do arquivo WAV, uma
+amostra de 16 bits (2 bytes) por vez. Seu programa deve multiplicar
+cada amostra pelo fator e gravar a nova amostra no arquivo de saída.
+
+Você pode presumir que o arquivo WAV usará valores '16 bits signed'
+como amostras. Na prática, os arquivos WAV podem ter vários números de
+bits por amostra, mas vamos considerar amostras de 16 bits para este
+laboratório. Seu programa poderá usar =malloc=, mas não deve deixar
+nenhuma memória sem ser liberada.
+

@@ -1,0 +1,18 @@
+#+title: básico sobre ponteiros
+
+Sua tarefa é completar o código =pointers.c= de tal forma que sua
+saída será semelhante a saída abaixo:
+
+#+begin_example
+% ./a.out
+-  z stores the address of m = 0x7ff7b687b4cc
+- *z stores the   value of m = 10
+- &m     is the address of m = 0x7ff7b687b4cc
+- &n stores the address of n = 0x7ff7b687b4c8
+- &o stores the address of o = 0x7ff7b687b4c4
+- &z stores the address of z = 0x7ff7b687b4b8
+#+end_example
+
+Os endereços podem mudar, dado que cada execução do programa irá
+alocar variáveis em diferentes regiões da memória.
+

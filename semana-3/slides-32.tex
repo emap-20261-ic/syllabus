@@ -1,0 +1,70 @@
+\documentclass{beamer}
+
+\input{../helper}
+
+\title{Introdução à Computação \\ achando erros}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+
+\begin{frame}[fragile,allowframebreaks]{Depuração (debug)}
+
+  Bugs são erros que fazem com que o programa se comporte de forma
+  diferente do pretendido. E a depuração é o processo de encontrar e
+  corrigir esses bugs.
+
+  Uma forma de \textbf{debug} é imprimir valores das variáveis em
+  determinados pontos do programa.  
+
+  Uma boa técnica de depuração é explicar nosso próprio código em voz
+  alta para alguém (ou alguma coisa!).
+
+  Em cada ambiente o suporte pode ser diferente. Vamos experimentar no
+  \textbf{Codespaces}!
+
+  \framebreak
+
+  Queremos 3 blocos na tela. Qual o bug?
+
+  \lstinputlisting[style=normalc,caption=src/buggy0.c]{src/buggy0.c}
+
+  \framebreak
+
+  Qual o bug? No VS Code, usar `step into'.
+
+  \lstinputlisting[style=tinyc,caption=src/buggy1.c]{src/buggy1.c}
+
+  \framebreak
+
+  Lembrando do problema em \ilcode{semana-2/src/mario2.c}. Vamos
+  adicionar um pouco de robustez em \ilcode{mario3.c}.
+
+  Queremos garantir que a entrada passada pelo usuário é compatível
+  com o que esperamos.
+
+  Usamos o \ilcode{printf} para entender os valores.
+
+  Precisamos de algumas bibliotecas adicionais para poder usar o valor
+  \ilcode{true} e a função \ilcode{isdigit}.
+  
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/mario3.c]{src/mario3.c}
+
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

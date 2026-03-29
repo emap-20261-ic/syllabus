@@ -1,0 +1,56 @@
+#+title: no vowels
+
+Você já ouviu falar de [[https://en.wikipedia.org/wiki/Leet][leetspeak]]? Significa a substituição de
+caracteres alfabéticos por símbolos, onde esses símbolos se assemelham
+um pouco a sua contraparte alfabética.
+
+Neste laboratório, você escreverá um programa para substituir certas
+vogais por dígitos!
+
+Até agora, você frequentemente escreveu programas para os quais
+recebeu um código inicial. Você notará que para esse problema, você
+começa com nada mais do que umas bibliotecas e uma função principal
+quase vazia. Neste problema, você converterá uma palavra, passada pela
+linha de comando, em uma palavra correspondente com números
+substituindo as vogais.
+
+* demo
+
+#+begin_example
+> clang no-vowels.c
+
+> ./a.out hello
+h3ll0
+
+> ./a.out pseudocode
+ps3ud0c0d3
+
+> ./a.out
+Usage: ./a.out <word>
+#+end_example
+
+* detalhes
+
+- complete o arquivo =no-vowels.c=
+
+- seu programa deve aceitar um argumento da linha de comando, que será
+  a palavra a ser convertida.
+
+- se seu programa for executado sem receber nenhum argumento, deve
+  retornar 1 e imprimir uma mensagem de erro. Conforme acima.
+
+- seu programa deve conter uma função chamada =replace= que recebe
+  duas strings de entrada sendo a segunda a string que será
+  modificada.
+
+- esta função irá trocar as vogais por números: 'a'/6, 'e'/3, 'i'/1,
+  'o'/0 e 'u' não muda. Você pode usar o comando =switch=.
+
+- a função =main= irá passar =argv[1]= para a função =replace=,
+  receber o resultado no seu segundo argumento. Depois irá imprimir
+  uma quebra de linha '\n'.
+
+* pergunta
+
+Por que passar valores pela linha de comando ao invés de recebe-los de
+forma interativa?

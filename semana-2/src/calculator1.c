@@ -1,19 +1,67 @@
+/*
+- mais operacoes
+- integer overflow: int ~> long
+- comportamento scanf
+- codigos de erro
+*/
+
 #include <stdio.h>
+#include <stdlib.h>
+
+int soma(int a, int b);
+int subtracao(int a, int b);
+int calc(char op, int a, int b, int* result);
 
 int main(void)
 {
-  int x, y;
-  x = 0;
-  y = 0;
+  int x = 0, y = 0, result = 0;
+  char op = 'a';
 
-  // prompt user 
+  // get input data
+
   printf("x: ");
   scanf("%d", &x);
   
   printf("y: ");
   scanf("%d", &y);
 
-  // perform addition
-  // printf("x -> %p   y -> %p\n", &x, &y);
-  printf("%i\n", x + y);
+  printf("operacao [a|s]: ");
+  scanf(" %c", &op);
+
+  // validating and processing
+  int status = calc(op, x, y, &result);
+  if (status == 0){
+    printf("result = %d\n", result);
+    return EXIT_SUCCESS;
+  }
+  else { 
+    printf("Invalid Operation\n");
+    return EXIT_FAILURE;
+  }
+
+}
+
+int calc(char op, int a, int b, int* r){
+  switch (op) {
+  case 'a': case 'A':
+    *r = soma(a, b);
+    break;
+
+  case 's': case 'S':
+    *r = subtracao(a, b);
+    break;
+
+  default:
+    return 1;
+  }
+  return 0;
+}
+
+
+int soma(int a, int b) { 
+  return a + b;
+}
+
+int subtracao(int a, int b) {
+  return a - b;
 }

@@ -1,12 +1,23 @@
 #include <stdio.h>
 
 int main(void) {
-  
-    int scores[3];
-    scores[0] = 72;
-    scores[1] = 73;
-    scores[2] = 33;
 
-    printf("Average: %f\n",
-           (scores[0] + scores[1] + scores[2]) / 3.0);
+    int n = 0;
+    printf("Quantos valores? ");
+    scanf("%d", &n);
+
+    if( n <= 0) { 
+        return 1;
+    }
+  
+    int scores[n];
+    float soma = 0;
+
+    for(int i = 0; i < n; i++) {
+        printf("valor[%i]: ", i);
+        scanf("%d", &scores[i]);
+        soma = soma + scores[i];
+    }
+    
+    printf("Average: %f\n", soma / (float) n);
 }

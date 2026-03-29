@@ -1,0 +1,78 @@
+#+title: Smiley
+
+* objetivos
+
+- como trabalhar com imagens
+- manipulando pixels
+
+* fundamentos
+
+Vimos como as imagens são armazenadas em um computador. Vamos praticar
+com um arquivo BMP, na verdade, o rosto sorridente mostrado abaixo,
+você irá alterar todos os pixels pretos para uma cor da sua escolha.
+
+[[file:../img/smiley_spec_image.png]]
+
+O rosto sorridente com o qual você trabalhará não é feito apenas de 0
+e 1 ou pixels preto e branco, mas consiste em 24 bits por pixel. Ele
+usa oito bits para representar valores de vermelho, oito bits para
+verde e oito bits para azul. Como cada cor usa oito bits ou um byte,
+podemos usar um número no intervalo de 0 a 255 para representar seu
+valor de cor. Em hexadecimal, isso é representado por 0x00 a 0xff. Ao
+misturar esses valores de vermelho, verde e azul, podemos criar
+milhões de cores possíveis.
+
+O arquivo =bmp.,h= é um dos arquivos auxiliares no código de
+distribuição. Nele você verá que cada tripla RGB é representada por
+uma estrutura como:
+
+#+begin_src C
+  typedef struct
+  {
+    BYTE rgbtBlue;
+    BYTE rgbtGreen;
+    BYTE rgbtRed;
+  } RGBTRIPLE;
+#+end_src
+
+onde BYTE é definido como um inteiro de 8 bits.
+
+Você irá notar vários arquivos para lidar com a leitura e gravação de
+um arquivo de imagem, bem como lidar com os metadados ou "cabeçalhos"
+da imagem. Você estará completando a função colorize em helpers.c, que
+já tem como parâmetros de entrada a altura e largura da imagem e um
+array bidimensional de RGBTRIPLEs com a imagem propriamente dita.
+
+Se salvarmos o primeiro pixel da imagem com =RGBTRIPLE pixel =
+image[0][0]=, então podemos acessar as cores individualmente com
+=pixel.rgbtBlue=, =pixel.rgbtGreen=, e =pixel.rgbtRed=.
+
+
+* detalhes para implementação
+
+Abra o arquivo =helpers.c= e observe que a função =colorize= está
+incompleta. Observe que a altura e a largura da imagem e um array
+bidimensional de pixels são configurados como parâmetros de entrada
+para esta função. Você deve implementar esta função para alterar todos
+os pixels pretos na imagem para uma cor de sua escolha.
+
+Você pode compilar seu código simplesmente digitando make no prompt.
+
+#+begin_example
+$ make
+#+end_example
+
+Você então executa o programa digitando:
+
+#+begin_example
+$ ./colorize smiley.bmp out.bmp
+#+end_example
+
+onde =out.bmp= é o nome do novo bmp que você está criando.
+
+* para pensar
+
+- Como você representar um pixel preto em um arquivo BMP com 24 bits
+  por cor?
+- Isso é o mesmo ou algo diferente de misturar tintas para representar
+  várias cores?

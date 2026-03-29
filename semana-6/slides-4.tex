@@ -1,0 +1,256 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ merge sort}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Ordenação (sort)}
+
+  Dado uma lista de valores, possívelmente desordenada, queremos
+  escrever um algorítmo que ordena esta lista, segundo algum critério.
+
+  Por exemplo, para a lista
+  \[
+    [ 6 \; 3 \; 8 \; 5 \; 2 \; 7 \; 4 \; 1 ]
+  \]
+  queremos produzir
+  \[
+    [ 1 \; 2 \; 3 \; 4 \; 5 \; 6 \; 7 \; 8 ]
+  \]
+
+  \framebreak
+
+  Vamos considerar dois algorítmos para esta tarefa:
+
+  \begin{itemize}
+  \item selection sort
+  \item bubble sort
+  \item \emph{merge sort}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Merge sort}
+
+  O \emph{merge sort} é um algorítmo recursivo para ordenação. 
+
+  Composto de duas etapas: \emph{divisão} e \emph{merge}. Na divisão,
+  o array inicial é dividido em duas metades e o algorítmo se chama
+  para ordenar as metades.
+
+  No merge, dois arrays ordenados são linearmente juntados em um único
+  array também ordenado.
+
+  \framebreak
+
+  \begin{lstlisting}[style=code]
+    function merge_sort(a[1...n])
+      if n > 1:
+       x = merge_sort(a[1...n/2])
+       y = merge_sort(a[n/2+1...n])
+       return merge(x,y)
+      else:
+       return a
+
+    function merge(x[1...k],y[1...l])
+     if k == 0: return y[1...l]
+     if l == 0: return x[1...k]
+     if x[1] < y[1]:
+      return x[1] . merge(x[2...k,y[1...l])
+     else:
+      return y[1] . merge(x[1...k,y[2...l])
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{center}
+    \includegraphics[width=.7\textwidth]{sort-merge.png}
+  \end{center}
+
+  \framebreak
+
+  Juntar duas listas ordenadas pode ser feito em tempo $O(n)$ onde $n$
+  é o tamanho da lista resultante.
+
+  A quantidade de passos é definida de forma recursiva, $n$ elementos
+  geram duas ordenações de $n/2$ e mais um custo linear para o
+  \emph{merge}.
+  
+  \[
+    T(n) = 2T(\frac{n}{2}) + O(n)
+  \]
+
+  Complexidade é $O(n \log n)$. Por que? Pelo
+  \href{https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)}{teorema
+      mestre}.
+      
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{A função \texttt{merge}}
+
+  \begin{lstlisting}[style=code]
+    2 4 5 7 | 0 1 3 6
+
+    2 4 5 7 | 0 1 3 6
+    ^         ^
+
+    2 4 5 7 |   1 3 6
+    ^           ^
+    0
+
+    2 4 5 7 |     3 6
+    ^             ^
+    0 1
+
+    4 5 7 |     3 6
+    ^           ^
+    0 1 2
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/merge.c]
+    void merge (int ns[], int l, int m, int u) {
+      int t[u - l + 1];
+      for (int k = 0, a = l, b = m + 1;
+           k < (u - l + 1);
+           k++) {
+        t[k] =         a > m ? ns[b++] // empty left
+             :         b > u ? ns[a++] // empty right
+             : ns[a] < ns[b] ? ns[a++] // take left 
+             : ns[b++];                // take right
+      }
+      
+      for (int i = l; i <= u; i++)
+       ns[i] = t[i - l];
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{A função \texttt{merge\_sort}}
+
+  \begin{lstlisting}[style=code]
+    5 2 7 4 | 1 6 3 0
+
+    5 2 | 7 4
+
+    5 | 2
+
+    (podemos juntar)
+
+    2 5 
+  \end{lstlisting}
+
+  Recursivamente divide o array passado em duas metades.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/merge.c]
+    void merge_sort (int a[], int i, int j) {
+      if ((j - i) == 0)
+        return;
+      
+      int m = (i + j) / 2;
+      merge_sort(a, i, m);
+      merge_sort(a, m + 1, j);  
+      merge(a, i, m, j);
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  O que fizemos diferente do pseudo-código?
+
+  Ao invés de `retornar' arrays, alteramos os arrays passados.
+
+  O \emph{merge} poderia ser feito `in place', isto é, sem uso de
+  memória extra? Se array de entrada tivesse $10^{200}$ posições?
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{Conclusão}
+
+  Existem outros algorítmos de ordenação.
+
+  Um site interessante de algorítmos e implementações em várias
+  linguagens de programação é o \url{http://rosettacode.org}.
+
+  Podemos
+  \href{https://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html}{visualizar}
+  e comparar o desempenho dos algorítmos.
+
+  Linguages de programação variam em diversos aspectos, como o foco em
+  abstrações de alto nível versus controle preciso de recursos.
+
+  \framebreak
+
+  \begin{lstlisting}[style=code,language=Haskell,basicstyle=\ttfamily\tiny]
+  merge :: Ord a => [a] -> [a] -> [a]
+  merge [] ys = ys
+  merge xs [] = xs
+  merge xs@(x:xt) ys@(y:yt)
+   | x <= y    = x : merge xt ys
+   | otherwise = y : merge xs yt
+
+  split :: [a] -> ([a], [a])
+  split []  = ([],[])      
+  split [x] = ([x],[])
+  split (x:y:zs) = (x:xs,y:ys)
+   where (xs,ys) = split zs
+
+  -- >>> split [1,2,3]
+  -- ([1,3],[2])
+
+  mergeSort :: Ord a => [a] -> [a]
+  mergeSort []  = []
+  mergeSort [x] = [x]
+  mergeSort xs  = merge (mergeSort as) (mergeSort bs)
+   where (as,bs) = split xs
+
+  -- >>> mergeSort [1,2,4,3]
+  -- [1,2,3,4]
+  \end{lstlisting}
+
+  \framebreak
+
+  Programadores \href{http://haskell.org}{Haskell} adoram abstração (e
+  tipos, funções, variáveis imutáveis, pattern matching \ldots).
+   
+  Mas o código Haskell faz exatamente a mesma coisa que o código C?
+
+  Programadores C adoram controle preciso de recursos!
+
+  \framebreak
+
+  \begin{quote}
+    ``The real problem is that programmers have spent far too much
+    time worrying about efficiency in the wrong places and at the
+    wrong times; premature optimization is the root of all evil (or
+    at least most of it) in programming.''
+  \end{quote}
+  \flushright{\emph{The Art of Computer Programming}, Donald Knuth}
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

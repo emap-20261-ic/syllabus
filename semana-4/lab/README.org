@@ -1,0 +1,32 @@
+#+title: Laboratório 6
+
+* Conteúdo programatico
+
+- uso de ponteiros em C
+
+* Objetivos
+
+1. praticar o uso de ponteiros
+
+* Atividade 1 (40 minutos)
+
+revisão sobre
+
+- números hexadecimais
+- declaração de ponteiros
+- uso do operador * e &
+
+* Atividade 2 (20 minutos)
+
+- a turma resolve o problema basic
+- corrigir e explicar
+  
+* Atividade 3 (20 minutos)
+
+- a turma resolve o problema fatorial
+- corrigir e explicar
+  
+* Atividade 4 (40 minutos)
+
+- a turma resolve o problema smiley
+- corrigir e explicar

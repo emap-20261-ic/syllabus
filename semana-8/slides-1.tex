@@ -1,0 +1,154 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\input{../helper}
+
+\title{Introdução à Computação \\ redimencionando arrays}
+\author{Alexandre Rademaker}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+ \maketitle
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{arrays}
+
+  Um array é uma porção contínua na memória ocupada por segmentos de
+  igual tamanho, logo mesmo tipo.
+
+  Quando criamos um array, definimos sua capacidade de armazenamento,
+  isto é, seu tamanho.
+
+  {\color{red} Lembrem-se} que em C tentar acessar uma posição além do
+  limite do array não gera erro!
+
+  Mas e se no decorrer da computação precisamos de mais espaço?
+
+  \framebreak
+
+  Temos duas possibilidades.
+
+  Alocar um espaço maior do que o necessário de início, eventualmente
+  desperdiçando espaço. Mas precisamos definor o pior caso, o máximo
+  que ``podemos precisar''.
+
+  Quando o limite for atingido, criar um novo e maior array, copiar os
+  valores para o novo array.
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{redimencionando arrays}
+
+  Usando alocação estática 
+
+  \begin{lstlisting}[style=normalc,caption=src/list0.c]
+    int list[3];
+    list[0] = 1; list[1] = 2; list[2] = 3;
+    
+    // ops! I need 10 slots
+    
+    int new[10];
+    for (int i = 0; i < 10; i++) 
+      new[i] = i < 3 ? list[i] : 0;
+  \end{lstlisting}
+
+  \framebreak
+
+  Se quisermos alocar o array no \textbf{heap} 
+
+  \begin{lstlisting}[style=normalc,caption=src/list1.c]
+    int *list = malloc(3 * sizeof(int));
+    if (list == NULL) return 1;
+    
+    list[0] = 1; list[1] = 2; list[2] = 3;
+
+    // ops! I need 10 slots
+    
+    int *new = malloc(10 * sizeof(int));
+    if (new == NULL) { free(list); return 1; }
+    
+    for (int i = 0; i < 10; i++) 
+      new[i] = i < 3 ? list[i] : 0;
+
+    free(list); // important
+    list = new;  
+  \end{lstlisting}
+
+  \framebreak
+
+  Usando alocação estática, não podemos renomear um array
+
+  {\color{red} \texttt{list = new;}}
+
+  para isso precisamos de ponteiros. Em \texttt{list0.c} vejamos como
+  a memória é ocupada.
+
+  Após transferir valores, com ponteiros, precisamos lembrar de
+  liberar a memória antes de 'atualizar' o ponteiro.
+
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]{redimencionando arrays}
+
+  Mas o processo pode ser simplificado com
+  \href{https://linux.die.net/man/3/realloc}{realloc} da biblioteca
+  \texttt{stdlib.h}, vide \texttt{man 3 realloc}.
+
+  \texttt{void *realloc(void *ptr, size\_t size);}
+
+  O tipo \texttt{size\_t} é definido como {\color{teal} \texttt{unsigned integer}}.
+
+  Mas atenção, as novas posições podem não ser `zeradas'.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=src/list2.c]
+    int *list = malloc(3 * sizeof(int));
+    if (list == NULL)
+      return 1;
+
+    list[0] = 1; list[1] = 2; list[2] = 3;
+
+    list = realloc(list, 10 * sizeof(int));
+    if (list == NULL) {
+     free(list); return 1;
+    }
+
+    for (int i = 3; i < 10; i++)
+      list[i] = 0;
+
+    free(list); return 0;
+  \end{lstlisting}
+  
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{operações com arrays}
+
+  Para recuperar o valor de índice $n$ (acesso aleatório) no array, a
+  complexidade é $O(1)$.
+
+  Se o array estiver ordenado, a complexidade de localizar se um valor
+  existe no array é $O(\log n)$ (digamos que queremos adicionar um
+  elemento que não exista).
+
+  E temos um tempo $O(n)$ para adicionar um novo valor (copiando um
+  por um para uma nova região) se o array estiver 'lotado'.
+
+  O melhor caso, para inserção e pesquisa têm $\Omega(1)$, se
+  encontrarmos o valor imediatamente na primeira posição, ou ter
+  memória livre após nosso array para adicionar um novo valor.
+
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
