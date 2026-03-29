@@ -37,7 +37,7 @@ void exibirMenu() {
     printf("Escolha uma opção: ");
 }
 
-int main() {
+int main(void) {
     int opcao;
     do {
         exibirMenu();

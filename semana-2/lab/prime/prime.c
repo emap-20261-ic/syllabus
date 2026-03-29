@@ -6,7 +6,7 @@ typedef char* string;
 bool prime(int number);
 int get_int(string prompt);
 
-int main() {
+int main(void) {
   
   int min, max;
   

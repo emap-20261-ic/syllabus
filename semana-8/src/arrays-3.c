@@ -24,7 +24,7 @@ int* generate_array2() {
   return arr;
 }
 
-int main() {
+int main(void) {
   int a[] = {1,2,3,4,5,6,7,8,9,10};
 
   int r = search(a, 10, 3); // search for value 3

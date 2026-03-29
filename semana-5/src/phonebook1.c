@@ -9,7 +9,7 @@ typedef struct {
   char telefone[50];
 } person;
 
-int main() {
+int main(void) {
 
   person a = { "Eduardo", 12, "+85 1234" };
   

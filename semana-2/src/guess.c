@@ -2,7 +2,7 @@
 
 #define target 10
 
-int main() {
+int main(void) {
   int r, n = 0;
   
   do {

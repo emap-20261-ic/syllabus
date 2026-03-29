@@ -5,7 +5,7 @@ void meow(int n) {
     printf("meow\n");
 }
 
-int main() {
+int main(void) {
   meow(3);
 }
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int main() {
+int main(void) {
 
     FILE *file = fopen("input.txt", "r");
     if (file == NULL) {

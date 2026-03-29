@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main() {
+int main(void) {
   // Pi constant
   const double PI = 3.141592;
   double radius;

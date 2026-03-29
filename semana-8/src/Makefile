@@ -1,5 +1,5 @@
 
-OPT=-Wall -O0 -Qunused-arguments -std=c11 
+OPT=-Wall -O0 -Qunused-arguments -std=c17
 COMPILER=gcc
 
 all: test

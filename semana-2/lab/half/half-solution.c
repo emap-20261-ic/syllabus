@@ -12,7 +12,7 @@ int   get_int(string prompt);
 
 // main code
 
-int main() {
+int main(void) {
 
   float bill_amount = get_float("bill total: ");
   float tax_percent = get_float("tax percent: ");
