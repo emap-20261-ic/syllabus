@@ -472,10 +472,6 @@
 
 \begin{frame}[allowframebreaks,fragile]{exemplos}
   
-  \lstinputlisting[style=normalc,caption=src/address00.c]{src/address00.c}
-
-  \framebreak
-
   O que fizemos foi preencher uma dada posição de memória, que tem um
   endereço associado, com o valor 50.
 
@@ -504,22 +500,8 @@
     \includegraphics[width=.65\textwidth]{p.png}    
   \end{center}
 
-  (note que \ilcode{p} também tem um endereço!)
-
-  \framebreak
-
-  Observe que \ilcode{p} ocupa 8 bytes (64 bits).
-
-  Em computadores/SO modernos, 64 bits são usados para endereçar os
-  bytes de memória disponíveis (na verdade mais do que podemos
-  efetivamente construir):
-
-  \[
-    2^{64} = 18.446.744.073.709.551.616 = 16\ exibytes
-  \]
-
-  Com 4 bytes (32 bits), só poderíamos contar até cerca de 4 bilhões
-  ($2^{32} = 4.294.967.296$), ou cerca de 4 GB de memória.
+  Note que \ilcode{p} também tem um endereço! Observe que \ilcode{p}
+  ocupa 8 bytes (64 bits).
   
 \end{frame}
 
