@@ -17,10 +17,9 @@ void print_bits(unsigned char x) {
 
 bool valid(string password) {
 
-  /* Vou usar 4 bits para determinar as condições necessárias da
-   senha. Sejam os bits ABCD. O bit A indicará a presença de uma letra
-   maiuscula. O bit B indicará a presença de uma letra minúscula. O
-   bit C de um algarismo. O bit D de um símbolo qualquer. */
+  /* Use 4 bits to track the required password conditions (ABCD):
+     bit A: uppercase letter present; bit B: lowercase letter present;
+     bit C: digit present; bit D: symbol present. */
   unsigned char condition = 0b0000;
 
   for(int i = 0; password[i] != '\0'; i++) {
@@ -44,14 +43,14 @@ int main(void) {
 
   char str[100];
   
-  printf("Entre sua senha (sem espaços): ");
+  printf("Enter your password (no spaces): ");
   scanf("%s", str);
   
   if (valid(str)) {
-    printf("Sua senha é forte! Parabéns!\n");
+    printf("Strong password!\n");
   }
   else {
-    printf("Sua senha é fraca! Tente novamente.\n");
+    printf("Weak password! Try again.\n");
   }
   return 0;
 }

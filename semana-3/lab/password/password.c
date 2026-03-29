@@ -15,14 +15,14 @@ int main(void) {
 
   char str[100];
   
-  printf("Entre sua senha (sem espaços): ");
+  printf("Enter your password (no spaces): ");
   scanf("%s", str);
   
   if (valid(str)) {
-    printf("Sua senha é forte! Parabéns!\n");
+    printf("Strong password!\n");
   }
   else {
-    printf("Sua senha é fraca! Tente novamente.\n");
+    printf("Weak password! Try again.\n");
   }
 
   return 0;

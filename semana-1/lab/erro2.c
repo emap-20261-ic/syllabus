@@ -1,7 +1,7 @@
-// Erro: falta do #include
+// Error: missing #include
 
 int main(void)
 {
-    printf("Bem-vindo ao curso!\n");
+    printf("Welcome to the course!\n");
     return 0;
 }

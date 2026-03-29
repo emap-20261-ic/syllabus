@@ -6,6 +6,6 @@ int main(void) {
   int y = 2.0E1;
   int z = x + y;
 
-  // produz a soma
+  // compute the sum
   printf("%d + %d = %d\n", x, y, z);
 }

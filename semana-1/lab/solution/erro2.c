@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    printf("Bem-vindo ao curso!\n");
+    printf("Welcome to the course!\n");
     return 0;
 }

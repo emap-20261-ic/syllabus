@@ -1,4 +1,4 @@
-#+title: Laboratório 1
+#+title: Laboratório 0
 
 * Conteúdo programático
 

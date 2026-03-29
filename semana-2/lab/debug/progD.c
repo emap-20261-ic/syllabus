@@ -6,6 +6,6 @@ int main(void)
     z = x + y
     y = 2.0E1
       
-    // produz a soma
+    // compute the sum
     print("%d + %f = %c\n", z)
 }

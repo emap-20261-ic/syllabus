@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-/* o codigo deve imprimir duas linhas, uma contendo 'Line 1' e outra
-   contendo 'Line 2' */
+/* the code should print two lines: 'Line 1' and 'Line 2' */
 
 int main(void) {
   

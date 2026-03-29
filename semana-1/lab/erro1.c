@@ -1,9 +1,9 @@
-// Erro: falta de ponto-e-vírgula
+// Error: missing semicolon
 
 #include <stdio.h>
 
 int main(void)
 {
-    printf("Olá, mundo!\n")
+    printf("Hello, world!\n")
     return 0;
 }

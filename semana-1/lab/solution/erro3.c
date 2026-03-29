@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    printf("Introdução à Computação\n");
+    printf("Introduction to Computing\n");
     return 0;
 }

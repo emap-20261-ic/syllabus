@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-/* o codigo deve imprimir a metade de x somado a 10 */
+/* the code should print half of x plus 10 */
 
 int main(void) {
 

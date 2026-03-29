@@ -20,31 +20,31 @@ Seu programa deverá se comportar assim:
 > clang hours.c
 
 > ./a.out
-número de semanas: 2
-semana 1: 1
-semana 2: 2
-entre T ou M: t
+number of days: 2
+day 1: 1
+day 2: 2
+enter T or M: t
 3.0 hours
 
 > ./a.out
-número de semanas: 2
-semana 1: 1
-semana 2: 2
-entre T ou M: M
+number of days: 2
+day 1: 1
+day 2: 2
+enter T or M: M
 1.5 hours
 
 > ./a.out
-número de semanas: 2
-semana 1: 1
-semana 2: 2
-entre T ou M: y
-entre T ou M: m
+number of days: 2
+day 1: 1
+day 2: 2
+enter T or M: y
+enter T or M: m
 1.5 hours
 #+end_example
 
 * detalhes
 
-A função =main= solicita ao usuário o número de semanas e, em seguida,
+A função =main= solicita ao usuário o número de dias e, em seguida,
 cria um =array= do tamanho adequado. Observe que, após recuperar
 alguns dados, o programa solicita que o usuário digite =T= (para total
 de horas) ou =M= (para média). Observe que o loop do =while= usa

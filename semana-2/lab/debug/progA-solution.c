@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-/* o codigo deve imprimir o dobro de 10 */
+/* the code should print twice the value of 10 */
 
 int main(void) {
 

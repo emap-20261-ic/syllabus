@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-/* o codigo deve imprimir a soma de x e y */
+/* the code should print the sum of x and y */
 
 int main(void) {
 

@@ -35,20 +35,20 @@ Por que você acha que existem diferentes tipos de dados em C?
 
 #+begin_example
 $ ./half
-total da nota: 12.50
-percentual de imposto: 8.875
-percentual de gorgeta: 20
-valor individual: $8.17
+bill total: 12.50
+tax percent: 8.875
+tip percent: 20
+individual amount: $8.17
 
 $ ./half
-total da nota: 23.50
-percentual de imposto: 7  
-percentual de gorgeta: 15
-valor individual: $14.46 
+bill total: 23.50
+tax percent: 7
+tip percent: 15
+individual amount: $14.46
 
 $ ./half
-total da nota: 100
-percentual de imposto: 6.25
-percentual de gorgeta: 18
-valor individual: $62.69 
+bill total: 100
+tax percent: 6.25
+tip percent: 18
+individual amount: $62.69
 #+end_example

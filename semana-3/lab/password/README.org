@@ -18,16 +18,16 @@ Seu programa deve ser comportar da seguinte maneira:
 
 #+begin_example
 % ./a.out
-Entre sua senha (sem espaços): hello
-Sua senha é fraca! Tente novamente.
+Enter your password (no spaces): hello
+Weak password! Try again.
 
 % ./a.out
-Entre sua senha (sem espaços): h3ll(
-Sua senha é fraca! Tente novamente.
+Enter your password (no spaces): h3ll(
+Weak password! Try again.
 
 % ./a.out
-Entre sua senha (sem espaços): h3LL0!
-Sua senha é forte! Parabéns!
+Enter your password (no spaces): h3LL0!
+Strong password!
 #+end_example
 
 * detalhes
@@ -37,7 +37,7 @@ usuário. Como você precisa encontrar pelo menos uma letra minúscula,
 uma letra maiúscula, um número e um símbolo, convém criar uma variável
 booleana para cada condição e definir cada variável como =false= antes
 de iterar na string. Se você encontrar um número, por exemplo, pode
-definir a variávbel booleana que indica presença de número como
+definir a variável booleana que indica presença de número como
 =true=. Se todos os booleanos forem verdadeiros no final da função,
 isso significa que todos os critérios foram atendidos e você
 retornaria =true=. Talvez você possa otimizar ainda. Você pode

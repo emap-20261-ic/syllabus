@@ -43,12 +43,12 @@ Instale e configure as ferramentas necessárias para o curso:
    sudo apt install build-essential
    ```
 
-4. **Teste**: compile e execute o programa `hello0.c`:
+4. **Teste**: compile e execute o programa `hello.c`:
 
    ```bash
    cd semana-1/src
-   make hello0
-   ./hello0
+   make hello
+   ./hello
    ```
 
    Você deve ver `hello, world` na tela. Experimente com outros
@@ -135,9 +135,9 @@ Responda:
 
 Para quem terminar antes, explore as etapas da compilação:
 
-1. Gere o código assembly do `hello0.c`:
+1. Gere o código assembly do `hello.c`:
    ```bash
-   cd semana-2/src
+   cd semana-1/src
    clang -S hello.c
    cat hello.s
    ```

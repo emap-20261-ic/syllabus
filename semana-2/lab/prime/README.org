@@ -2,9 +2,9 @@
 
 * objetivos
 
-- Practice using for loops
-- Using modulo
-- Creating a Boolean function
+- praticar o uso de laços =for=
+- usar o operador módulo
+- criar uma função booleana
 
 * contexto
 

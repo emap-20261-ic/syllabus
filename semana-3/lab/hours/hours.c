@@ -18,18 +18,18 @@ int get_int(string prompt) {
 
 int main(void) {
   
-    int weeks = get_int("número de semanas: ");
+    int weeks = get_int("number of days: ");
     int hours[weeks];
 
     char buffer[100];
     for (int i = 0; i < weeks; i++) {
-      sprintf(buffer, "semana %d: ", i+1);
+      sprintf(buffer, "day %d: ", i+1);
       hours[i] = get_int(buffer);
     }
 
     char output, c;
     do {
-      printf("entre T ou M: ");
+      printf("enter T or M: ");
 
       // discard
       while((c = getchar()) != '\n' && c != EOF) ;

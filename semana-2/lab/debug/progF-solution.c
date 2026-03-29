@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 
-/* o codigo deve imprimir 'hello, world' */
+/* the code should print 'hello, world' */
 
 int main(void) {
   printf("hello, world");

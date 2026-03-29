@@ -1,10 +1,10 @@
-// Erro: chave de fechamento faltando
+// Error: missing closing brace
 
 #include <stdio.h>
 
 int main(void)
 {
-    printf("Primeira linha\n");
-    printf("Segunda linha\n");
+    printf("First line\n");
+    printf("Second line\n");
     return 0;
 

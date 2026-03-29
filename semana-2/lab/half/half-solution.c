@@ -14,11 +14,11 @@ int   get_int(string prompt);
 
 int main() {
 
-  float bill_amount = get_float("total da nota: ");
-  float tax_percent = get_float("percentual de imposto: ");
-  int   tip_percent =   get_int("percentual de gorgeta: ");
-  
-  printf("valor individual: $%.2f\n",
+  float bill_amount = get_float("bill total: ");
+  float tax_percent = get_float("tax percent: ");
+  int   tip_percent =   get_int("tip percent: ");
+
+  printf("individual amount: $%.2f\n",
 	 half(bill_amount, tax_percent, tip_percent));
 
 }

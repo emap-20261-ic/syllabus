@@ -1,5 +1,5 @@
 
-/* o codigo deve imprimir 'hello, world' */
+/* the code should print 'hello, world' */
 
 int main(void){print("hello, world"); return 0;
 }

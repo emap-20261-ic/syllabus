@@ -1,4 +1,4 @@
-#+title: Laboratório 2
+#+title: Laboratório 3
 
 * Conteúdo programático
 
@@ -26,14 +26,14 @@ divisão de inteiros e conversão de tipos.
 
 [[file:hours/README.org]]
 
-* Atividade 2 (30 minutos)
+* Atividade 3 (30 minutos)
 
 praticar o uso de strings, praticar o uso de argumentos da linha de
 comando. Escrever um programa a partir do zero.
 
 [[file:vowels/README.org]]
 
-* Atividade 3 (30 minutos)
+* Atividade 4 (30 minutos)
 
 praticar com strings, praticar o uso da biblioteca =ctype.h= e de 
 variáveis booleanas.

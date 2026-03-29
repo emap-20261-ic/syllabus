@@ -1,9 +1,9 @@
-// Erro: string não fechada
+// Error: unclosed string
 
 #include <stdio.h>
 
 int main(void)
 {
-    printf("Introdução à Computação\n);
+    printf("Introduction to Computing\n);
     return 0;
 }
