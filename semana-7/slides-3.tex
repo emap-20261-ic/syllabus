@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \input{../helper}
 
-\title{Introdução à Computação \\ lendo e escrevendo em arquivos}
+\title{Introdução à Computação \\ debugando erros na gerência de memória}
 \author{Alexandre Rademaker}
 \date{}
 
@@ -13,108 +13,73 @@
  \maketitle
 \end{frame}
 
+\begin{frame}[fragile,allowframebreaks]{debugging}
 
-\begin{frame}[allowframebreaks,fragile]{scanf}
+  \lstinputlisting[style=tinyc,caption=src/memory.c]{src/memory.c}
 
-  \ilcode{scanf} recebe uma string template que contém designadores de
-  tipos como \ilcode{\%i}, então a entrada padrão (STDIN) é lida até
-  que o padrão seja reconhecido.
-
-  Par cada designador mencionado no template, um parâmetro adicional
-  deve ser passado, um endereço para um tipo compatível com o
-  designador.
-
-  \ilcode{scanf} deverá efetivamente modificar o endereço indicado,
-  preenchendo o valor lido, ou seja precisamos passar uma
-  'referência'.
+  Temos o que chamamos de `memory leak'. Como detectar estes
+  vazamentos?
 
   \framebreak
 
-  \lstinputlisting[style=tinyc,caption=scanf1.c]{src/scanf1.c}
+  Leaks no MacOS\\
+  \url{https://youtu.be/bhhDRm926qA}
 
-  Veja o \ilcode{bus error}! Não alocamos memória para armazenar o
-  valor lido. Mas como fazer isso? Qual tamanho devemos alocar?
+  Valgrind e GDB no Linux \\
+  \url{https://youtu.be/8JEEYwdrexc}
 
-  \framebreak
-
-  \lstinputlisting[style=tinyc,caption=src/scanf2.c]{src/scanf2.c}
-
-  \ldots ou seja, usar \ilcode{scanf} para ler strings pode ser
-  perigoso! 
+  Ferramentas dependem do sistema operacional, versão do compilador e
+  dialeto da linguagem sendo usado. Muita documentação em
+  \url{https://clang.llvm.org}.
 
   \framebreak
 
-  \lstinputlisting[style=tinyc,caption=src/scanf3.c]{src/scanf3.c}
+  No MacOS
 
-  e ainda existem \ilcode{fgets} e \ilcode{gets}.  No MacOS ou Linux,
-  use as \textbf{man pages} com \ilcode{man gets}.
-
-\end{frame}  
-
-
-\begin{frame}[allowframebreaks,fragile]{lendo e escrevendo em arquivos}
-
-  Todas as principais funções para ler e escrever em arquivos ficam na
-  biblioteca \ilcode{stdio.h}.
-
-  As funções mais comuns são: \ilcode{fopen}, \ilcode{fclose},
-  \ilcode{fgetc}, \ilcode{fputc}, \ilcode{fread}, \ilcode{fwrite},
-  \ilcode{fscanf}, \ilcode{fprintf}.
-
-  \framebreak
-
-  Veja arquivo phonebook.c
-  % \lstinputlisting[style=tinyc,caption=src/phonebook.c]{src/phonebook.c}
-
-  A função \ilcode{fopen}, o tipo \ilcode{FILE} e \ilcode{fprintf} é a
-  versão de \ilcode{printf} que escreve em um arquivo.
-
-  \framebreak
-
-  antes
-
-  \begin{lstlisting}[style=code,caption=phonebook.csv,autogobble]
-  name,number
+  \begin{lstlisting}[style=code]
+  clang -g -I/usr/local/include memory.c -lm -o memory
+  leaks --list --atExit -- ./memory
+  export MallocStackLogging=1
+  leaks --list --atExit -- ./memory
+  unset MallocStackLogging
   \end{lstlisting}
+ 
+  Linha 1 adiciona a chamada do compilador o parâmetro \ilcode{-g}. A
+  linha 3 declara uma variável de ambiente que nos permite encontrar a
+  posição do vazamento (linha do código).
+   
+\end{frame}
 
-  depois
 
-  \begin{lstlisting}[style=code,caption=phonebook.csv,autogobble]
-    name,number
-    Alexandre Rademaker,+55 21 12345
-  \end{lstlisting}
+\begin{frame}[allowframebreaks,fragile]{lixo na memória}
+
+  Vejam isso
+
+  \lstinputlisting[style=tinyc,caption=src/garbage0.c]{src/garbage0.c}
+
+  Que valores serão impressos?
 
   \framebreak
 
-  Podemos ler arquivos \href{https://www.file-recovery.com/jpg-signature-format.htm}{jpeg}
+  Vamos examinar este código
 
-  \lstinputlisting[style=tinyc,caption=jpeg.c,autogobble]{src/jpeg.c}
+  \lstinputlisting[style=tinyc,caption=src/garbage1.c]{src/garbage1.c}
 
-  \framebreak
-
-  O formato \href{https://en.wikipedia.org/wiki/BMP_file_format}{BMP}
-  é outro formato popular para armazenar imagens. 
-
-  \begin{lstlisting}[style=tinyc,autogobble,caption=src/filter]
-    #include "helpers.h"
+  Quais erros temos aqui? \href{https://www.youtube.com/watch?v=3uLKjb973HU}{\ldots uma dica}
   
-    void filter(int height, int width, RGBTRIPLE image[height][width])
-    {
-      // Loop over all pixels
-      for (int i = 0; i < height; i++)
-      {
-        for (int j = 0; j < width; j++)
-        {
-          image[i][j].rgbtBlue = 0x00;
-          image[i][j].rgbtGreen = 0x00;
-        }
-      }
-    }
-  \end{lstlisting}
+\end{frame}
 
-  A função acima percorre todos os pixels em um array bidimensional
-  e define os valores de azul e verde como 0.
-  
+
+\begin{frame}{Problemas comuns}
+
+  \begin{description}
+  \item[heap overflow] se usarmos \ilcode{malloc} para pedir muita memória
+  \item[stack overflow] se chamarmos muitas funções em cadeia sem
+    retornar delas (tipicamente funções recursivas que se chamam)
+  \end{description}
+
+  Veja também \href{https://en.wikipedia.org/wiki/Buffer_overflow}{buffer overflow}.
+   
 \end{frame}
 
 \end{document}

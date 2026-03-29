@@ -1,67 +1,27 @@
 /*
-- mais operacoes
-- integer overflow: int ~> long
-- comportamento scanf
-- codigos de erro
-*/
-
+ * Divisão inteira e imprecisão de ponto flutuante.
+ *
+ * Pontos a destacar:
+ * - int / int = int (truncado): a divisão ocorre ANTES da conversão para float
+ *   float z = 2 / 3 → z = 0.0 (não 0.666...)
+ * - solução: cast explícito antes da divisão:
+ *   float z = (float) x / (float) y;
+ *   basta um operando ser float para a divisão ser float
+ * - testar com x=2, y=3 → saída mostra imprecisão de ponto flutuante:
+ *   0.66666668... (não 0.66666666...)
+ * - isso não é bug: é a limitação do IEEE 754 (representação binária finita)
+ * - a linha comentada mostra a correção com cast
+ */
+// division with integers, demonstrating truncation
 #include <stdio.h>
-#include <stdlib.h>
-
-int soma(int a, int b);
-int subtracao(int a, int b);
-int calc(char op, int a, int b, int* result);
 
 int main(void)
 {
-  int x = 0, y = 0, result = 0;
-  char op = 'a';
+  int x, y;
 
-  // get input data
+  printf("x: "); scanf("%d", &x);
+  printf("y: "); scanf("%d", &y);
 
-  printf("x: ");
-  scanf("%d", &x);
-  
-  printf("y: ");
-  scanf("%d", &y);
-
-  printf("operacao [a|s]: ");
-  scanf(" %c", &op);
-
-  // validating and processing
-  int status = calc(op, x, y, &result);
-  if (status == 0){
-    printf("result = %d\n", result);
-    return EXIT_SUCCESS;
-  }
-  else { 
-    printf("Invalid Operation\n");
-    return EXIT_FAILURE;
-  }
-
-}
-
-int calc(char op, int a, int b, int* r){
-  switch (op) {
-  case 'a': case 'A':
-    *r = soma(a, b);
-    break;
-
-  case 's': case 'S':
-    *r = subtracao(a, b);
-    break;
-
-  default:
-    return 1;
-  }
-  return 0;
-}
-
-
-int soma(int a, int b) { 
-  return a + b;
-}
-
-int subtracao(int a, int b) {
-  return a - b;
+  float z = (int) x / (float) y;
+  printf("%f\n", z);
 }
