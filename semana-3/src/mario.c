@@ -8,7 +8,7 @@ int get_size(void);
 void print_grid(int n);
 
 
-int main() {
+int main(void) {
   int n = get_size();
   print_grid(n);
 }

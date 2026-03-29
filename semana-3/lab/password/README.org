@@ -5,7 +5,7 @@ triviais. Vários aplicativos e sites exigem senhas que não tenham
 apenas caracteres alfabéticos, mas também tenham números e símbolos.
 
 Neste projeto, o usuário irá passar uma senha. O programa então irá
-validar a senha usando a função =check= que você irá completar.
+validar a senha usando a função =valid= que você irá completar.
 
 Se a senha contiver pelo menos um caractere maiúsculo, um caractere
 minúsculo, um número e um símbolo (qualquer símbolo printável
@@ -46,11 +46,37 @@ de verificar todos os caracteres da string. Finalmente, você pode
 armazenar em uma única variável vários bits. E pode usar [[https://en.wikipedia.org/wiki/Bitwise_operations_in_C][operações
 bitwise]].
 
-dicas:
+* a biblioteca =<ctype.h>=
 
-- a biblioteca =ctype= tem algumas funções muito úteis para
-  identificar o tipos de caracteres.
+A biblioteca padrão =<ctype.h>= oferece funções para classificar
+caracteres. Cada função recebe um =int= (o código ASCII do caractere)
+e retorna um valor não-zero se a condição for verdadeira, zero caso
+contrário. Você já viu =isdigit= em sala de aula (=mario3.c=). As
+demais seguem o mesmo padrão:
 
-- variáveis booleanas podem ser usadas para armazenar critérios para
-  execução dos programas.
+| função       | verdadeiro quando...                    |
+|--------------+-----------------------------------------|
+| =isupper(c)= | =c= é letra maiúscula (A–Z)             |
+| =islower(c)= | =c= é letra minúscula (a–z)             |
+| =isdigit(c)= | =c= é dígito (0–9)                      |
+| =isalpha(c)= | =c= é letra                             |
+| =isalnum(c)= | =c= é letra ou dígito                   |
+| =isgraph(c)= | =c= é caractere imprimível (não espaço) |
+
+Uso típico:
+
+#+begin_src c
+#include <ctype.h>
+
+if (isupper(c))
+    // c é maiúscula
+#+end_src
+
+* dicas
+
+- use as funções de =<ctype.h>= para classificar cada caractere da
+  senha.
+
+- variáveis booleanas podem ser usadas para registrar se cada
+  critério já foi satisfeito.
   

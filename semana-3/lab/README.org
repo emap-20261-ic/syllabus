@@ -3,17 +3,16 @@
 * Conteúdo programático
 
 - uso de arrays
-- compilação de programas C
-- debug de erros
 - uso de strings
-- uso dos parâmetros de linhas de comando
-  
+- uso da biblioteca =ctype.h=
+- variáveis booleanas
+
 * Objetivos
 
 1. praticar o uso das ferramentas: linha de comando, editor,
    compilador etc
-2. Praticar o uso dos tipos de dados básicos em C
-3. Familiarização com as estruturas sintáticas básicas da linguagem C
+2. Praticar o uso de arrays e strings em C
+3. Familiarização com funções de classificação de caracteres
 
 * Atividade 1 (40 minutos)
 
@@ -28,14 +27,7 @@ divisão de inteiros e conversão de tipos.
 
 * Atividade 3 (30 minutos)
 
-praticar o uso de strings, praticar o uso de argumentos da linha de
-comando. Escrever um programa a partir do zero.
-
-[[file:vowels/README.org]]
-
-* Atividade 4 (30 minutos)
-
-praticar com strings, praticar o uso da biblioteca =ctype.h= e de 
+praticar com strings, praticar o uso da biblioteca =ctype.h= e de
 variáveis booleanas.
 
 [[file:password/README.org]]

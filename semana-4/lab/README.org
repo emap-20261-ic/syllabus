@@ -26,7 +26,13 @@ revisão sobre
 - a turma resolve o problema fatorial
 - corrigir e explicar
   
-* Atividade 4 (40 minutos)
+* Atividade 4 (30 minutos)
+
+praticar o uso de strings e argumentos da linha de comando.
+
+[[file:vowels/README.org]]
+
+* Atividade 5 (40 minutos)
 
 - a turma resolve o problema smiley
 - corrigir e explicar
