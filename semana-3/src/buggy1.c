@@ -14,6 +14,6 @@ int get_negative_int(void) {
       printf("Negative Integer: ");
       scanf("%d", &n);
     } while (n < 0);
-    printf("valor é %d", n);
+    printf("The value is %d", n);
     return 0;
 }

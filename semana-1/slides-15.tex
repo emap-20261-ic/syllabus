@@ -15,7 +15,7 @@
 
 \begin{frame}[fragile,allowframebreaks]{Primeiro programa em C}
 
-  \lstinputlisting[caption=src/hello0.c,style=normalc]{src/hello0.c}
+  \lstinputlisting[caption=src/hello.c,style=normalc]{src/hello.c}
 
   \framebreak
 
@@ -62,7 +62,7 @@
   forma mais simples:
 
   \begin{lstlisting}[style=normalbash]
-    > clang hello0.c
+    > clang hello.c
     > ./a.out
   \end{lstlisting}
 
@@ -71,7 +71,7 @@
   flags:
 
   \begin{lstlisting}[style=normalbash]
-    > clang -std=c17 -Wall -Wextra -Wpedantic -Werror hello0.c -o hello
+    > clang -std=c17 -Wall -Wextra -Wpedantic -Werror hello.c -o hello
     > ./hello
   \end{lstlisting}
 
@@ -95,11 +95,11 @@
   \framebreak
 
   \begin{lstlisting}[style=code]
-    > clang src/cents1.c
+    > clang src/cents.c
     ...
     clang: error: linker command failed with exit code 1 (...)
 
-    > clang src/cents1.c -lm
+    > clang src/cents.c -lm
   \end{lstlisting}
 
   Em alguns casos poderão ser necessários parâmetros adicionais para o
@@ -120,14 +120,14 @@
   definidas em um arquivo chamado \ilcode{Makefile}.
 
   \begin{lstlisting}[style=normalbash]
-    > make hello0
-    > ./hello0
+    > make hello
+    > ./hello
   \end{lstlisting}
 
   Quando \textbf{não existe} um \ilcode{Makefile}, o \ilcode{make} tem
-  um comportamento \emph{default}: para \ilcode{make hello0}, ele
-  procura \ilcode{hello0.c} e chama o compilador com regras implícitas
-  (ex: \ilcode{cc hello0.c -o hello0}).
+  um comportamento \emph{default}: para \ilcode{make hello}, ele
+  procura \ilcode{hello.c} e chama o compilador com regras implícitas
+  (ex: \ilcode{cc hello.c -o hello}).
 
   A limitação é justamente a falta de controle: com o \ilcode{make}
   default, não escolhemos as flags passadas ao compilador.
@@ -145,7 +145,7 @@
 
   \framebreak
   
-  \lstinputlisting[style=normalc,caption=src/cents1.c]{src/cents1.c}
+  \lstinputlisting[style=normalc,caption=src/cents.c]{src/cents.c}
 
   \framebreak
 
@@ -173,16 +173,15 @@
   específica sendo usada.\vspace{.5cm}
 
   \begin{lstlisting}[style=normalbash]
-    > clang -S -mllvm --x86-asm-syntax=intel hello0.c
+    > clang -S -mllvm --x86-asm-syntax=intel hello.c
   \end{lstlisting}
 
-  Vide \ilcode{src/hello0.s}
+  Vide \ilcode{src/hello.s}
 
   \framebreak
 
   \begin{lstlisting}
-    hello0.a  libm.a      libc.a
-    
+    hello.a   libm.a      libc.a
     01111111  0100010101  001100010001
     00000010  0000000100  000001000000
     00000000  0000000000  000000000000
@@ -200,8 +199,7 @@
   \framebreak
 
   \begin{lstlisting}
-    hello0
-    
+    hello
     01111111010001010100110001000110
     00000010000000010000000100000000
     00000000000000000000000000000000

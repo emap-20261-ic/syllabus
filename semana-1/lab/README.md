@@ -56,8 +56,7 @@ Instale e configure as ferramentas necessárias para o curso:
 
 ## Atividade 2 — Experimentando com printf (20 minutos)
 
-Crie um arquivo `lab/apresentacao.c` e escreva um programa que
-imprima:
+Crie um arquivo `apresentacao.c` e escreva um programa que imprima:
 
 1. Seu nome e número de matrícula
 2. O nome do curso
@@ -66,7 +65,7 @@ imprima:
 
 Use `\n` para quebras de linha e `\t` para tabulação.
 
-Depois, crie um arquivo `lab/arte.c` com um programa que imprima uma
+Depois, crie um arquivo `arte.c` com um programa que imprima uma
 figura usando caracteres. Por exemplo:
 
 ```
@@ -81,7 +80,44 @@ Experimente também os caracteres de escape `\\` e `\"`.
 
 ## Atividade 3 — Erros de compilação (20 minutos)
 
-[erros/README.md](erros/README.md)
+### objetivos
+
+- aprender a interpretar as mensagens de erro do compilador C
+- praticar a depuração de erros sintáticos
+- familiarizar-se com erros comuns em programas C
+
+### Contexto
+
+Ao escrever um programa em C, é muito comum cometer erros de
+sintaxe. O compilador detecta esses erros e exibe mensagens que, a
+princípio, podem parecer confusas. Aprender a ler essas mensagens é
+uma habilidade fundamental.
+
+Neste exercício, cada arquivo contém um programa C com um ou mais
+erros. Tente compilar cada programa, leia a mensagem de erro e corrija
+o código.
+
+### Instruções
+
+Para cada arquivo (`erro1.c` até `erro5.c`):
+
+1. Tente compilar o programa:
+   ```bash
+   clang erroN.c -o erroN
+   ```
+
+2. Leia a mensagem de erro com atenção. Note o número da linha e a
+   descrição do erro.
+
+3. Corrija o programa e compile novamente até não haver mais erros.
+
+4. Execute o programa corrigido e verifique que funciona.
+
+### Pergunta
+
+Qual a diferença entre um erro sintático e um erro lógico? Você
+consegue pensar em um exemplo de erro lógico?
+
 
 ## Atividade 4 — Representação binária (20 minutos)
 
@@ -101,15 +137,16 @@ Para quem terminar antes, explore as etapas da compilação:
 
 1. Gere o código assembly do `hello0.c`:
    ```bash
-   clang -S hello0.c
-   cat hello0.s
+   cd semana-2/src
+   clang -S hello.c
+   cat hello.s
    ```
 
 2. Encontre a string `"hello, world"` no arquivo assembly gerado.
 
 3. Compile com flags de aviso e observe o que muda:
    ```bash
-   clang -Wall -Wextra hello0.c -o hello
+   clang -Wall -Wextra hello.c -o hello
    ```
 
 4. O que acontece se você compilar com `-Werror`?
