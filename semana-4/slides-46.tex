@@ -1,23 +1,10 @@
 \documentclass{beamer}
 
-\usepackage[utf8]{inputenc}
-\usepackage{url}
-\usepackage{listings}
-\usepackage{hyperref}
-\usepackage{xcolor}
-\usepackage{graphicx}
-
 \input{../helper}
 
-\title{Introdução à Computação \\ comparando arrays e aritmética de ponteiros}
+\title{Introdução à Computação \\ argumentos de linha de comando e retorno de valor}
 \author{Alexandre Rademaker}
 \date{}
-
-\setbeamersize
-{
-  text margin left=0.5cm,
-  text margin right=0.5cm
-}
 
 \begin{document}
 
@@ -25,130 +12,68 @@
  \maketitle
 \end{frame}
 
-\begin{frame}[fragile,allowframebreaks]{Strings}
-
-  Como já vimos, strings são arrays de caracteres. Podemos declarar
-  com
-
-  \texttt{char s[] = "HI!"}.
-
-  Cada caractere, se está armazenado na memória, também tem um
-  endereço único, e \ilcode{s} é na verdade apenas um
-  \textbf{ponteiro} com o endereço do primeiro caractere.  Podemos
-  acessar cada caracter como \ilcode{s[0]}, \ilcode{s[1]} etc.
-
-  \begin{center}
-    \includegraphics[width=.6\textwidth]{s_pointer.png}
-  \end{center}
+\begin{frame}[fragile,allowframebreaks]{argumentos}
   
-  \framebreak
+  Lembrando que programas CLI podem receber argumentos!
 
-  \ilcode{s} é uma variável do tipo \textbf{char*}, que é um ponteiro
-  para um caractere.
+  Podemos carregar o programa e solicitar ao usuário os valores
+  desejados.
 
-  Lembre-se de que podemos ler a string inteira começando no endereço
-  em \ilcode{s} e continuar lendo um caractere por vez da memória até
-  chegarmos a \ilcode{\\0}.
-
-  \framebreak
-
-  \lstinputlisting[style=normalc,caption=src/address02.c]{src/address02.c}
+  Em C, a função mais pode receber dois argumentos: \ilcode{argc}
+  (quantidade de argumentos) e \ilcode{argv} (array dos argumentos).
 
   \framebreak
 
-  Quando escrevemos \ilcode{typedef char *string;} estamos criando um
-  tipo de dados personalizado para a palavra string, tornando-a
-  equivalente a \ilcode{char *}.
+  Podemos fazer novos programas receber valores da linha de comando!
+  Veja o condicional \ilcode{if}!
+
+  \lstinputlisting[style=normalc,caption=src/argv0.c]{src/argv0.c}
+
+  \framebreak
+
+  E podemos imprimir todos os argumentos passados
+
+  \lstinputlisting[style=normalc,caption=src/argv1.c]{src/argv1.c}
+
+  Repetição com \ilcode{for}!
+
+  \framebreak
+  
+  Queremos somar um número não pré-determinado de valores.
+
+  Vamos receber da linha de comando a quantidade de números e
+  perguntar para o usuário um número por vez.
+
+  \framebreak
+
+  \lstinputlisting[style=tinyc,caption=src/scores5.c]{src/scores5.c}
+
+  \framebreak
+
+  Se não passarmos na linha de comando o argumento esperado?
+
+  Se o argumento não for um número que possa ser representado como um
+  \ilcode{int}?
 
 \end{frame}
 
-\begin{frame}[fragile,allowframebreaks]{Aritmética dos ponteiros}
+\begin{frame}[fragile,allowframebreaks]{retornando valores}
 
-  Agora que sabemos o que são strings. Podemos imprimir um caractere
-  por vez com
+  Podemos sinalizar que o programa não executou como deveria:
 
-  \lstinputlisting[style=tinyc,caption=src/address03.c]{src/address03.c}
-
-  Quando declaramos uma string com aspas duplas, o compilador decide
-  como colocar esses caracteres na memória como um array. 
+  \lstinputlisting[style=normalc,caption=src/exit.c]{src/exit.c}
 
   \framebreak
 
-  Mas podemos usar os endereços diretamente
-
-  \lstinputlisting[style=tinyc,caption=src/address04.c]{src/address04.c}
-
-  \ilcode{*s} lê o endereço armazenado em \ilcode{s}, e \ilcode{*(s +
-    1)} o endereço na memória 1 byte (char) maior.
-
-  \ilcode{s[1]} é um \textbf{syntactic sugar}, uma abstração mais
-  legível para humanos para a expressão \ilcode{*(s + 1)}.
-
-  \framebreak
-
-  \textbf{Pointer arithmetic} é o processo de aplicar operadores
-  matemáticos à ponteiros, tratando-os como números.
-
+  \begin{lstlisting}[style=normalbash]
+    > ./exit 12 && echo "Tudo bem"
+    hello, 12
+    Tudo bem
+    > ./exit && echo "Tudo bem"
+    Missing arguments
+  \end{lstlisting}
+    
 \end{frame}
-
-
-\begin{frame}[allowframebreaks,fragile]{comparando arrays}
-
-  podemos comparar números
-
-  \lstinputlisting[style=tinyc,caption=src/compare0.c]{src/compare0.c}
-
-  mas para comprar strings?
-
-  \framebreak
-
-  \lstinputlisting[style=tinyc,caption=src/compare1.c]{src/compare1.c}
-
-  Já vimos que para comparar strings precisamos da \ilcode{strcmp}!
-
-  \framebreak
-
-  \lstinputlisting[style=tinyc,caption=src/compare2.c]{src/compare2.c}
-
-  \framebreak
-
-  Cada string é um ponteiro para um endereço diferente? Não exatamente.
-
-  \lstinputlisting[style=tinyc,caption=src/compare3.c]{src/compare3.c}
-
-  \framebreak
-
-  Será que podemos implementar nossa própria \ilcode{strcmp}? Como
-  seria?
-
-  \begin{enumerate}
-  \item recebe dois ponteiros para char e devolve um \ilcode{int}
-  \item ler
-    \href{https://man7.org/linux/man-pages/man3/strcmp.3.html}{documentação}
-    e entender que a função deve retornar 0, algum positivo ou algum
-    negativo.
-  \item um loop 'andando' pelos arrays recebidos até que algum
-    \ilcode{\0} seja encontrado.
-  \end{enumerate}
-
-  Veja \texttt{src/compare4.c}
-  
-  \framebreak
-  
-  Em C, também podemos obter o endereço de \ilcode{s} e \ilcode{t} e
-  armazenar em uma variável do tipo \ilcode{char **}, um ponteiro para
-  um ponteiro.
-
-\end{frame}
-
-
-\begin{frame}[allowframebreaks,fragile]{copiando arrays}  
-
-  \lstinputlisting[style=tinyc,caption=src/copy0.c]{src/copy0.c}
-
-  Ambas as saídas foram capitalizadas, por que?
-  
-\end{frame}  
 
 
 \end{document}
