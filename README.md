@@ -20,6 +20,8 @@ contém:
 
 ## Programa
 
+O calendário do curso segue [calendário 2026 EMAp](https://emap.fgv.br/sites/default/files/2025-11/calendario_2026_fgv_emap_1.pdf).
+
 ### semana 0 (23, 25, 27/fev)
 
 - apresentação do curso, ferramentas e metodologia
