@@ -84,7 +84,7 @@ O calendário do curso segue [calendário 2026 EMAp](https://emap.fgv.br/sites/d
 - argumentos de linha de comando: `argc` e `argv`, `atoi`, código de
   retorno de `main` e encadeamento com `&&` no shell
 
-### semana 5 (6/abr, 8/abr)
+### semana 5 (6/abr, 8, 10/abr)
 
 - operações com strings: `strlen` e o tipo `size_t`, impressão eficiente
   (calcular comprimento uma única vez), conversão de maiúsculas/minúsculas
@@ -97,8 +97,6 @@ O calendário do curso segue [calendário 2026 EMAp](https://emap.fgv.br/sites/d
 - busca linear vs busca binária: busca linear O(n) sem pré-requisito de
   ordenação; busca binária O(log n) exigindo array ordenado; implementação
   iterativa vs recursiva; instrumentação para entender o comportamento
-- estruturas em C (`struct`): motivação (agrupar campos heterogêneos),
-  declaração e acesso a membros
 
 
 ## critérios de avaliação
