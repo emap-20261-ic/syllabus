@@ -4,7 +4,7 @@
 typedef char* string;
 
 int main(int argc, string argv[]) {
-  int numbers[] = {4, 6, 8, 2, 7, 5, 0};
+  int numbers[] = {4, 6, 8, 2, 7, 5, 0, 10};
 
   if(argc < 2) {
     printf("Usage: %s NUMBER\n", argv[0]);
@@ -12,8 +12,9 @@ int main(int argc, string argv[]) {
   }
 
   int t = atoi(argv[1]);
+  int n = sizeof(numbers)/sizeof(numbers[0]);
   
-  for (int i = 0; i < 7; i++) {
+  for (int i = 0; i < n; i++) {
     if (numbers[i] == t) {
       printf("Found at %d\n", i);
       return 0;
