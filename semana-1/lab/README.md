@@ -47,8 +47,15 @@ Instale e configure as ferramentas necessárias para o curso:
 
    ```bash
    cd semana-1/src
-   make hello
+   clang hello.c -o hello
    ./hello
+   ```
+
+   Ou, se preferir usar o `make` (na raiz da semana-1):
+   ```bash
+   cd semana-1
+   make
+   ./src/hello
    ```
 
    Você deve ver `hello, world` na tela. Experimente com outros
