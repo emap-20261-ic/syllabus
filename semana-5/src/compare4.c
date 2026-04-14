@@ -22,6 +22,6 @@ int main(void) {
   // print strings
   printf("%s at %p\n", s, s);
   printf("%s at %p\n", t, t);
-  printf("my_string = %d\n", my_strcmp(s, t) );
+  printf("my_strcmp = %d\n", my_strcmp(s, t) );
   printf("   strcmp = %d\n", strcmp(s, t) );  
 }
