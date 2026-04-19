@@ -1,22 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int add(int a, int b);
-int subtract(int a, int b);
-int calc(char op, int a, int b, int* result);
+long add(long a, long b);
+long subtract(long a, long b);
+int calc(char op, long a, long b, long* result);
 
 int main(void)
 {
-  int x = 0, y = 0, result = 0;
+  long x = 0, y = 0, result = 0;
   char op = 'a';
 
   // get input data
 
   printf("x: ");
-  scanf("%d", &x);
+  scanf("%ld", &x);
   
   printf("y: ");
-  scanf("%d", &y);
+  scanf("%ld", &y);
 
   printf("operation [a|s]: ");
   scanf(" %c", &op);
@@ -24,7 +24,7 @@ int main(void)
   // validating and processing
   int status = calc(op, x, y, &result);
   if (status == 0){
-    printf("result = %d\n", result);
+    printf("result = %ld\n", result);
     return EXIT_SUCCESS;
   }
   else { 
@@ -34,7 +34,7 @@ int main(void)
 
 }
 
-int calc(char op, int a, int b, int* r){
+int calc(char op, long a, long b, long* r){
   switch (op) {
   case 'a': case 'A':
     *r = add(a, b);
@@ -51,10 +51,10 @@ int calc(char op, int a, int b, int* r){
 }
 
 
-int add(int a, int b) { 
+long add(long a, long b) { 
   return a + b;
 }
 
-int subtract(int a, int b) {
+long subtract(long a, long b) {
   return a - b;
 }
