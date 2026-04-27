@@ -1,14 +1,101 @@
-13
+100
 Burger:9.5
 Vegan Burger:11
 Hot Dog:5
 Cheese Dog:7
 Fries:5
 Cheese Fries:6
-Cold Pressed Juice:7
-Cold Brew:3
+Cold Pressed Juice:7.2
+Cold Brew:3.50
 Water:2
 Soda:2
 Misto Quente:5
 Copo de Leite:4
 Cerveja:5
+Vinho:15
+Limonada:4
+Mate Gelado:3
+Agua de Coco:5
+Suco de Maracuja:6
+Suco de Laranja:5
+Vitamina de Banana:7
+Caldo de Cana:4
+Isotonico:5
+Energetico:8
+Tonica:3.5
+Cafe:2.5
+Capuccino:5
+Leite com Cafe:3
+Cha:2.5
+Chocolate Quente:4
+Smoothie:7
+Kombucha:5
+Cerveja Artesanal:9
+Caipirinha:12
+Dose de Cachaca:8
+Pao de Queijo:3
+Biscoito:2
+Bolo Fatia:5
+Sanduiche:8
+Wrap:10
+Esfiha:4
+Coxinha:4
+Bolinho de Bacalhau:5
+Pastel:5
+Quibe:4
+Empada:4
+Tapioca:6
+Crepe:7
+Waffle:8
+Salada:6
+Salada de Fruta:5
+Mousse:6
+Pudim:5
+Sorvete Bola:5
+Picole:4
+Casquinha:3
+Acai:8
+Granola:4
+Milk Shake:9
+Sundae:7
+Brownie:5
+Brigadeiro:2
+Beijinho:2
+Cocada:3
+Palha Italiana:3
+Bala:0.5
+Chiclete:0.5
+Pirulito:1
+Drops:0.5
+Amendoim:2
+Castanha:3
+Pipoca:3
+Banana:2
+Manga:3
+Abacaxi:4
+Melancia:3
+Morango:4
+Uva:5
+Maracuja:3
+Coco:4
+Fruta Mista:5
+Espetinho de Carne:7
+Espetinho de Frango:6
+Espetinho de Queijo:5
+Milho Cozido:4
+Batata Cozida:3
+Amendoim Cozido:3
+Queijo Coalho:6
+Camarao:15
+Porcao de Camarao:25
+File de Peixe:18
+Iscas de Peixe:12
+Moqueca Individual:20
+Agua Com Gas:2.5
+Suco de Acerola:5
+Suco de Caju:5
+Suco de Abacaxi:5
+Suco de Manga:5
+Vitamina de Abacate:8
+Tapioca de Queijo:7
+Tapioca de Chocolate:8

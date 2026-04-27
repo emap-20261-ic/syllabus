@@ -1,156 +1,162 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
-#include <strings.h>
 #include <stdlib.h>
+
+#define MAX_MENU_ITEMS 200
+#define MAX_NAME_SIZE  100
+#define MAX_LINE_SIZE  150
 
 typedef char* string;
 
-// menu items have item name and price
-typedef struct
-{
-  char name[50];
+typedef struct {
+  char  name[MAX_NAME_SIZE];
   float price;
+} item;
+
+typedef enum {
+  CMD_PRINT_MENU,
+  CMD_TOTAL,
+  CMD_UNKNOWN
+} command;
+
+typedef enum {
+  EXIT_OK          = 0, // success
+  EXIT_OPEN        = 1, // could not open menu file
+  EXIT_ITEM_COUNT  = 2, // could not read or parse item count
+  EXIT_TOO_MANY    = 3, // menu exceeds max_items
+  EXIT_ITEM_FORMAT = 4, // item line missing or has invalid format
+  EXIT_UNKNOWN_CMD = 5  // unknown command or wrong usage
+} exit_code;
+
+
+void    to_lower_case(string s);
+item*   find_item(item items[], int size, string name);
+int     read_menu(FILE *fp, item items[], int max_items);
+float   read_order(FILE *fp, item items[], int size, int *found);
+command parse_command(string s);
+
+
+int main(int argc, char *argv[]) {
+
+  if (argc < 3) {
+    fprintf(stderr, "Usage: %s <menu> print-menu\n", argv[0]);
+    fprintf(stderr, "       %s <menu> total <pedido1> ...\n", argv[0]);
+    return EXIT_UNKNOWN_CMD;
+  }
+
+  // read the menu
+  FILE *menu_fp = fopen(argv[1], "r");
+  if (menu_fp == NULL) {
+    fprintf(stderr, "Error: cannot open menu file '%s'\n", argv[1]);
+    return EXIT_OPEN;
+  }
+  item menu[MAX_MENU_ITEMS];
+  int num_items = read_menu(menu_fp, menu, MAX_MENU_ITEMS);
+  fclose(menu_fp);
+
+  // process command
+  switch (parse_command(argv[2])) {
+    case CMD_PRINT_MENU:
+      printf("Read %d items from the menu:\n", num_items);
+      for (int i = 0; i < num_items; i++)
+        printf("%20s: %5.2f\n", menu[i].name, menu[i].price);
+      break;
+
+    case CMD_TOTAL:
+      for (int i = 3; i < argc; i++) {
+        FILE *fp = fopen(argv[i], "r");
+        if (fp == NULL) {
+          fprintf(stderr, "Error: cannot open order file '%s'\n", argv[i]);
+          continue;
+        }
+        int found = 0;
+        float total = read_order(fp, menu, num_items, &found);
+        fclose(fp);
+        printf("file: %s found %3d items, total $%.2f\n", argv[i], found, total);
+      }
+      break;
+
+    case CMD_UNKNOWN:
+      fprintf(stderr, "Unknown command: %s\n", argv[2]);
+      return EXIT_UNKNOWN_CMD;
+  }
+  return EXIT_OK;
 }
-item;
 
 
-void to_lower_case(string str) {
-  for (int i = 0; str[i] != '\0'; i++) 
-    str[i] = tolower(str[i]);
+command parse_command(string s) {
+  if (strcmp(s, "print-menu") == 0) return CMD_PRINT_MENU;
+  if (strcmp(s, "total")      == 0) return CMD_TOTAL;
+  return CMD_UNKNOWN;
 }
 
 
-int read_items_from_file_1(string filename, item items[], int max_items){
-  
+void to_lower_case(string s) {
+  for (int i = 0; s[i] != '\0'; i++)
+    s[i] = tolower(s[i]);
+}
+
+
+int read_menu(FILE *fp, item items[], int max_items) {
+  char line[MAX_LINE_SIZE];
   int num_items = 0;
-  
-  FILE *fp = fopen(filename, "r");
-  if (fp == NULL) {
-    printf("Error: cannot open file.\n");
-      exit(1);
+
+  if (fgets(line, sizeof(line), fp) == NULL || sscanf(line, "%d", &num_items) != 1) {
+    fprintf(stderr, "Error: could not read item count from menu.\n");
+    exit(EXIT_ITEM_COUNT);
   }
-  
-  // read number of items from first line of file
-  if (fscanf(fp, "%d\n", &num_items) != 1) {
-    printf("Error: invalid file format.\n");
-    exit(1);
-  }
-  
+
   if (num_items > max_items) {
-    printf("Error: too many items in file.\n");
-    exit(1);
+    fprintf(stderr, "Error: menu has %d items, max is %d.\n", num_items, max_items);
+    exit(EXIT_TOO_MANY);
   }
-  
-  char line[100];
-  int count = 0;
-  while (fgets(line, sizeof(line), fp) != NULL) {
-    string token = strtok(line, ":");
-    if (token != NULL) {
-      strcpy(items[count].name, token);
-    }
-    token = strtok(NULL, "\n");
-    if (token != NULL) {
-      items[count].price = atof(token);
-    }
-    count++;
-  }
-  
-  fclose(fp);
-  return count;
-}
 
-int read_items_from_file(string filename, item items[], int max_items) {
-    int num_items = 0;
-
-    FILE *fp = fopen(filename, "r");
-    if (fp == NULL) {
-      printf("Error: cannot open file.\n");
-      exit(1);
-    }
-
-    // read number of items from first line of file
-    if (fscanf(fp, "%d\n", &num_items) != 1) {
-      printf("Error: invalid file format.\n");
-      exit(1);
-    }
-
-    if (num_items > max_items) {
-      printf("Error: too many items in file.\n");
-      exit(1);
-    }
-
-    // read items from file
-    for (int i = 0; i < num_items; i++) {
-      char name[50];
-      float price;
-
-      // See https://man7.org/linux/man-pages/man3/scanf.3.html 
-      if (fscanf(fp, "%[^:]:%f\n", name, &price) == 2) {
-
-	// convert string to lowercase
-	to_lower_case(name);
-	
-	strncpy(items[i].name, name, sizeof(items[i].name));
-	items[i].price = price;
-      }
-      else {
-	printf("Error: invalid file format.\n");
-	exit(1);
-      }
-    }
-
-    fclose(fp);
-    return num_items;
-}
-
-
-
-float get_total(item menu[], int size) {
-
-    char line[100];
-    float total = 0.0;
-    while (fgets(line, sizeof(line), stdin) != NULL) {
-
-      // remove newline character
-      line[strcspn(line, "\n")] = '\0';
-      
-      // Check for END line
-      if (strcmp(line, "END") == 0) {
-	break;
-      }
-
-      // convert string to lowercase
-      to_lower_case(line);
-
-      // search for the line in menu
-      for (int i = 0; i < size; i++) {
-	if (strcmp(line, menu[i].name) == 0) {
-	  total += menu[i].price;
-	  break;
-	}
-      }
-    }
-    return total;
-}
-
-
-int main(void) {
-
-  const int MAX_ITEMS = 100;
-  item menu[MAX_ITEMS];
-
-  int num_items = read_items_from_file("menu.txt", menu, MAX_ITEMS);
-
-  // print all items read from the menu
-  printf("Read %d items from the menu:\n", num_items);
   for (int i = 0; i < num_items; i++) {
-    // this alignment of the output assumes that menu only contains
-    // names of products with less than 20 chars.
-    printf("- %-20s: %.2f\n", menu[i].name, menu[i].price);
+    if (fgets(line, sizeof(line), fp) == NULL) {
+      fprintf(stderr, "Error: expected %d items but file ended at item %d.\n", num_items, i + 1);
+      exit(EXIT_ITEM_FORMAT);
+    }
+    char name[MAX_NAME_SIZE];
+    float price;
+    if (sscanf(line, "%49[^:]:%f", name, &price) != 2) {
+      fprintf(stderr, "Error: invalid format for item %d in menu.\n", i + 1);
+      exit(EXIT_ITEM_FORMAT);
+    }
+    to_lower_case(name);
+    strncpy(items[i].name, name, sizeof(items[i].name));
+    items[i].price = price;
   }
 
-  float total = get_total(menu, num_items);
-  printf("\n>> total cost: $%.2f\n", total);
+  return num_items;
 }
 
+
+item* find_item(item items[], int size, string name) {
+  for (int i = 0; i < size; i++) {
+    if (strcmp(name, items[i].name) == 0)
+      return &items[i];
+  }
+  return NULL;
+}
+
+
+float read_order(FILE *fp, item items[], int size, int *found) {
+  char line[MAX_LINE_SIZE];
+  float total = 0.0;
+  *found = 0;
+  while (fgets(line, sizeof(line), fp) != NULL) {
+    line[strcspn(line, "\n")] = '\0';
+    if (strcmp(line, "END") == 0) break;
+    to_lower_case(line);
+
+    item *it = find_item(items, size, line);
+    if (it != NULL) {
+      total += it->price;
+      (*found)++;
+    } else {
+      fprintf(stderr, "warning: '%s' not found in menu\n", line);
+    }
+  }
+  return total;
+}

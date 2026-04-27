@@ -2,67 +2,147 @@
 
 * descrição
 
-Imagine que você está na praia e deseja pedir vários itens da
-lanchonete. Você tem uma quantia limitada de dinheiro e deseja obter
-um custo total para seus itens antes de fazer o pedido.
+Você foi contratado por um bar para implementar um sistema para
+processar os pedidos das mesas e calcular a conta. Seu sistema será
+chamado por aplicativos, mas será o sistema principal usado no bar.
 
-No =snackbar.c= você completará a função =get_total=.  Ela deverá
-implementar um algoritmo de pesquisa linear para pesquisar cada item
-recebido das linhas da entrada (no exemplo abaixo passadas por um
-arquivo) e retornar o valor total do pedido.
+No =snackbar.c= você implementará as funções auxiliares. A função
+=main= já está completa. O programa recebe o nome do arquivo do menu
+em =argv[1]= e um comando em =argv[2]=. Também pode receber um número
+indeterminado de arquivos de pedidos.
 
 #+begin_example
-% ./snackbar menu.txt < pedido0.txt
-Read 13 items from the menu:
-- burger: 9.50
-- vegan burger: 11.00
-- hot dog: 5.00
-- cheese dog: 7.00
-- fries: 5.00
-- cheese fries: 6.00
-- cold pressed juice: 7.00
-- cold brew: 3.00
-- water: 2.00
-- soda: 2.00
-- misto quente: 5.00
-- copo de leite: 4.00
-- cerveja: 5.00
+% ./snackbar menu.txt print-menu
+Read 100 items from the menu:
+              burger:  9.50
+        vegan burger: 11.00
+             hot dog:  5.00
+          cheese dog:  7.00
+               fries:  5.00
+...
+  tapioca de queijo:  7.00
+tapioca de chocolate:  8.00
 
->> total cost: $12.00
+% ./snackbar menu.txt total pedido0.txt pedido1.txt pedido2.txt
+file: pedido0.txt found   4 items, total $17.00
+file: pedido1.txt found   3 items, total $19.00
+file: pedido2.txt found  15 items, total $19.00
 #+end_example
 
-Veja o conteúdo e o formato dos arquivos =menu.txt= e
-=pedido0.txt=.
+Veja o conteúdo e o formato dos arquivos =menu.txt= e =pedido0.txt=.
 
 No arquivo =menu.txt=, a primeira linha especifica a quantidade de
-itens no menu. As linhas seguintes são os itens, strings que podem
+itens no menu. As linhas seguintes são os itens; strings que podem
 conter espaço são os nomes dos itens. O ":" separa os nomes dos
 valores (float) de cada item.
 
 * detalhe
 
-A função =main= já está completa. Leia o código presente no arquivo
-para familiarizar-se com a estrutura geral. A função
-=read_items_from_file= lê o arquivo =menu.txt= que estiver no mesmo
-diretório do programa. Você pode remover ou adicionar itens do
-=menu.txt= para testar.
+A função =main= já está completa. Leia o código para familiarizar-se
+com a estrutura geral. O programa aceita dois comandos via =argv[2]=:
 
-A função =read_items_from_file_1= não é usada, mas seria uma
-implementação alternativa de =read_items_from_file=. Você consegue
-identificar a diferença?
+- =print-menu=: imprime todos os itens do menu lido de =argv[1]=
+- =total <pedido1> ... <pedidoN>=: para cada arquivo passado a partir
+  de =argv[3]=, abre o arquivo, chama =read_order= e imprime o total
 
-A função =get_total= recebe o array de itens (menu) e o número de
-itens no menu. Ela deve ler as linhas da entrada padrão (STDIN) até
-encontrar uma linha cujo valor seja =END=. Para cada linha, a função
-irá primeiro converter em minúsculas (veja como menu é lido) e
-realizar uma busca linear no array com o menu. Ao encontrar o item no
-menu, deve somar seu valor ao total do pedido. A função então retorna
-o total do pedido após ler todas as linhas da entrada.
+Implemente as funções auxiliares na ordem abaixo.
 
-Você pode ignorar os pedidos de nomes que não forem encontrados no
-menu.
+** =to_lower_case(string s)=
 
-* pergunta
+Converte todos os caracteres de =s= para minúsculas, modificando a
+string no lugar. Use =tolower= de =<ctype.h>= e percorra a string até
+encontrar ='\0'=.
 
-Por que um array de estruturas é uma solução melhor aqui do que vários
-arrays?
+** =parse_command(string s)=
+
+Recebe o nome do comando e retorna o valor correspondente do enum
+=command=. Use =strcmp= para comparar; se não corresponder a nenhum
+comando conhecido, retorne =CMD_UNKNOWN=.
+
+** =find_item(item items[], int size, string name)=
+
+Busca linearmente em =items= um item com =name= igual ao argumento.
+Retorna =item *= (ponteiro para o item) se encontrado, =NULL= caso
+contrário.
+
+Retornar um ponteiro em vez do preço diretamente permite que o
+chamador acesse qualquer campo (=name=, =price=) sem repetir a busca.
+=NULL= é o sentinela natural de C para "não encontrado".
+
+** =read_menu(FILE *fp, item items[], int max_items)=
+
+Lê o menu de um arquivo já aberto. A primeira linha contém o número
+de itens; as seguintes têm o formato =Nome:preco=. Retorna o número de
+itens lidos.
+
+Dicas:
+- Use =fgets= para ler uma linha por vez e =sscanf= para o parse:
+  =sscanf(line, "%49[^:]:%f", name, &price)= — =%49[^:]=: lê até 49
+  caracteres excluindo =:=; =%f= lê o preço.
+- Use =strncpy= para copiar o nome para o campo do struct com segurança.
+- Converta o nome para minúsculas com =to_lower_case= para garantir
+  consistência com a busca.
+- Use os códigos de =exit_code= e =exit()= para encerrar com mensagem
+  de erro adequada em caso de falha.
+
+** =read_order(FILE *fp, item items[], int size, int *found)=
+
+Lê um arquivo de pedido já aberto, linha por linha, até encontrar
+=END= ou o fim do arquivo. Para cada linha, busca o item no menu com
+=find_item= e acumula o total. Retorna o total do pedido.
+
+Dicas:
+- =fgets= retorna =NULL= no fim do arquivo.
+- =strcspn(line, "\n")= retorna a posição do primeiro =\n=; use para
+  removê-lo: =line[strcspn(line, "\n")] = '\0'=.
+- =found= é um parâmetro de saída: inicialize =*found = 0= e
+  incremente =(*found)++= a cada item encontrado.
+- Acesse os campos do item retornado por =find_item= com =->=, veja
+  abaixo.
+- Itens não encontrados devem gerar um aviso em =stderr=.
+
+Quando se tem um ponteiro para struct, usa-se =->= para acessar seus
+campos, em vez do =.= usado com variáveis diretas:
+
+#+begin_example
+item  x  = ...;   x.price    // variável direta: usa .
+item *it = ...;   it->price  // ponteiro para struct: usa ->
+#+end_example
+
+=it->price= é equivalente a =(*it).price= — o =->= combina o
+derreferenciamento (=*=) e o acesso ao campo (=.=) em um só operador.
+
+* compilação
+
+Use o =clang= com o padrão C17 e todas as advertências ativas:
+
+#+begin_src sh
+clang -std=c17 -Wall -Werror -Wpedantic -o snackbar snackbar.c
+#+end_src
+
+* formatação
+
+Use o =clang-format= para formatar o código automaticamente. A opção
+=-i= modifica o arquivo no lugar:
+
+#+begin_src sh
+clang-format -i snackbar.c
+#+end_src
+
+Sem =-i=, o resultado vai para a saída padrão, útil para inspecionar
+as mudanças antes de aplicá-las:
+
+#+begin_src sh
+clang-format snackbar.c | diff - snackbar.c
+#+end_src
+
+O estilo de formatação pode ser configurado criando um arquivo
+=.clang-format= no diretório do projeto. Para usar um estilo
+predefinido diretamente:
+
+#+begin_src sh
+clang-format --style=Google -i snackbar.c
+#+end_src
+
+Estilos sugeridos: =LLVM=, ou =Google=.
+

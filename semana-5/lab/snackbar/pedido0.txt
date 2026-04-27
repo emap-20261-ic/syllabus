@@ -1,5 +1,6 @@
 soda
 Misto quente
 cerveja
+cerveja
 suco de uva
 END
