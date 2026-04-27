@@ -20,7 +20,7 @@ Read 100 items from the menu:
           cheese dog:  7.00
                fries:  5.00
 ...
-  tapioca de queijo:  7.00
+   tapioca de queijo:  7.00
 tapioca de chocolate:  8.00
 
 % ./snackbar menu.txt total pedido0.txt pedido1.txt pedido2.txt
