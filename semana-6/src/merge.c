@@ -2,7 +2,6 @@
   code adapted from
   https://rosettacode.org/wiki/Sorting_algorithms/Merge_sort#C
 
-  - iterative and recursive versions of merge
   - using STDERR for debug output
   - if called as ./sort alone, Ctrl+D terminates input.
 */
@@ -13,8 +12,8 @@
 #define MAX_SIZE 10000
 
 
-void merge_i (int ns[], int l, int m, int u, int c) {
-  fprintf(stderr, "debug[%d]: merge_i l=%d m=%d u=%d\n", c, l, m, u);
+void merge (int ns[], int l, int m, int u) {
+  fprintf(stderr, "debug: merge l=%d m=%d u=%d\n", l, m, u);
   int t[u - l + 1];
   for (int k = 0, a = l, b = m + 1; k < (u - l + 1); k++) {
     t[k] =  (a > m ? ns[b++]      // left list empty
@@ -27,36 +26,15 @@ void merge_i (int ns[], int l, int m, int u, int c) {
 }
 
 
-void merge_aux (int ns[], int t[], int l, int m, int u, int k, int a, int b) {
-  fprintf(stderr, "debug: merge_aux l=%d m=%d u=%d k=%d a=%d b=%d\n",
-	  l, m, u, k, a, b);
-
-  t[k++] = a > m ? ns[b++]
-         : b > u ? ns[a++]
-         : ns[a] < ns[b] ? ns[a++] : ns[b++];
-
-  if(k < u - l + 1)
-    merge_aux(ns, t, l, m, u, k, a, b);
-}
-
-void merge_r (int ns[], int l, int m, int u) {
-  fprintf(stderr, "debug: merge_r l=%d m=%d u=%d\n", l, m, u);
-  int t[u - l + 1];
-  merge_aux(ns, t, l, m, u, 0, l, m + 1);
-  for (int i = l; i <= u; i++)
-    ns[i] = t[i - l];
-}
-
-
-void merge_sort (int ns[], int i, int j, int c) {
-  fprintf(stderr, "debug[%d]: merge_sort i=%d j=%d\n", c, i, j);
+void merge_sort (int ns[], int i, int j) {
+  fprintf(stderr, "debug: merge_sort i=%d j=%d\n", i, j);
   if ((j - i) == 0)
-    return; // empty list
-  
+    return;
+
   int m = (i + j) / 2;
-  merge_sort(ns, i, m, c + 1);
-  merge_sort(ns, m + 1, j, c + 1);  
-  merge_i(ns, i, m, j, c + 1);
+  merge_sort(ns, i, m);
+  merge_sort(ns, m + 1, j);
+  merge(ns, i, m, j);
 }
 
 
@@ -74,7 +52,7 @@ int main (int argc, char* argv[]) {
     numbers[n++] = number;
 
   // sort
-  merge_sort(numbers, 0, n - 1, 0);
+  merge_sort(numbers, 0, n - 1);
   
   // return the result
   for (int i = 0; i < n; i++)

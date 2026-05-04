@@ -5,16 +5,22 @@
 #define MAX_SIZE 10000
 #define MAX_LENGTH 256
 
+
+void swap(int* n, int* m) {
+  int t;
+  t = *n;
+  *n = *m;
+  *m = t;
+}  
+
+
 void bubble_sort (int a[], int n) {
-  int i, t;
   bool s = true;
   while (s) {
     s = false;
-    for (i = 1; i < n; i++) {
+    for (int i = 1; i < n; i++) {
       if (a[i] < a[i - 1]) {
-        t = a[i];
-        a[i] = a[i - 1];
-        a[i - 1] = t;
+	swap( &(a[i]), &(a[i - 1]) );
         s = true;
       }
     }

@@ -56,20 +56,20 @@
 
   \begin{lstlisting}[style=code]
     function merge_sort(a[1...n])
-      if n > 1:
-       x = merge_sort(a[1...n/2])
-       y = merge_sort(a[n/2+1...n])
-       return merge(x,y)
-      else:
-       return a
+      if n <= 1: return a
+      x = merge_sort(a[1...n/2])
+      y = merge_sort(a[n/2+1...n])
+      return merge(x, y)
 
-    function merge(x[1...k],y[1...l])
-     if k == 0: return y[1...l]
-     if l == 0: return x[1...k]
-     if x[1] < y[1]:
-      return x[1] . merge(x[2...k,y[1...l])
-     else:
-      return y[1] . merge(x[1...k,y[2...l])
+    function merge(x[1...k], y[1...l])
+      t = array of size k + l
+      a = 1, b = 1
+      for i = 1 to k + l:
+        if a > k:            t[i] = y[b]; b++
+        else if b > l:       t[i] = x[a]; a++
+        else if x[a] < y[b]: t[i] = x[a]; a++
+        else:                t[i] = y[b]; b++
+      return t
   \end{lstlisting}
 
   \framebreak
@@ -175,10 +175,15 @@
 
   O que fizemos diferente do pseudo-código?
 
-  Ao invés de `retornar' arrays, alteramos os arrays passados.
+  Ao invés de sub-arrays separados \texttt{x[1...k]} e
+  \texttt{y[1...l]}, passamos índices \texttt{l}, \texttt{m},
+  \texttt{u} dentro do mesmo array.
 
-  O \emph{merge} poderia ser feito `in place', isto é, sem uso de
-  memória extra? Se array de entrada tivesse $10^{200}$ posições?
+  Ao invés de retornar o array \texttt{t}, copiamos \texttt{t} de
+  volta para \texttt{ns[l...u]}.
+
+  O \emph{merge} poderia ser feito sem memória extra? Se o array de
+  entrada tivesse $10^{200}$ posições?
 
 \end{frame}
 
