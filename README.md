@@ -7,97 +7,156 @@ Professor: alexandre.rademaker@fgv.br
 O conteúdo está organizado por semanas. Cada subdiretório `semana-N/`
 contém:
 
-- **Notas de aula** — arquivos `aula-2026MMDD.md` com o registro do
-   que foi apresentado em cada aula.
-- **Slides** — arquivos `slides-NN.tex` (fonte LaTeX) e
-  `slides-NN.pdf` (versão compilada), cujo conteúdo geralmente é
-  apresentado nas aulas quando não usamos os códigos C diretamente.
-- **Exemplos de código** — subdiretório `src/` com os programas
-   usados como exemplos durante as aulas.
+- **Notas de aula** — arquivos `aula-2026MMDD.md` com o registro do que
+  foi apresentado em cada aula. Quando o conteúdo dos slides diverge das
+  notas, **as notas são a fonte de verdade**.
+- **Slides** — arquivos `slides-SSN.tex` (fonte LaTeX, onde `SS` é o
+  número da semana e `N` o índice dentro da semana) e `slides-SSN.pdf`
+  (versão compilada). Slides foram usados de forma esporádica; alguns
+  ficam apenas como referência para estudo dos alunos.
 - **Laboratórios** — subdiretório `lab/` com exercícios para prática
   autônoma; não são entregues nem corrigidos.
 
+Compartilhados no topo do `syllabus/`:
 
-## Programa
+- **Imagens** em `img/` (referenciadas pelos slides via
+  `\graphicspath{{../img/}}`).
+- **Exemplos de código** em `src/`, com os programas C usados como
+  exemplos no curso. Projetos multi-arquivo ficam em subdiretórios
+  (`src/filter/`, `src/list/`, `src/queue/`). Os slides referenciam estes
+  arquivos via `\lstset{inputpath=../src/}`.
 
-O calendário do curso segue [calendário 2026 EMAp](https://emap.fgv.br/sites/default/files/2025-11/calendario_2026_fgv_emap_1.pdf).
+## Programa 
 
-### semana 0 (23, 25, 27/fev)
+O calendário do curso segue 
+[calendário 2026 EMAp](https://emap.fgv.br/sites/default/files/2025-11/calendario_2026_fgv_emap_1.pdf).
 
-- apresentação do curso, ferramentas e metodologia
-- terminal e linha de comando: navegação, comandos básicos, pipes e
-  redirecionamento
-- git e controle de versão: repositórios, commits, staging area,
-  push/pull, GitHub
-- GitHub Codespaces e configuração do ambiente
+### semana 0 (23, 25, 27/fev) — aulas 1, 2, 3
 
-### semana 1 (2, 4, 6/mar)
+Apresentação do curso, ferramentas e metodologia. Terminal e linha de
+comando (navegação, comandos básicos, pipes e redirecionamento). Git e
+GitHub para controle de versão (commits, staging, push/pull). GitHub
+Codespaces e configuração do ambiente.
 
-- arquitetura de computadores: unidades lógicas, portas lógicas, CPU
-- representação de dados: bits, binário, inteiros (com/sem sinal,
-  complemento de dois), texto (ASCII/Unicode), imagens, áudio
-- hardware, software e sistema operacional: processos, shell, CLI vs
-  GUI
-- algoritmos e linguagens de programação: linguagem de máquina,
-  assembly, alto nível
-- compilação em C: fases, gcc/clang, flags, make e Makefile, linking
+### semana 1 (2, 4, 6/mar) — aulas 4, 5, 6
 
-### semana 2 (9, 11, 13/mar)
+Arquitetura básica de computadores (unidades lógicas, portas lógicas,
+CPU). Representação de dados: bits, binário, inteiros com e sem sinal
+(complemento de dois), texto (ASCII/Unicode), imagens e áudio. Hardware,
+software e sistema operacional (processos, shell, CLI vs GUI). Algoritmos
+e linguagens (máquina, assembly, alto nível). Compilação em C com
+gcc/clang, flags, Makefile e linking.
 
-- programação estruturada: sequência, decisão, repetição
-- tipos de dados em C: bool, char, int, long, float, double;
-  modificadores signed/unsigned
-- variáveis e memória: declaração, inicialização, atribuição, const,
-  expressões aritméticas, conversão implícita, representação IEEE 754
-- printf e scanf: especificadores de formato
-- decisão: if-then-else, validação de entrada, tratamento de erros
-- repetição: while, do-while, for, laços aninhados
+### semana 2 (9, 11, 13/mar) — aulas 7, 8, 9, 10
 
-### semana 3 (27/mar)
+(13/mar foi sexta com reposição: aula regular pela manhã + aula extra
+das 11:10 às 12:50, contabilizadas como aulas 9 e 10.)
 
-- funções: definição, protótipos, modularização, main como
-  orquestrador
-- switch como alternativa ao if-else encadeado
-- depuração (debug): técnicas com printf, uso do depurador no
-  Codespaces
-- arrays: declaração, inicialização, acesso por índice
-- ponteiros: operadores `&` (endereço) e `*` (desreferência), passagem
-  por referência vs por valor
-  
+Programação estruturada (sequência, decisão, repetição). Tipos primitivos
+em C (`bool`, `char`, `int`, `long`, `float`, `double` e modificadores
+`signed`/`unsigned`), variáveis, expressões aritméticas, conversão
+implícita e representação IEEE 754. Entrada e saída com `printf` e
+`scanf`. Estruturas de decisão (`if-then-else`) e de repetição (`while`,
+`do-while`, `for`, laços aninhados).
 
-### semana 4 (30/mar, 1/abr)
+### semana 3 (27/mar) — aulas 11, 12
 
-- números hexadecimais: base 16, dígitos 0–9 e A–F, prefixo `0x` em
-  C, conversão binário↔hex agrupando 4 bits por dígito
-- uso do hexadecimal: representação compacta de endereços de memória
-  (32-bit ~4 GB, 64-bit muito maior) e de cores RGB (`#RRGGBB`)
-- endereços de memória e ponteiros: RAM como array de bytes endereçados,
-  tamanho fixo de cada tipo (`int`: 4, `char`: 1, `double`: 8,
-  ponteiro: 8 em 64-bit), operadores `&` (endereço) e `*`
-  (dereferenciação), `NULL` e segmentation fault
-- escopo de variáveis: variáveis locais vs globais, passagem por valor
-  (função recebe cópia, não afeta o chamador)
-- arrays e aritmética de ponteiros: `a[i]` é açúcar sintático para
-  `*(a+i)`, diferença entre array (bloco fixo de memória) e ponteiro
-  (variável que guarda endereço), `sizeof`, decay de array para ponteiro
-  ao passar para funções
-- argumentos de linha de comando: `argc` e `argv`, `atoi`, código de
-  retorno de `main` e encadeamento com `&&` no shell
+(Recesso de viagem entre 16 e 25/mar. A semana foi recuperada com
+reposição em 27/mar — aula regular pela manhã + aula extra das 11:10 às
+12:50.)
 
-### semana 5 (6/abr, 8, 10/abr)
+Funções com `main` como orquestrador. `switch` como alternativa ao
+`if-else` encadeado. Depuração com `printf` e com o depurador do
+Codespaces. Arrays e ponteiros: operadores `&` (endereço) e `*`
+(desreferência), passagem por referência vs por valor. Introdução a
+strings como arrays de caracteres terminados em `'\0'`.
 
-- operações com strings: `strlen` e o tipo `size_t`, impressão eficiente
-  (calcular comprimento uma única vez), conversão de maiúsculas/minúsculas
-  via tabela ASCII e via `<ctype.h>` (`islower`, `toupper`), `strcmp`
-  para comparação de strings
-- incremento pré e pós-fixado: `++a` vs `a++` e quando a diferença importa
-- análise de algoritmos e notação O: correção vs eficiência, complexidade
-  de tempo e memória, notação Big-O e suas propriedades (dominância,
-  constantes multiplicativas)
-- busca linear vs busca binária: busca linear O(n) sem pré-requisito de
-  ordenação; busca binária O(log n) exigindo array ordenado; implementação
-  iterativa vs recursiva; instrumentação para entender o comportamento
+### semana 4 (30/mar, 1/abr) — aulas 13, 14
 
+(03/abr foi recesso de Semana Santa, sem aula na sexta.)
+
+Números hexadecimais (base 16, prefixo `0x`, conversão binário↔hex) e
+seus usos (endereços de memória, cores RGB). RAM como array de bytes
+endereçados, tamanho fixo de cada tipo, `NULL` e segmentation fault.
+Escopo de variáveis (locais vs globais) e passagem por valor. Aritmética
+de ponteiros (`a[i]` como `*(a+i)`, `sizeof`, decay de array para
+ponteiro). Argumentos de linha de comando (`argc`, `argv`, `atoi`).
+
+### semana 5 (6, 8, 10/abr) — aulas 15, 16, 17, 18
+
+(Semana de A1 entre 11 e 18/abr e viagem entre 16 e 25/abr. 10/abr foi
+sexta com reposição: aula regular pela manhã + aula extra das 11:10 às
+12:50, contabilizadas como aulas 17 e 18.)
+
+Operações com strings (`strlen`, `<ctype.h>`, `strcmp` e por que `==` não
+compara conteúdo; implementação manual de `strcmp` com aritmética de
+ponteiros). Incremento pré e pós-fixado e operador ternário. Análise de
+algoritmos e notação Big-O (correção vs eficiência, dominância,
+constantes multiplicativas). Busca linear O(n) vs busca binária O(log n)
+com implementação iterativa e recursiva.
+
+### semana 6 (27, 29/abr) — aulas 19, 20
+
+(01/mai foi feriado do dia do trabalho, sem aula na sexta.)
+
+`struct` em C — motivação a partir de arrays paralelos (agenda
+telefônica), `typedef struct`, agrupamento de campos relacionados num
+único tipo. Solução completa do laboratório `snackbar` combinando
+`struct` com `enum` para comandos e códigos de saída. Introdução a
+recursão. Selection sort.
+
+### semana 7 (4, 6, 8/mai) — aulas 21, 22, 23, 24
+
+(08/mai foi sexta com reposição: aula regular pela manhã + aula extra
+das 11:10 às 12:50, contabilizadas como aulas 23 e 24.)
+
+Algoritmos de ordenação (bubble sort com otimizações; merge sort com
+divisão e conquista, complexidade O(n log n)). Alocação dinâmica de
+memória — stack vs heap, `malloc`, `free`, `sizeof`. Perigos de `scanf`
+ao ler strings (buffer overflow, alternativa com `fgets`). Leitura e
+escrita em arquivos (`fopen`/`fclose`, `fprintf`/`fscanf`,
+`fread`/`fwrite`), byte vs char (hexdump, magic numbers, formato BMP com
+`__attribute__((packed))`). Depuração de erros de memória (vazamentos
+com `leaks` no macOS, use-after-free, leitura de não inicializado). Por
+ser dia de reposição, antecipamos conteúdo da semana 8: `realloc` e
+listas encadeadas (operações e variantes destrutivas vs não destrutivas).
+
+### semana 8 (11, 13, 15/mai) — aulas 25, 26, 27, 28
+
+(15/mai será sexta com reposição.)
+
+TODO
+
+### semana 9 (18, 20, 22/mai) — aulas 29, 30, 31, 32
+
+(22/mai será sexta com reposição.)
+
+TODO
+
+### semana 10 (25, 27/mai) — aulas 33, 34
+
+(Viagem entre 29/mai e 4/jun. Sem aula em 29/mai, 1/jun e 3/jun. 5/jun é
+recesso pós-Corpus Christi.)
+
+TODO
+
+### semana 11 (8, 10, 12/jun) — aulas 35, 36, 37, 38
+
+(12/jun será sexta com reposição.)
+
+TODO
+
+### semana 12 (15/jun) — aula 39
+
+(Semana de A2 entre 17 e 24/jun, sem aulas regulares — apenas a prova.)
+
+TODO
+
+### semana 13 (26/jun) — aula 40
+
+(Reposição em 26/jun, sexta após a semana de A2.)
+
+TODO
 
 ## critérios de avaliação
 

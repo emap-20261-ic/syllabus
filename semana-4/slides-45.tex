@@ -52,7 +52,7 @@
 
   \framebreak
 
-  \lstinputlisting[style=normalc,caption=src/address02.c]{src/address02.c}
+  \lstinputlisting[style=normalc,caption=address02.c]{address02.c}
 
   \framebreak
 
@@ -67,7 +67,7 @@
   Agora que sabemos o que são strings. Podemos imprimir um caractere
   por vez com
 
-  \lstinputlisting[style=tinyc,caption=src/address03.c]{src/address03.c}
+  \lstinputlisting[style=tinyc,caption=address03.c]{address03.c}
 
   Quando declaramos uma string com aspas duplas, o compilador decide
   como colocar esses caracteres na memória como um array. 
@@ -76,7 +76,7 @@
 
   Mas podemos usar os endereços diretamente
 
-  \lstinputlisting[style=tinyc,caption=src/address04.c]{src/address04.c}
+  \lstinputlisting[style=tinyc,caption=address04.c]{address04.c}
 
   \ilcode{*s} lê o endereço armazenado em \ilcode{s}, e \ilcode{*(s +
     1)} o endereço na memória 1 byte (char) maior.
@@ -96,25 +96,25 @@
 
   podemos comparar números
 
-  \lstinputlisting[style=tinyc,caption=src/compare0.c]{src/compare0.c}
+  \lstinputlisting[style=tinyc,caption=compare0-intro.c]{compare0-intro.c}
 
   mas para comprar strings?
 
   \framebreak
 
-  \lstinputlisting[style=tinyc,caption=src/compare1.c]{src/compare1.c}
+  \lstinputlisting[style=tinyc,caption=compare1-intro.c]{compare1-intro.c}
 
   Já vimos que para comparar strings precisamos da \ilcode{strcmp}!
 
   \framebreak
 
-  \lstinputlisting[style=tinyc,caption=src/compare2.c]{src/compare2.c}
+  \lstinputlisting[style=tinyc,caption=compare2-intro.c]{compare2-intro.c}
 
   \framebreak
 
   Cada string é um ponteiro para um endereço diferente? Não exatamente.
 
-  \lstinputlisting[style=tinyc,caption=src/compare3.c]{src/compare3.c}
+  \lstinputlisting[style=tinyc,caption=compare3.c]{compare3.c}
 
   \framebreak
 
@@ -131,7 +131,7 @@
     \ilcode{\0} seja encontrado.
   \end{enumerate}
 
-  Veja \texttt{src/compare4.c}
+  Veja \texttt{compare4-intro.c}
   
   \framebreak
   
@@ -144,7 +144,7 @@
 
 \begin{frame}[allowframebreaks,fragile]{copiando arrays}  
 
-  \lstinputlisting[style=tinyc,caption=src/copy0.c]{src/copy0.c}
+  \lstinputlisting[style=tinyc,caption=copy0-scanf.c]{copy0-scanf.c}
 
   Ambas as saídas foram capitalizadas, por que?
   

@@ -14,7 +14,7 @@
 
 \begin{frame}[fragile,allowframebreaks]{Array}
 
-  \lstinputlisting[style=tinyc,caption=src/scores0.c]{src/scores0.c}
+  \lstinputlisting[style=tinyc,caption=scores0.c]{scores0.c}
 
   Nomes distintos para cada posição na memória! Não necessariamente
   alocados de forma contínua! Podemos simplificar?
@@ -24,7 +24,7 @@
   Isto torna o código mais
   \href{https://en.wikipedia.org/wiki/Code_smell}{elegante}?
 
-  \lstinputlisting[style=tinyc,caption=src/scores1.c]{src/scores1.c}
+  \lstinputlisting[style=tinyc,caption=scores1.c]{scores1.c}
 
   \framebreak
 
@@ -35,27 +35,18 @@
 
 \begin{frame}[fragile,allowframebreaks]{caracteres e inteiros}
 
-  \lstinputlisting[style=normalc,caption=src/hi0.c]{src/hi0.c}
+  \lstinputlisting[style=normalc,caption=hi0.c]{hi0.c}
 
   \begin{lstlisting}[style=normalbash]
     > clang hi0.c
     > ./a.out
     HI!
-  \end{lstlisting}
-
-  \framebreak
-
-  \lstinputlisting[style=normalc,caption=src/hi1.c]{src/hi1.c}
-  \begin{lstlisting}[style=normalbash]
-    > ./a.out
     72 73 33
   \end{lstlisting}
-  Os \ilcode{char} são armazenados como inteiros (códigos ASCII).
-  
-  \framebreak
 
-  \ilcode{printf} fez uma conversão \emph{implícita}, mas também
-  podemos converter explicitamente. \vspace{.5cm}
+  Os \ilcode{char} são armazenados como inteiros (códigos ASCII).
+  \ilcode{printf} fez uma conversão \emph{implícita} usando \ilcode{\%i};
+  também podemos converter explicitamente:
 
   \begin{lstlisting}[style=normalc]
     printf("%i %i %i\n", (int) c1, (int) c2, (int) c3);
@@ -63,7 +54,7 @@
 
   Mas conversões podem \emph{perder} informação, por exemplo, de
   \ilcode{float} para \ilcode{int}.
-  
+
 \end{frame}
 
 \begin{frame}[fragile,allowframebreaks]{Strings}
@@ -71,25 +62,26 @@
   Representamos \emph{strings} como arrays de caracteres (cada um com
   8 bits ou um byte), um tipo que na verdade não é primitivo em C.
 
-  \lstinputlisting[style=normalc,caption=src/hi2.c]{src/hi2.c}
+  \lstinputlisting[style=normalc,caption=hi1.c]{hi1.c}
 
   \framebreak
 
-  \lstinputlisting[style=normalc,caption=src/hi3.c]{src/hi3.c}
   \begin{lstlisting}[style=normalbash]
     > ./a.out
-    72 73 33
+    HI! vs HI!
+    a[0] = H (72)
+    a[1] = I (73)
+    a[2] = ! (33)
+    a[3] =   (0)
   \end{lstlisting}
-
-  \framebreak
 
   \includegraphics[width=.45\textwidth]{chars.png}\hfill
   \includegraphics[width=.45\textwidth]{string.png}
 
   Em C, strings terminam com o char \ilcode{'\\0'} ou inteiro
-  \ilcode{0}, ou um byte com todos os bits 0, marcando a
-  \emph{terminação} da string. Este é o chamado 'NUL'. Então
-  precisamos sempre de um byte adicional.
+  \ilcode{0} (um byte com todos os bits 0), marcando a
+  \emph{terminação} da string. Este é o chamado 'NUL'. Sempre
+  precisamos de um byte adicional.
 
   Outros tipos de dados de tamanho \emph{fixo} não precisam de tal
   mecanismo. Mas bibliotecas que oferecem representação de variadas
@@ -97,15 +89,7 @@
 
   \framebreak
 
-  \lstinputlisting[style=normalc,caption=src/hi4.c]{src/hi4.c}
-  \begin{lstlisting}[style=normalbash]
-    > ./a.out
-    72 73 33 0
-  \end{lstlisting}
-
-  \framebreak
-
-  \lstinputlisting[style=normalc,caption=src/hi5.c]{src/hi5.c}
+  \lstinputlisting[style=normalc,caption=hi2.c]{hi2.c}
 
   \framebreak
 
@@ -115,7 +99,7 @@
 
   Um array de strings ou um array de array de caracteres.
 
-  \lstinputlisting[style=normalc,caption=src/hi6.c]{src/hi6.c}
+  \lstinputlisting[style=normalc,caption=hi3.c]{hi3.c}
 
   \framebreak
 
