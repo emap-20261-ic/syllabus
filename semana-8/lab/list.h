@@ -21,9 +21,12 @@ void     list_array(t_node *list, int* ar, int size);
 void     list_filter(t_node **head, int (*f) (int));
 void     list_nconc(t_node *a, t_node *b); 
 void     list_print(t_node *list, char* sep);
+
 void     list_del(t_node *list);
 void     list_del_rec(t_node *list);
+void     list_del_rec_tc(t_node *list);
 
 t_node*  merge_sorted(t_node *a, t_node *b);
 void     list_split(t_node *source, t_node **a, t_node **b);
 void     merge_sort(t_node **ref);
+void     selection_sort(t_node **ref);

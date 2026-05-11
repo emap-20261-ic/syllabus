@@ -36,6 +36,41 @@ estejam ordenados. A assinatura das funções é dada no arquivo
 serão necessárias: a =list_split= que já foi implementada e a
 =merge_sorted=.
 
+* tarefa 5 (30 minutos)
+
+Implemente também uma versão do =selection_sort= sobre a lista
+encadeada. A assinatura, em =list.h=, segue o padrão de =merge_sort=:
+
+#+begin_src c
+void selection_sort(t_node **ref);
+#+end_src
+
+A versão vista em aula (=src/selection.c=) trocava valores entre
+posições do array. Aqui, exige-se que o algoritmo manipule
+**ponteiros**: o nó selecionado a cada iteração deve ser
+**desconectado** de sua posição original na lista e **religado** na
+nova posição. Os campos =number= dos nós não devem ser alterados.
+
+* tarefa 6 (20 minutos)
+
+Implemente em =list.c= a função =list_del_rec_tc= — uma terceira
+versão de liberação da lista, alternativa à =list_del_rec=. A
+assinatura está declarada em =list.h=:
+
+#+begin_src c
+void list_del_rec_tc(t_node *list);
+#+end_src
+
+A diferença em relação à =list_del_rec= deve estar na **ordem das
+operações**: enquanto =list_del_rec= libera o nó atual *depois* do
+retorno da chamada recursiva, a sua =list_del_rec_tc= deve liberar o
+nó *antes* da chamada recursiva, deixando a chamada recursiva como a
+**última ação** da função (posição de cauda).
+
+Dica: você só precisa salvar o ponteiro para =a->next= em uma
+variável local antes do =free=, porque depois do =free(a)= o campo
+=a->next= já não pode mais ser acessado.
+
 * testes
 
 Considere os testes existentes no arquivo =test.c=. São suficientes?
@@ -48,6 +83,31 @@ biblioteca. Que documentação você precisaria fornecer para evitar que
 seu amigo tenha problemas ao usar a biblioteca? Quais detalhes sobre
 cada função podem não ser óbvios para alguém que tenha apenas acesso
 ao arquivo =list.h=?
+
+Depois de implementar as tarefas 4 e 5, compare:
+
+- Qual é a complexidade de pior caso de cada uma?
+- Qual consome mais memória extra?
+- Em quais cenários o =selection_sort= ainda seria preferível ao
+  =merge_sort=, apesar de mais lento?
+
+Compare também as três versões de liberação de listas declaradas em
+=list.h=:
+
+#+begin_src c
+void list_del(t_node *list);         /* iterativa */
+void list_del_rec(t_node *list);     /* recursiva */
+void list_del_rec_tc(t_node *list);  /* recursiva, forma tail call */
+#+end_src
+
+- Qual a diferença entre =list_del_rec= e =list_del_rec_tc=?
+- Em qual delas a chamada recursiva está em **posição de cauda** (tail
+  position)?
+- Existe alguma garantia, pelo padrão C, de que o compilador converta
+  a recursão em laço (=tail call optimization=)?
+- Tente compilar a biblioteca com =clang -O0= e depois com =clang -O2=
+  e rodar uma lista bem grande (1 milhão de nós, por exemplo) com cada
+  uma das três funções de liberação. O que você observa?
 
 * dica
 

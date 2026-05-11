@@ -69,15 +69,10 @@ t_node* list_create(int arr[], int N) {
 }
 
 
-int* list_array(t_node* head, int size) {
-  int* arr = malloc(size * sizeof(int));
-  t_node* t = head;
+void list_array(t_node* head, int ar[], int size) {
   int i = 0;
-  while (t) {
-    arr[i++] = t->number;
-    t = t->next;
-  }
-  return arr;
+  for (t_node *t = head; t != NULL && i < size; t = t->next)
+    ar[i++] = t->number;
 }
 
     
@@ -120,11 +115,17 @@ void list_del(t_node *a) {
 }
 
 void list_del_rec(t_node *a) {
-  if(a == NULL) return ;
+  if(a == NULL) return;
   list_del_rec(a->next);
   free(a);
 }
 
+void list_del_rec_tc(t_node *a) {
+  if (a == NULL) return;
+  t_node *next = a->next;
+  free(a);
+  list_del_rec_tc(next); // tail call
+}
 
 void list_split(t_node *source, t_node **fref, t_node **bref) {
   t_node* fast;
@@ -199,6 +200,36 @@ int list_hasloop(t_node* head) {
     }
   }
   return 0;
+}
+
+
+void selection_sort(t_node **ref) {
+  t_node *sorted = NULL;
+
+  while (*ref != NULL) {
+    /* find the maximum node in the unsorted list */
+    t_node *max = *ref;
+    for (t_node *t = (*ref)->next; t != NULL; t = t->next)
+      if (t->number > max->number)
+        max = t;
+
+    /* detach max from the unsorted list */
+    if (max == *ref) {
+      *ref = max->next;
+    } else {
+      t_node *prev = *ref;
+      while (prev->next != max) prev = prev->next;
+      prev->next = max->next;
+    }
+
+    /* prepend max to the sorted list: each new max becomes the head,
+       so the very first (largest overall) ends at the tail and the
+       last (smallest) ends at the head — ascending order */
+    max->next = sorted;
+    sorted = max;
+  }
+
+  *ref = sorted;
 }
 
 
