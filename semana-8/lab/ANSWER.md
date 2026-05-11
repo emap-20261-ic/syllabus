@@ -105,11 +105,11 @@ nenhuma TCO acontece. Em `clang -O2`, sim.
 
 Lista de 10⁶ nós, stack padrão de 8 MB no macOS:
 
-| função              | `-O0`             | `-O2`           |
-|---------------------|-------------------|-----------------|
-| `list_del`          | ✅ passa          | ✅ passa        |
-| `list_del_rec`      | ❌ stack overflow | ❌ stack overflow |
-| `list_del_rec_tc`   | ❌ stack overflow | ✅ passa (TCO)   |
+| função            | `-O0`             | `-O2`             |
+|-------------------|-------------------|-------------------|
+| `list_del`        | ✅ passa          | ✅ passa          |
+| `list_del_rec`    | ❌ stack overflow | ❌ stack overflow |
+| `list_del_rec_tc` | ❌ stack overflow | ✅ passa (TCO)    |
 
 Três conclusões pedagógicas:
 
@@ -145,7 +145,7 @@ quebrar manualmente o ciclo criado no teste de `list_hasloop`. A
 memória dessa lista cíclica é deliberadamente vazada (recuperada
 pelo SO ao final do processo).
 
-## Perguntas para discussão — o que documentar
+## Perguntas para discussão - o que documentar
 
 O que **não** é evidente lendo só o `list.h`? Tudo que segue
 precisaria entrar na documentação para alguém usar a biblioteca sem

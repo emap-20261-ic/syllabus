@@ -73,8 +73,8 @@ variável local antes do =free=, porque depois do =free(a)= o campo
 
 * testes
 
-Considere os testes existentes no arquivo =test.c=. São suficientes?
-Acrescente os testes que julgar adequados.
+Considere o arquivo =test.c=. Você acha que ele é suficiente para
+garantir que todas as implementações que fizemos estão corretas?
 
 * perguntas para discussão
 
@@ -113,5 +113,4 @@ void list_del_rec_tc(t_node *list);  /* recursiva, forma tail call */
 
 Para detecção de loops e divisão de uma lista em duas metades,
 considere aprender sobre o [[https://en.wikipedia.org/wiki/Cycle_detection#Floyd's_tortoise_and_hare][algorítmo de Floyd]].
-
 
