@@ -1,6 +1,6 @@
 
-OPT=-Wall -O0 -Qunused-arguments -std=c17
-COMPILER=gcc
+OPT=-Wall -Werror -Wpedantic -std=c17
+COMPILER=clang
 
 all: test
 

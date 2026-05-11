@@ -1,5 +1,5 @@
 
-OPT=-g -gdwarf-4 -g3 -Wall -fPIC -ggdb3 -O0 -Qunused-arguments -std=c17 -Wall
+OPT=-Wall -Werror -std=c17
 
 all: test
 

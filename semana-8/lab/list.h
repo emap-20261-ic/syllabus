@@ -1,3 +1,4 @@
+
 typedef struct node t_node;
 
 /* linked list */
@@ -13,9 +14,9 @@ t_node*  list_insert(int element, t_node* list);
 t_node*  list_reverse(t_node *a);
 t_node*  list_copy(t_node *list);
 t_node*  list_append(t_node *a, t_node *b);
-t_node*  list_create(int arr[], int N);
 
-int*     list_array(t_node *list, int size);
+t_node*  list_create(int arr[], int N);
+void     list_array(t_node *list, int* ar, int size);
 
 void     list_filter(t_node **head, int (*f) (int));
 void     list_nconc(t_node *a, t_node *b); 

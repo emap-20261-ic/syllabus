@@ -152,10 +152,8 @@ t_node* merge_sorted(t_node *a, t_node *b) {
   t_node* result = NULL;
 
   // base case
-  if (a == NULL)
-    return b;
-  else if (b == NULL)
-    return a;
+  if (a == NULL) return b;
+  if (b == NULL) return a;
   
   if (a->number <= b->number) {
     result = a;
@@ -171,8 +169,9 @@ t_node* merge_sorted(t_node *a, t_node *b) {
 
 /* sorts the linked list by changing next pointers (not data) */
 void merge_sort(t_node **ref) {
+  
   t_node *head = *ref;
-   t_node *a;
+  t_node *a;
   t_node *b;
   
   /* base case - length 0 or 1 */
