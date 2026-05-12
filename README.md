@@ -28,6 +28,8 @@ Compartilhados no topo do `syllabus/`:
 
 ## Programa 
 
+📅 [abrir calendário](https://calendar.google.com/calendar/u/0?cid=MjY2YjQwODI0YjAzMWNiNzM3MDk2ODQyNWMyNzk4OWViNjRkMDM4NjJjMTdhYTg4ODU0MzY1MTI2OTJjOGE3OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t)
+
 O calendário do curso segue 
 [calendário 2026 EMAp](https://emap.fgv.br/sites/default/files/2025-11/calendario_2026_fgv_emap_1.pdf).
 
