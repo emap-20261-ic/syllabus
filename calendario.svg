@@ -126,13 +126,16 @@
     <text x="166" y="171" text-anchor="middle" font-size="17" font-weight="600" fill="#7040b0">15</text>
     <rect x="252" y="152" width="52" height="28" rx="8" fill="rgba(180,120,220,0.15)" stroke="rgba(160,100,200,0.4)" stroke-width="1.5"/>
     <text x="278" y="171" text-anchor="middle" font-size="17" font-weight="600" fill="#7040b0">17</text>
-    <!-- S4: ✈20 ✈22 ✈24 -->
-    <rect x="24"  y="196" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="54"  y="215" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">20</text>
-    <rect x="134" y="196" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="166" y="215" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">22</text>
-    <rect x="252" y="196" width="52" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="278" y="215" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">24</text>
+    <!-- S4: 🚫20 🚫22 🚫24 feriado -->
+    <rect x="24"  y="196" width="62" height="28" rx="8" fill="rgba(200,200,210,0.25)" stroke="rgba(150,140,180,0.4)" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="54"  y="215" text-anchor="middle" font-size="17" font-weight="500" fill="rgba(150,140,180,0.7)">20</text>
+    <line x1="27" y1="210" x2="83" y2="210" stroke="rgba(150,140,180,0.5)" stroke-width="1.5"/>
+    <rect x="134" y="196" width="62" height="28" rx="8" fill="rgba(200,200,210,0.25)" stroke="rgba(150,140,180,0.4)" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="166" y="215" text-anchor="middle" font-size="17" font-weight="500" fill="rgba(150,140,180,0.7)">22</text>
+    <line x1="137" y1="210" x2="193" y2="210" stroke="rgba(150,140,180,0.5)" stroke-width="1.5"/>
+    <rect x="252" y="196" width="52" height="28" rx="8" fill="rgba(200,200,210,0.25)" stroke="rgba(150,140,180,0.4)" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="278" y="215" text-anchor="middle" font-size="17" font-weight="500" fill="rgba(150,140,180,0.7)">24</text>
+    <line x1="255" y1="210" x2="301" y2="210" stroke="rgba(150,140,180,0.5)" stroke-width="1.5"/>
     <!-- S5: 27 29 -->
     <text x="54"  y="255" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">27</text>
     <text x="166" y="255" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">29</text>
