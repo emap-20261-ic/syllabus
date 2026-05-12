@@ -1,271 +1,255 @@
-<svg viewBox="0 0 900 660" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', system-ui, sans-serif">
+<svg viewBox="0 0 960 940" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', system-ui, sans-serif">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#fdf6f0"/>
       <stop offset="100%" stop-color="#f0edf8"/>
     </linearGradient>
-
-    <!-- Month header fills — soft pastels -->
     <linearGradient id="gFev" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#f9c6d0"/>
-      <stop offset="100%" stop-color="#f5afc2"/>
+      <stop offset="0%" stop-color="#f9c6d0"/><stop offset="100%" stop-color="#f5afc2"/>
     </linearGradient>
     <linearGradient id="gMar" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#aadfcc"/>
-      <stop offset="100%" stop-color="#8fd3be"/>
+      <stop offset="0%" stop-color="#aadfcc"/><stop offset="100%" stop-color="#8fd3be"/>
     </linearGradient>
     <linearGradient id="gAbr" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#fde4a0"/>
-      <stop offset="100%" stop-color="#fad47e"/>
+      <stop offset="0%" stop-color="#fde4a0"/><stop offset="100%" stop-color="#fad47e"/>
     </linearGradient>
     <linearGradient id="gMai" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#b5cff5"/>
-      <stop offset="100%" stop-color="#c4b8f0"/>
+      <stop offset="0%" stop-color="#b5cff5"/><stop offset="100%" stop-color="#c4b8f0"/>
     </linearGradient>
     <linearGradient id="gJun" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#f7c5e0"/>
-      <stop offset="100%" stop-color="#d9b8f0"/>
+      <stop offset="0%" stop-color="#f7c5e0"/><stop offset="100%" stop-color="#d9b8f0"/>
     </linearGradient>
-
-    <filter id="shadow" x="-5%" y="-5%" width="115%" height="120%">
-      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="rgba(100,80,140,0.10)"/>
+    <filter id="sh">
+      <feDropShadow dx="2" dy="3" stdDeviation="5" flood-color="rgba(100,80,140,0.10)"/>
     </filter>
   </defs>
 
-  <!-- Background -->
-  <rect width="900" height="660" fill="url(#bg)" rx="18"/>
-
-  <!-- Soft decorative blobs -->
-  <circle cx="830" cy="60"  r="90" fill="rgba(245,175,194,0.18)"/>
-  <circle cx="70"  cy="600" r="80" fill="rgba(181,207,245,0.18)"/>
-  <circle cx="460" cy="330" r="200" fill="rgba(196,184,240,0.06)"/>
+  <rect width="960" height="940" fill="url(#bg)" rx="18"/>
+  <circle cx="880" cy="80"  r="100" fill="rgba(245,175,194,0.13)"/>
+  <circle cx="80"  cy="860" r="90"  fill="rgba(181,207,245,0.13)"/>
 
   <!-- Title -->
-  <text x="450" y="44" text-anchor="middle" font-size="10.5" font-weight="600" letter-spacing="5" fill="#a090b8">CALENDÁRIO DE AULAS · 2025</text>
-  <text x="450" y="80" text-anchor="middle" font-size="30" font-weight="800" fill="#3d2f5e" letter-spacing="-0.5">Introdução à Computação</text>
+  <text x="480" y="46" text-anchor="middle" font-size="10.5" font-weight="600" letter-spacing="5" fill="#a090b8">CALENDÁRIO DE AULAS · 2026</text>
+  <text x="480" y="83" text-anchor="middle" font-size="30" font-weight="800" fill="#3d2f5e" letter-spacing="-0.5">Introdução à Computação</text>
+  <rect x="308" y="96" width="96" height="22" rx="11" fill="rgba(181,207,245,0.5)"/>
+  <text x="356" y="111" text-anchor="middle" font-size="9.5" fill="#5070a0" letter-spacing="1">Segunda</text>
+  <rect x="416" y="96" width="96" height="22" rx="11" fill="rgba(181,207,245,0.5)"/>
+  <text x="464" y="111" text-anchor="middle" font-size="9.5" fill="#5070a0" letter-spacing="1">Quarta</text>
+  <rect x="524" y="96" width="96" height="22" rx="11" fill="rgba(181,207,245,0.5)"/>
+  <text x="572" y="111" text-anchor="middle" font-size="9.5" fill="#5070a0" letter-spacing="1">Sexta</text>
 
-  <!-- Subtitle pills -->
-  <rect x="285" y="94" width="96" height="22" rx="11" fill="rgba(181,207,245,0.5)"/>
-  <text x="333" y="109" text-anchor="middle" font-size="9.5" fill="#5070a0" letter-spacing="1">Segunda</text>
-  <rect x="393" y="94" width="96" height="22" rx="11" fill="rgba(181,207,245,0.5)"/>
-  <text x="441" y="109" text-anchor="middle" font-size="9.5" fill="#5070a0" letter-spacing="1">Quarta</text>
-  <rect x="501" y="94" width="96" height="22" rx="11" fill="rgba(181,207,245,0.5)"/>
-  <text x="549" y="109" text-anchor="middle" font-size="9.5" fill="#5070a0" letter-spacing="1">Sexta</text>
-
-  <!-- ═══ FEVEREIRO  x=30 y=140 w=255 ═══ -->
-  <g transform="translate(30,140)" filter="url(#shadow)">
-    <rect width="255" height="220" rx="14" fill="white"/>
-    <!-- header -->
-    <rect width="255" height="38" rx="14" fill="url(#gFev)"/>
-    <rect y="24" width="255" height="14" fill="url(#gFev)"/>
-    <text x="127" y="24" text-anchor="middle" font-size="12.5" font-weight="700" fill="#7a2040" letter-spacing="2">FEVEREIRO</text>
-
-    <!-- DOW -->
-    <text x="48"  y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
-    <text x="127" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
-    <text x="207" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
-    <line x1="18" y1="60" x2="237" y2="60" stroke="#f0e8f0" stroke-width="1"/>
-
-    <!-- 24 26 28 -->
-    <text x="48"  y="95" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">24</text>
-    <text x="127" y="95" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">26</text>
-    <text x="207" y="95" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">28</text>
-
-    <!-- stats pill -->
-    <rect x="18" y="190" width="219" height="18" rx="9" fill="#fce8ef"/>
-    <text x="127" y="202" text-anchor="middle" font-size="8.5" fill="#c06080" letter-spacing="0.8">3 AULAS</text>
+  <!-- ── FEVEREIRO x=30 y=138 ── -->
+  <g transform="translate(30,138)" filter="url(#sh)">
+    <rect width="220" height="152" rx="14" fill="white"/>
+    <rect width="220" height="38" rx="14" fill="url(#gFev)"/>
+    <rect y="24" width="220" height="14" fill="url(#gFev)"/>
+    <text x="110" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#7a2040" letter-spacing="2">FEVEREIRO</text>
+    <text x="36"  y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
+    <text x="110" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
+    <text x="184" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
+    <line x1="14" y1="62" x2="206" y2="62" stroke="#f0e8f0" stroke-width="1"/>
+    <text x="36"  y="101" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">23</text>
+    <text x="110" y="101" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">25</text>
+    <text x="184" y="101" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">27</text>
+    <rect x="14" y="120" width="192" height="18" rx="9" fill="#fce8ef"/>
+    <text x="110" y="133" text-anchor="middle" font-size="8.5" fill="#c06080" letter-spacing="0.8">3 AULAS</text>
   </g>
 
-  <!-- ═══ MARÇO  x=305 y=140 w=255 ═══ -->
-  <g transform="translate(305,140)" filter="url(#shadow)">
-    <rect width="255" height="220" rx="14" fill="white"/>
-    <rect width="255" height="38" rx="14" fill="url(#gMar)"/>
-    <rect y="24" width="255" height="14" fill="url(#gMar)"/>
-    <text x="127" y="24" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d5444" letter-spacing="2">MARÇO</text>
+  <!-- ── MARÇO x=266 y=138 ── -->
+  <g transform="translate(266,138)" filter="url(#sh)">
+    <rect width="316" height="340" rx="14" fill="white"/>
+    <rect width="316" height="38" rx="14" fill="url(#gMar)"/>
+    <rect y="24" width="316" height="14" fill="url(#gMar)"/>
+    <text x="158" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#1d5444" letter-spacing="2">MARÇO</text>
+    <text x="54"  y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
+    <text x="158" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
+    <text x="262" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
+    <line x1="18" y1="62" x2="298" y2="62" stroke="#f0e8f0" stroke-width="1"/>
+    <text x="54"  y="101" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">2</text>
+    <text x="158" y="101" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">4</text>
+    <text x="262" y="101" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">6</text>
+    <text x="54"  y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">9</text>
+    <text x="158" y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">11</text>
+    <text x="262" y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">13</text>
+    <rect x="277" y="120" width="22" height="13" rx="4" fill="#aadfcc"/>
+    <text x="288" y="130.5" text-anchor="middle" font-size="8" font-weight="800" fill="#1d5444">×2</text>
+    <rect x="24"  y="150" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="54"  y="169" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">16</text>
+    <rect x="126" y="150" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="158" y="169" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">18</text>
+    <rect x="230" y="150" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="262" y="169" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">20</text>
+    <rect x="24"  y="186" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="54"  y="205" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">23</text>
+    <rect x="126" y="186" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="158" y="205" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">25</text>
+    <text x="262" y="207" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">27</text>
+    <rect x="277" y="186" width="22" height="13" rx="4" fill="#aadfcc"/>
+    <text x="288" y="196.5" text-anchor="middle" font-size="8" font-weight="800" fill="#1d5444">×2</text>
+    <text x="54"  y="247" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">30</text>
+    <rect x="18" y="308" width="280" height="18" rx="9" fill="#e8f7f2"/>
+    <text x="158" y="321" text-anchor="middle" font-size="8.5" fill="#2a7a5a" letter-spacing="0.7">7 AULAS · ×2 EM 2 SEXTAS · 5 VIAGEM</text>
+  </g>
 
-    <text x="48"  y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
-    <text x="127" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
-    <text x="207" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
-    <line x1="18" y1="60" x2="237" y2="60" stroke="#f0e8f0" stroke-width="1"/>
+  <!-- ── ABRIL x=598 y=138 ── -->
+  <g transform="translate(598,138)" filter="url(#sh)">
+    <rect width="332" height="380" rx="14" fill="white"/>
+    <rect width="332" height="38" rx="14" fill="url(#gAbr)"/>
+    <rect y="24" width="332" height="14" fill="url(#gAbr)"/>
+    <text x="166" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#7a5010" letter-spacing="2">ABRIL</text>
+    <text x="54"  y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
+    <text x="166" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
+    <text x="278" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
+    <line x1="18" y1="62" x2="314" y2="62" stroke="#f0e8f0" stroke-width="1"/>
+    <!-- S1: — 1 3(feriado) -->
+    <text x="166" y="101" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">1</text>
+    <rect x="252" y="80" width="52" height="28" rx="8" fill="rgba(200,200,210,0.25)" stroke="rgba(150,140,180,0.4)" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="278" y="99" text-anchor="middle" font-size="17" font-weight="500" fill="rgba(150,140,180,0.7)">3</text>
+    <line x1="255" y1="94" x2="301" y2="94" stroke="rgba(150,140,180,0.5)" stroke-width="1.5"/>
+    <text x="278" y="114" text-anchor="middle" font-size="7" fill="rgba(150,140,180,0.8)">feriado</text>
+    <!-- S2: 6 8 10×2 -->
+    <text x="54"  y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">6</text>
+    <text x="166" y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">8</text>
+    <text x="278" y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">10</text>
+    <rect x="293" y="120" width="22" height="13" rx="4" fill="#fde4a0"/>
+    <text x="304" y="130.5" text-anchor="middle" font-size="8" font-weight="800" fill="#7a5010">×2</text>
+    <!-- S3: A1 — 13 15 ✈17 -->
+    <text x="166" y="148" text-anchor="middle" font-size="7.5" font-weight="700" fill="rgba(140,80,190,0.7)" letter-spacing="1">SEMANA A1</text>
+    <rect x="24"  y="152" width="62" height="28" rx="8" fill="rgba(180,120,220,0.15)" stroke="rgba(160,100,200,0.4)" stroke-width="1.5"/>
+    <text x="54"  y="171" text-anchor="middle" font-size="17" font-weight="600" fill="#7040b0">13</text>
+    <rect x="134" y="152" width="62" height="28" rx="8" fill="rgba(180,120,220,0.15)" stroke="rgba(160,100,200,0.4)" stroke-width="1.5"/>
+    <text x="166" y="171" text-anchor="middle" font-size="17" font-weight="600" fill="#7040b0">15</text>
+    <rect x="252" y="152" width="52" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="278" y="171" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">17</text>
+    <!-- S4: ✈20 ✈22 ✈24 -->
+    <rect x="24"  y="196" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="54"  y="215" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">20</text>
+    <rect x="134" y="196" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="166" y="215" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">22</text>
+    <rect x="252" y="196" width="52" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="278" y="215" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">24</text>
+    <!-- S5: 27 29 -->
+    <text x="54"  y="255" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">27</text>
+    <text x="166" y="255" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">29</text>
+    <rect x="18" y="348" width="296" height="18" rx="9" fill="#fef8e0"/>
+    <text x="166" y="361" text-anchor="middle" font-size="8.5" fill="#a07020" letter-spacing="0.6">5 AULAS · ×2 EM 1 SEXTA · 1 FERIADO · A1 · 4 VIAGEM</text>
+  </g>
 
-    <!-- W1: 3  5  7×2 -->
-    <text x="48"  y="90" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">3</text>
-    <text x="127" y="90" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">5</text>
-    <text x="207" y="90" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">7</text>
-    <rect x="221" y="69" width="20" height="13" rx="4" fill="#aadfcc"/>
-    <text x="231" y="79.5" text-anchor="middle" font-size="8" font-weight="800" fill="#1d5444">×2</text>
+  <!-- ── MAIO x=30 y=538 ── -->
+  <g transform="translate(30,538)" filter="url(#sh)">
+    <rect width="490" height="316" rx="14" fill="white"/>
+    <rect width="490" height="38" rx="14" fill="url(#gMai)"/>
+    <rect y="24" width="490" height="14" fill="url(#gMai)"/>
+    <text x="245" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#2a3a7a" letter-spacing="2">MAIO</text>
+    <text x="80"  y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
+    <text x="245" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
+    <text x="410" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
+    <line x1="18" y1="62" x2="472" y2="62" stroke="#f0e8f0" stroke-width="1"/>
+    <!-- S1: — — 1(feriado) -->
+    <rect x="382" y="72" width="58" height="28" rx="8" fill="rgba(200,200,210,0.25)" stroke="rgba(150,140,180,0.4)" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="410" y="91" text-anchor="middle" font-size="17" font-weight="500" fill="rgba(150,140,180,0.7)">1</text>
+    <line x1="385" y1="86" x2="437" y2="86" stroke="rgba(150,140,180,0.5)" stroke-width="1.5"/>
+    <text x="410" y="106" text-anchor="middle" font-size="7" fill="rgba(150,140,180,0.8)">feriado</text>
+    <!-- S2: 4 6 8×2 -->
+    <text x="80"  y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">4</text>
+    <text x="245" y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">6</text>
+    <text x="410" y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">8</text>
+    <rect x="426" y="120" width="22" height="13" rx="4" fill="#b5cff5"/>
+    <text x="437" y="130.5" text-anchor="middle" font-size="8" font-weight="800" fill="#2a3a7a">×2</text>
+    <!-- S3: 11 13 15×2 -->
+    <text x="80"  y="181" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">11</text>
+    <text x="245" y="181" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">13</text>
+    <text x="410" y="181" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">15</text>
+    <rect x="426" y="160" width="22" height="13" rx="4" fill="#b5cff5"/>
+    <text x="437" y="170.5" text-anchor="middle" font-size="8" font-weight="800" fill="#2a3a7a">×2</text>
+    <!-- S4: 18 20 22×2 -->
+    <text x="80"  y="221" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">18</text>
+    <text x="245" y="221" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">20</text>
+    <text x="410" y="221" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">22</text>
+    <rect x="426" y="200" width="22" height="13" rx="4" fill="#b5cff5"/>
+    <text x="437" y="210.5" text-anchor="middle" font-size="8" font-weight="800" fill="#2a3a7a">×2</text>
+    <!-- S5: 25 27 ✈29 -->
+    <text x="80"  y="261" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">25</text>
+    <text x="245" y="261" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">27</text>
+    <rect x="382" y="240" width="58" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="410" y="259" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">29</text>
+    <rect x="18" y="282" width="454" height="18" rx="9" fill="#edf2fc"/>
+    <text x="245" y="295" text-anchor="middle" font-size="8.5" fill="#3a50a0" letter-spacing="0.7">10 AULAS · ×2 EM 3 SEXTAS · 1 FERIADO · 1 VIAGEM</text>
+  </g>
 
-    <!-- W2: 10 12 13×2 -->
-    <text x="48"  y="124" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">10</text>
-    <text x="127" y="124" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">12</text>
-    <text x="207" y="124" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">13</text>
-    <rect x="221" y="103" width="20" height="13" rx="4" fill="#aadfcc"/>
-    <text x="231" y="113.5" text-anchor="middle" font-size="8" font-weight="800" fill="#1d5444">×2</text>
+  <!-- ── JUNHO x=536 y=538 ── -->
+  <!-- S1: ✈1  ✈3  🚫5(feriado)
+       S2: 8   10  12×2
+       S3: 15  A2→17  A2→19
+       S4: A2→22  A2→24  26   ← last day
+  -->
+  <g transform="translate(536,538)" filter="url(#sh)">
+    <rect width="394" height="340" rx="14" fill="white"/>
+    <rect width="394" height="38" rx="14" fill="url(#gJun)"/>
+    <rect y="24" width="394" height="14" fill="url(#gJun)"/>
+    <text x="197" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#5a2060" letter-spacing="2">JUNHO</text>
+    <text x="66"  y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
+    <text x="197" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
+    <text x="328" y="56" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
+    <line x1="18" y1="62" x2="376" y2="62" stroke="#f0e8f0" stroke-width="1"/>
 
-    <!-- W3: [16] [18] [20] travel -->
-    <rect x="20"  y="132" width="55" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="48"  y="151" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">16</text>
-    <rect x="99"  y="132" width="55" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="127" y="151" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">18</text>
-    <rect x="179" y="132" width="55" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="207" y="151" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">20</text>
+    <!-- S1: ✈1  ✈3  🚫5 -->
+    <rect x="36"  y="72" width="60" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="66"  y="91" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">1</text>
+    <rect x="166" y="72" width="62" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
+    <text x="197" y="91" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">3</text>
+    <rect x="296" y="72" width="62" height="28" rx="8" fill="rgba(200,200,210,0.25)" stroke="rgba(150,140,180,0.4)" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="328" y="91" text-anchor="middle" font-size="17" font-weight="500" fill="rgba(150,140,180,0.7)">5</text>
+    <line x1="299" y1="86" x2="357" y2="86" stroke="rgba(150,140,180,0.5)" stroke-width="1.5"/>
+    <text x="328" y="106" text-anchor="middle" font-size="7" fill="rgba(150,140,180,0.8)">feriado</text>
 
-    <!-- W4: [23] [25] 27×2 -->
-    <rect x="20"  y="164" width="55" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="48"  y="183" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">23</text>
-    <rect x="99"  y="164" width="55" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="127" y="183" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">25</text>
-    <text x="207" y="185" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">27</text>
-    <rect x="221" y="164" width="20" height="13" rx="4" fill="#aadfcc"/>
-    <text x="231" y="174.5" text-anchor="middle" font-size="8" font-weight="800" fill="#1d5444">×2</text>
+    <!-- S2: 8  10  12×2 -->
+    <text x="66"  y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">8</text>
+    <text x="197" y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">10</text>
+    <text x="328" y="141" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">12</text>
+    <rect x="344" y="120" width="22" height="13" rx="4" fill="#f7c5e0"/>
+    <text x="355" y="130.5" text-anchor="middle" font-size="8" font-weight="800" fill="#5a2060">×2</text>
 
-    <!-- W5: 31 -->
-    <text x="48" y="218" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">31</text>
+    <!-- S3: 15(normal)  A2→17  A2→19 -->
+    <text x="197" y="148" text-anchor="middle" font-size="7.5" font-weight="700" fill="rgba(140,80,190,0.7)" letter-spacing="1">SEMANA A2</text>
+    <text x="66"  y="174" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">15</text>
+    <rect x="166" y="152" width="62" height="28" rx="8" fill="rgba(180,120,220,0.15)" stroke="rgba(160,100,200,0.4)" stroke-width="1.5"/>
+    <text x="197" y="171" text-anchor="middle" font-size="17" font-weight="600" fill="#7040b0">17</text>
+    <rect x="296" y="152" width="62" height="28" rx="8" fill="rgba(180,120,220,0.15)" stroke="rgba(160,100,200,0.4)" stroke-width="1.5"/>
+    <text x="328" y="171" text-anchor="middle" font-size="17" font-weight="600" fill="#7040b0">19</text>
+
+    <!-- S4: A2→22  A2→24  26(normal, última aula) -->
+    <text x="197" y="188" text-anchor="middle" font-size="7.5" font-weight="700" fill="rgba(140,80,190,0.7)" letter-spacing="1">SEMANA A2</text>
+    <rect x="36"  y="192" width="60" height="28" rx="8" fill="rgba(180,120,220,0.15)" stroke="rgba(160,100,200,0.4)" stroke-width="1.5"/>
+    <text x="66"  y="211" text-anchor="middle" font-size="17" font-weight="600" fill="#7040b0">22</text>
+    <rect x="166" y="192" width="62" height="28" rx="8" fill="rgba(180,120,220,0.15)" stroke="rgba(160,100,200,0.4)" stroke-width="1.5"/>
+    <text x="197" y="211" text-anchor="middle" font-size="17" font-weight="600" fill="#7040b0">24</text>
+    <!-- 26: última aula — small "fim" badge -->
+    <text x="328" y="213" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">26</text>
+    <rect x="344" y="192" width="30" height="13" rx="4" fill="#f9c6d0"/>
+    <text x="359" y="202.5" text-anchor="middle" font-size="7.5" font-weight="800" fill="#7a2040">fim</text>
 
     <!-- stats -->
-    <rect x="18" y="200" width="219" height="18" rx="9" fill="#e8f7f2"/>
-    <text x="127" y="212" text-anchor="middle" font-size="8.5" fill="#2a7a5a" letter-spacing="0.7">8 AULAS · ×2 EM 3 SEXTAS · 5 VIAGEM</text>
+    <rect x="18" y="306" width="358" height="18" rx="9" fill="#faeef8"/>
+    <text x="197" y="319" text-anchor="middle" font-size="8.5" fill="#8030a0" letter-spacing="0.6">5 AULAS · ×2 EM 1 SEXTA · 1 FERIADO · A2 · 2 VIAGEM</text>
   </g>
 
-  <!-- ═══ ABRIL  x=580 y=140 w=290 ═══ -->
-  <g transform="translate(580,140)" filter="url(#shadow)">
-    <rect width="290" height="220" rx="14" fill="white"/>
-    <rect width="290" height="38" rx="14" fill="url(#gAbr)"/>
-    <rect y="24" width="290" height="14" fill="url(#gAbr)"/>
-    <text x="145" y="24" text-anchor="middle" font-size="12.5" font-weight="700" fill="#7a5010" letter-spacing="2">ABRIL</text>
-
-    <text x="50"  y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
-    <text x="145" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
-    <text x="240" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
-    <line x1="18" y1="60" x2="272" y2="60" stroke="#f0e8f0" stroke-width="1"/>
-
-    <!-- W1: — 2 4×2 -->
-    <text x="145" y="93" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">2</text>
-    <text x="240" y="93" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">4</text>
-    <rect x="255" y="72" width="20" height="13" rx="4" fill="#fde4a0"/>
-    <text x="265" y="82.5" text-anchor="middle" font-size="8" font-weight="800" fill="#7a5010">×2</text>
-
-    <!-- W2: 7 9 10×2 -->
-    <text x="50"  y="128" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">7</text>
-    <text x="145" y="128" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">9</text>
-    <text x="240" y="128" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">10</text>
-    <rect x="255" y="107" width="20" height="13" rx="4" fill="#fde4a0"/>
-    <text x="265" y="117.5" text-anchor="middle" font-size="8" font-weight="800" fill="#7a5010">×2</text>
-
-    <!-- W3: 14 16 17×2 -->
-    <text x="50"  y="163" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">14</text>
-    <text x="145" y="163" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">16</text>
-    <text x="240" y="163" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">17</text>
-    <rect x="255" y="142" width="20" height="13" rx="4" fill="#fde4a0"/>
-    <text x="265" y="152.5" text-anchor="middle" font-size="8" font-weight="800" fill="#7a5010">×2</text>
-
-    <!-- W4: 28 30 -->
-    <text x="50"  y="198" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">28</text>
-    <text x="145" y="198" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">30</text>
-
-    <!-- stats -->
-    <rect x="18" y="200" width="254" height="18" rx="9" fill="#fef8e0"/>
-    <text x="145" y="212" text-anchor="middle" font-size="8.5" fill="#a07020" letter-spacing="0.7">9 AULAS · ×2 EM 3 SEXTAS</text>
-  </g>
-
-  <!-- ═══ MAIO  x=30 y=390 w=540 ═══ -->
-  <g transform="translate(30,390)" filter="url(#shadow)">
-    <rect width="540" height="220" rx="14" fill="white"/>
-    <rect width="540" height="38" rx="14" fill="url(#gMai)"/>
-    <rect y="24" width="540" height="14" fill="url(#gMai)"/>
-    <text x="270" y="24" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2a3a7a" letter-spacing="2">MAIO</text>
-
-    <!-- 6 col headers: seg qua sex | seg qua sex -->
-    <text x="80"  y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
-    <text x="165" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
-    <text x="250" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
-    <text x="340" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
-    <text x="425" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
-    <line x1="18" y1="60" x2="522" y2="60" stroke="#f0e8f0" stroke-width="1"/>
-    <line x1="295" y1="38" x2="295" y2="218" stroke="#f0eaf8" stroke-width="1" stroke-dasharray="4,3"/>
-
-    <!-- W1: — 7 9×2 -->
-    <text x="165" y="97" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">7</text>
-    <text x="250" y="97" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">9</text>
-    <rect x="265" y="76" width="20" height="13" rx="4" fill="#b5cff5"/>
-    <text x="275" y="86.5" text-anchor="middle" font-size="8" font-weight="800" fill="#2a3a7a">×2</text>
-
-    <!-- W2: 12 14 16×2 -->
-    <text x="80"  y="135" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">12</text>
-    <text x="165" y="135" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">14</text>
-    <text x="250" y="135" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">16</text>
-    <rect x="265" y="114" width="20" height="13" rx="4" fill="#b5cff5"/>
-    <text x="275" y="124.5" text-anchor="middle" font-size="8" font-weight="800" fill="#2a3a7a">×2</text>
-
-    <!-- W3: 19 21 23×2 -->
-    <text x="80"  y="173" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">19</text>
-    <text x="165" y="173" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">21</text>
-    <text x="250" y="173" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">23</text>
-    <rect x="265" y="152" width="20" height="13" rx="4" fill="#b5cff5"/>
-    <text x="275" y="162.5" text-anchor="middle" font-size="8" font-weight="800" fill="#2a3a7a">×2</text>
-
-    <!-- W4 right: 26 28 | [29] viagem -->
-    <text x="340" y="97" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">26</text>
-    <text x="425" y="97" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">28</text>
-    <rect x="460" y="76" width="55" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="488" y="96" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">29</text>
-
-    <!-- stats -->
-    <rect x="18" y="196" width="504" height="18" rx="9" fill="#edf2fc"/>
-    <text x="270" y="208" text-anchor="middle" font-size="8.5" fill="#3a50a0" letter-spacing="0.7">11 AULAS · ×2 EM 3 SEXTAS · 1 VIAGEM (29/05)</text>
-  </g>
-
-  <!-- ═══ JUNHO  x=590 y=390 w=280 ═══ -->
-  <g transform="translate(590,390)" filter="url(#shadow)">
-    <rect width="280" height="220" rx="14" fill="white"/>
-    <rect width="280" height="38" rx="14" fill="url(#gJun)"/>
-    <rect y="24" width="280" height="14" fill="url(#gJun)"/>
-    <text x="140" y="24" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5a2060" letter-spacing="2">JUNHO</text>
-
-    <text x="47"  y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEG</text>
-    <text x="140" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">QUA</text>
-    <text x="233" y="54" text-anchor="middle" font-size="8" fill="#b0a0b8" letter-spacing="1">SEX</text>
-    <line x1="18" y1="60" x2="262" y2="60" stroke="#f0e8f0" stroke-width="1"/>
-
-    <!-- W1: [2] [4] 6×2 -->
-    <rect x="19"  y="68" width="55" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="47"  y="87" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">2</text>
-    <rect x="112" y="68" width="55" height="28" rx="8" fill="#fff3e0" stroke="#f5c070" stroke-width="1.5"/>
-    <text x="140" y="87" text-anchor="middle" font-size="17" font-weight="600" fill="#c08020">4</text>
-    <text x="233" y="90" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">6</text>
-    <rect x="248" y="68" width="20" height="13" rx="4" fill="#f7c5e0"/>
-    <text x="258" y="78.5" text-anchor="middle" font-size="8" font-weight="800" fill="#5a2060">×2</text>
-
-    <!-- W2: 9 11 12×2 -->
-    <text x="47"  y="135" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">9</text>
-    <text x="140" y="135" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">11</text>
-    <text x="233" y="135" text-anchor="middle" font-size="22" font-weight="600" fill="#3d2f5e">12</text>
-    <rect x="248" y="114" width="20" height="13" rx="4" fill="#f7c5e0"/>
-    <text x="258" y="124.5" text-anchor="middle" font-size="8" font-weight="800" fill="#5a2060">×2</text>
-
-    <!-- stats -->
-    <rect x="18" y="196" width="244" height="18" rx="9" fill="#faeef8"/>
-    <text x="140" y="208" text-anchor="middle" font-size="8.5" fill="#8030a0" letter-spacing="0.7">4 AULAS · ×2 EM 2 SEXTAS · 2 VIAGEM</text>
-  </g>
-
-  <!-- ═══ LEGEND ═══ -->
-  <g transform="translate(0,635)">
-    <rect x="240" y="0" width="420" height="20" rx="10" fill="rgba(180,160,220,0.15)"/>
-
-    <!-- normal -->
-    <circle cx="268" cy="10" r="4" fill="#c4b8f0"/>
-    <text x="278" y="14" font-size="9" fill="#7060a0" letter-spacing="0.8">AULA NORMAL</text>
-
-    <!-- travel -->
-    <rect x="373" y="3" width="18" height="13" rx="4" fill="#fff3e0" stroke="#f5c070" stroke-width="1.3"/>
-    <text x="397" y="13.5" font-size="9" fill="#7060a0" letter-spacing="0.8">VIAGEM</text>
-
-    <!-- double -->
-    <rect x="453" y="3" width="20" height="13" rx="4" fill="#aadfcc"/>
-    <text x="463" y="13" text-anchor="middle" font-size="7.5" font-weight="800" fill="#1d5444">×2</text>
-    <text x="479" y="13.5" font-size="9" fill="#7060a0" letter-spacing="0.8">REPOSIÇÃO</text>
-
-    <text x="600" y="13.5" font-size="8.5" fill="#b0a0c0" letter-spacing="0.5">SEG · QUA · SEX</text>
+  <!-- ══ LEGEND ══ -->
+  <g transform="translate(0,918)">
+    <rect x="50" y="0" width="860" height="20" rx="10" fill="rgba(180,160,220,0.15)"/>
+    <circle cx="78" cy="10" r="4" fill="#c4b8f0"/>
+    <text x="88" y="14" font-size="9" fill="#7060a0" letter-spacing="0.8">AULA NORMAL</text>
+    <rect x="208" y="3" width="18" height="13" rx="4" fill="#fff3e0" stroke="#f5c070" stroke-width="1.3"/>
+    <text x="232" y="13.5" font-size="9" fill="#7060a0" letter-spacing="0.8">VIAGEM / SEM AULA</text>
+    <rect x="390" y="3" width="22" height="13" rx="4" fill="#aadfcc"/>
+    <text x="401" y="13" text-anchor="middle" font-size="7.5" font-weight="800" fill="#1d5444">×2</text>
+    <text x="418" y="13.5" font-size="9" fill="#7060a0" letter-spacing="0.8">REPOSIÇÃO NA SEXTA</text>
+    <rect x="573" y="3" width="52" height="13" rx="4" fill="rgba(200,200,210,0.3)" stroke="rgba(150,140,180,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="599" y="13.5" text-anchor="middle" font-size="8" fill="rgba(150,140,180,0.9)">feriado</text>
+    <text x="637" y="13.5" font-size="9" fill="#7060a0" letter-spacing="0.8">FERIADO</text>
+    <rect x="712" y="3" width="44" height="13" rx="4" fill="rgba(180,120,220,0.15)" stroke="rgba(160,100,200,0.4)" stroke-width="1"/>
+    <text x="734" y="13.5" text-anchor="middle" font-size="8" font-weight="700" fill="#7040b0">A1 / A2</text>
+    <text x="764" y="13.5" font-size="9" fill="#7060a0" letter-spacing="0.8">SEMANA DE PROVAS</text>
   </g>
 
 </svg>
