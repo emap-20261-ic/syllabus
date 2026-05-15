@@ -8,6 +8,7 @@
 
 typedef struct node  {
   int key;
+  int height;   // usado por insert_avl; ignorado pelas demais funcoes
   struct node *left, *right;
 } t_node;
 
@@ -16,6 +17,7 @@ t_node* new_node(int item) {
   t_node* t = malloc(sizeof(struct node));
   assert(t != NULL);
   t->key = item;
+  t->height = 1;
   t->left = t->right = NULL;
   return t;
 }
@@ -62,6 +64,113 @@ bool binary_search(t_node *root, int n) {
   else if (n > root->key)
     return binary_search(root->right, n);
   return (n == root->key);
+}
+
+
+
+// BALANCEAMENTO
+
+// abordagem 1: rebalanceamento "em batch" via inorder + reconstrucao
+// O(n), uso ocasional
+
+int size(t_node* root) {
+  if (root == NULL) return 0;
+  return 1 + size(root->left) + size(root->right);
+}
+
+void to_array(t_node* root, t_node** arr, int* i) {
+  if (root == NULL) return;
+  to_array(root->left, arr, i);
+  arr[(*i)++] = root;
+  to_array(root->right, arr, i);
+}
+
+t_node* from_sorted(t_node** arr, int lo, int hi) {
+  if (lo > hi) return NULL;
+  int mid = (lo + hi) / 2;
+  t_node* root = arr[mid];
+  root->left  = from_sorted(arr, lo, mid - 1);
+  root->right = from_sorted(arr, mid + 1, hi);
+  return root;
+}
+
+t_node* balance(t_node* root) {
+  int n = size(root);
+  t_node** arr = malloc(n * sizeof(t_node*));
+  assert(arr != NULL);
+  int i = 0;
+  to_array(root, arr, &i);
+  t_node* novo = from_sorted(arr, 0, n - 1);
+  free(arr);
+  return novo;
+}
+
+
+// abordagem 2: AVL - balanceamento mantido a cada insert
+// cada insert custa O(log n) no pior caso
+
+int node_height(t_node* n) {
+  return n == NULL ? 0 : n->height;
+}
+
+int balance_factor(t_node* n) {
+  return node_height(n->left) - node_height(n->right);
+}
+
+void update_height(t_node* n) {
+  int l = node_height(n->left);
+  int r = node_height(n->right);
+  n->height = 1 + (l > r ? l : r);
+}
+
+t_node* rotate_right(t_node* y) {
+  t_node* x = y->left;
+  t_node* t = x->right;
+  x->right = y;
+  y->left  = t;
+  update_height(y);
+  update_height(x);
+  return x;
+}
+
+t_node* rotate_left(t_node* x) {
+  t_node* y = x->right;
+  t_node* t = y->left;
+  y->left  = x;
+  x->right = t;
+  update_height(x);
+  update_height(y);
+  return y;
+}
+
+t_node* insert_avl(t_node* node, int key) {
+  if (node == NULL) return new_node(key);
+
+  if      (key < node->key) node->left  = insert_avl(node->left, key);
+  else if (key > node->key) node->right = insert_avl(node->right, key);
+  else return node;
+
+  update_height(node);
+  int bf = balance_factor(node);
+
+  // LL
+  if (bf >  1 && key < node->left->key)
+    return rotate_right(node);
+  // RR
+  if (bf < -1 && key > node->right->key)
+    return rotate_left(node);
+  // LR
+  if (bf >  1 && key > node->left->key) {
+    node->left = rotate_left(node->left);
+    return rotate_right(node);
+  }
+  // RL
+  if (bf < -1 && key < node->right->key) {
+    node->right = rotate_right(node->right);
+    return rotate_left(node);
+  }
+
+  return node;
 }
 
 
@@ -239,8 +348,11 @@ int main(int argc, char* argv[]) {
   int tmp;
 
   while (fscanf(file, "%d", &tmp) != EOF) {
-    root = insert(root, tmp);
+    root = insert(root, tmp); // use insert_avl for keep it balanced
   }
+
+  /* balance with cost */
+  // root = balance(root); 
 
   printf("The tree has height %d\n", height(root));
 

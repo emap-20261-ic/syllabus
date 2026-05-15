@@ -2,6 +2,7 @@
 
 \usepackage[utf8]{inputenc}
 \input{../helper}
+\usetikzlibrary{shapes.geometric}
 
 \title{Introdução à Computação \\ árvores binárias de busca}
 \author{Alexandre Rademaker}
@@ -224,8 +225,405 @@
       \end{center}
     \end{column}
   \end{columns}
-    
+
 \end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{rebalanceamento ``em batch''}
+
+  Uma primeira abordagem: depois de carregar todos os elementos,
+  achatamos a árvore em um array ordenado (basta um \emph{inorder}) e
+  reconstruímos tomando o elemento do meio como raiz, recursivamente.
+
+  Custo $O(n)$, mas é uma operação ocasional. Para
+  \texttt{sorted50000.txt} a altura cai de 50000 para
+  $\lceil \log_2 50000 \rceil \approx 16$.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=tree.c]
+    int size(t_node* root) {
+      if (root == NULL) return 0;
+      return 1 + size(root->left) + size(root->right);
+    }
+
+    void to_array(t_node* root, t_node** arr, int* i) {
+      if (root == NULL) return;
+      to_array(root->left, arr, i);
+      arr[(*i)++] = root;
+      to_array(root->right, arr, i);
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=tree.c]
+    t_node* from_sorted(t_node** arr, int lo, int hi) {
+      if (lo > hi) return NULL;
+      int mid = (lo + hi) / 2;
+      t_node* root = arr[mid];
+      root->left  = from_sorted(arr, lo, mid - 1);
+      root->right = from_sorted(arr, mid + 1, hi);
+      return root;
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=tree.c]
+    t_node* balance(t_node* root) {
+      int n = size(root);
+      t_node** arr = malloc(n * sizeof(t_node*));
+      int i = 0;
+      to_array(root, arr, &i);
+      t_node* novo = from_sorted(arr, 0, n - 1);
+      free(arr);
+      return novo;
+    }
+  \end{lstlisting}
+
+  Observe que \texttt{to\_array} e \texttt{from\_sorted}
+  \emph{reaproveitam} os mesmos nós; não há alocação de novos nós, só
+  reorganização dos ponteiros.
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{AVL --- balanceamento a cada inserção}
+
+  Outra abordagem: manter a árvore balanceada \emph{durante} as
+  inserções. Cada \emph{insert} passa a custar $O(\log n)$ no pior
+  caso, inclusive para entradas ordenadas.
+
+  Cada nó passa a armazenar a sua altura. Definimos o \emph{fator de
+    balanceamento} de um nó como a diferença entre as alturas das
+  subárvores esquerda e direita. A árvore é dita AVL quando esse fator
+  está em $\{-1, 0, +1\}$ para todo nó.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=tree.c]
+    typedef struct node {
+      int key;
+      int height;
+      struct node *left, *right;
+    } t_node;
+  \end{lstlisting}
+
+  O campo \texttt{height} é \emph{ignorado} pelas funções já vistas
+  (\texttt{insert}, \texttt{height}, \texttt{binary\_search}). Ele
+  passa a ser usado apenas pelas funções a seguir.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=tree.c]
+    int node_height(t_node* n) {
+      return n == NULL ? 0 : n->height;
+    }
+
+    int balance_factor(t_node* n) {
+      return node_height(n->left) - node_height(n->right);
+    }
+
+    void update_height(t_node* n) {
+      int l = node_height(n->left);
+      int r = node_height(n->right);
+      n->height = 1 + (l > r ? l : r);
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{AVL --- rotações}
+
+  Uma rotação reorganiza localmente três nós, preservando a propriedade
+  de árvore binária de busca --- a sequência do \emph{inorder} não muda
+  --- e podendo reduzir a altura local.
+
+  \framebreak
+
+  \begin{center}
+    \begin{tikzpicture}[
+        n/.style={circle, draw, minimum size=.65cm, inner sep=0pt},
+        sub/.style={regular polygon, regular polygon sides=3, draw,
+                    minimum size=.7cm, inner sep=0pt, font=\scriptsize},
+        level distance=.85cm, sibling distance=1.2cm]
+
+      \node[n] {y}
+        child { node[n] {x}
+          child { node[sub] {$T_1$} }
+          child { node[sub] {$T_2$} } }
+        child { node[sub] {$T_3$} };
+
+      \node at (3.2,-1.4) {$\xrightarrow{\;\texttt{rotate\_right}(y)\;}$};
+
+      \begin{scope}[xshift=6.4cm]
+        \node[n] {x}
+          child { node[sub] {$T_1$} }
+          child { node[n] {y}
+            child { node[sub] {$T_2$} }
+            child { node[sub] {$T_3$} } };
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+
+  \emph{Inorder} antes e depois: $T_1$, x, $T_2$, y, $T_3$ --- a
+  propriedade de BST se preserva. \texttt{rotate\_left} é simétrica.
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=tree.c]
+    t_node* rotate_right(t_node* y) {
+      t_node* x = y->left;
+      t_node* t = x->right;
+      x->right = y;
+      y->left  = t;
+      update_height(y);
+      update_height(x);
+      return x;
+    }
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=tree.c]
+    t_node* rotate_left(t_node* x) {
+      t_node* y = x->right;
+      t_node* t = y->left;
+      y->left  = x;
+      x->right = t;
+      update_height(x);
+      update_height(y);
+      return y;
+    }
+  \end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{AVL --- inserção}
+
+  Depois da inserção recursiva, atualizamos a altura do nó e
+  verificamos o fator de balanceamento. Se ele sair do intervalo
+  $[-1, +1]$, aplicamos uma ou duas rotações --- são quatro casos:
+  \texttt{LL}, \texttt{RR}, \texttt{LR}, \texttt{RL}.
+
+  Seja \texttt{z} o ancestral mais próximo do nó recém-inserido (em
+  vermelho) cujo fator de balanceamento ficou fora de $[-1, +1]$, e
+  \texttt{y} o filho de \texttt{z} no lado mais alto:
+
+  \framebreak
+
+  \begin{center}
+    \begin{tikzpicture}[
+        n/.style={circle, draw, minimum size=.5cm, inner sep=1pt, font=\small},
+        nx/.style={n, fill=red!30}]
+
+      % LL
+      \node[n] (z0) at (0,0) {z};
+      \node[n] (y0) at (-.55,-.8) {y};
+      \node[nx] (x0) at (-1.1,-1.6) {x};
+      \draw (z0) -- (y0) -- (x0);
+      \node[font=\small] at (-.5,-2.3)
+        {\textbf{LL}: \texttt{rotate\_right(z)}};
+
+      % RR
+      \begin{scope}[xshift=5.5cm]
+        \node[n] (z1) at (0,0) {z};
+        \node[n] (y1) at (.55,-.8) {y};
+        \node[nx] (x1) at (1.1,-1.6) {x};
+        \draw (z1) -- (y1) -- (x1);
+        \node[font=\small] at (.5,-2.3)
+          {\textbf{RR}: \texttt{rotate\_left(z)}};
+      \end{scope}
+
+      % LR
+      \begin{scope}[yshift=-3.5cm]
+        \node[n] (z2) at (0,0) {z};
+        \node[n] (y2) at (-.55,-.8) {y};
+        \node[nx] (x2) at (0,-1.6) {x};
+        \draw (z2) -- (y2) -- (x2);
+        \node[font=\tiny, align=center] at (0,-2.3)
+          {\textbf{LR}:\\
+           \texttt{rotate\_left(y); rotate\_right(z)}};
+      \end{scope}
+
+      % RL
+      \begin{scope}[xshift=5.5cm, yshift=-3.5cm]
+        \node[n] (z3) at (0,0) {z};
+        \node[n] (y3) at (.55,-.8) {y};
+        \node[nx] (x3) at (0,-1.6) {x};
+        \draw (z3) -- (y3) -- (x3);
+        \node[font=\tiny, align=center] at (0,-2.3)
+          {\textbf{RL}:\\
+           \texttt{rotate\_right(y); rotate\_left(z)}};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=tree.c]
+    t_node* insert_avl(t_node* node, int key) {
+      if (node == NULL) return new_node(key);
+
+      if      (key < node->key)
+        node->left  = insert_avl(node->left, key);
+      else if (key > node->key)
+        node->right = insert_avl(node->right, key);
+      else return node;
+
+      update_height(node);
+      int bf = balance_factor(node);
+  \end{lstlisting}
+
+  \framebreak
+
+  \begin{lstlisting}[style=normalc,caption=tree.c]
+      // LL
+      if (bf >  1 && key < node->left->key)
+        return rotate_right(node);
+      // RR
+      if (bf < -1 && key > node->right->key)
+        return rotate_left(node);
+      // LR
+      if (bf >  1 && key > node->left->key) {
+        node->left = rotate_left(node->left);
+        return rotate_right(node);
+      }
+      // RL
+      if (bf < -1 && key < node->right->key) {
+        node->right = rotate_right(node->right);
+        return rotate_left(node);
+      }
+
+      return node;
+    }
+  \end{lstlisting}
+
+  Em \texttt{main}, basta trocar \texttt{insert} por \texttt{insert\_avl}
+  para que \texttt{sorted50000.txt} caia da altura 50000 para
+  $\approx 16$.
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks,fragile]{AVL --- exemplo}
+
+  Inserindo a sequência $1, 2, 3, 4, 5$ em uma AVL inicialmente vazia.
+  Em \textcolor{red}{vermelho}, o nó recém-inserido; em
+  \textcolor{cyan!70!black}{azul}, o ancestral onde
+  $\textrm{bf} \notin [-1, +1]$ --- ponto de rotação.
+
+  \framebreak
+
+  Inserções $1$, $2$ e $3$:
+
+  \begin{center}
+    \begin{tikzpicture}[
+        n/.style={circle, draw, minimum size=.5cm, inner sep=1pt, font=\small},
+        new/.style={n, fill=red!30},
+        pivot/.style={n, fill=cyan!30},
+        level distance=.65cm, sibling distance=.8cm,
+        lbl/.style={font=\scriptsize}]
+
+      % t1: insert 1
+      \node[new] {1};
+      \node[lbl] at (0,-1.2) {após ins. 1};
+
+      % t2: insert 2
+      \begin{scope}[xshift=2.2cm]
+        \node[n] {1}
+          child[missing] {}
+          child { node[new] {2} };
+        \node[lbl] at (.4,-1.7) {após ins. 2};
+      \end{scope}
+
+      % t3a: insert 3 (chain, pivot at 1)
+      \begin{scope}[xshift=4.6cm]
+        \node[pivot] {1}
+          child[missing] {}
+          child { node {2}
+            child[missing] {}
+            child { node[new] {3} } };
+        \node[lbl, align=center] at (.8,-2.4)
+          {após ins. 3\\bf(1) $= -2$};
+      \end{scope}
+
+      \node at (7.4,-1) {$\Rightarrow$};
+
+      % t3b: after rotation
+      \begin{scope}[xshift=8.4cm]
+        \node[n] {2}
+          child { node {1} }
+          child { node {3} };
+        \node[lbl] at (0,-2) {rebalanceada};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+
+  \framebreak
+
+  Continuando com $4$ e $5$:
+
+  \begin{center}
+    \begin{tikzpicture}[
+        n/.style={circle, draw, minimum size=.5cm, inner sep=1pt, font=\small},
+        new/.style={n, fill=red!30},
+        pivot/.style={n, fill=cyan!30},
+        level distance=.65cm, sibling distance=.9cm,
+        lbl/.style={font=\scriptsize}]
+
+      % t4: insert 4
+      \node[n] {2}
+        child { node {1} }
+        child { node {3}
+          child[missing] {}
+          child { node[new] {4} } };
+      \node[lbl] at (0,-2.5) {após ins. 4};
+
+      % t5a: insert 5 (pivot at 3)
+      \begin{scope}[xshift=4cm]
+        \node[n] {2}
+          child { node {1} }
+          child { node[pivot] {3}
+            child[missing] {}
+            child { node {4}
+              child[missing] {}
+              child { node[new] {5} } } };
+        \node[lbl, align=center] at (.5,-3.2)
+          {após ins. 5\\bf(3) $= -2$};
+      \end{scope}
+
+      \node at (7.7,-1.4) {$\Rightarrow$};
+
+      % t5b: after rotation
+      \begin{scope}[xshift=8.8cm]
+        \node[n] {2}
+          child { node {1} }
+          child { node {4}
+            child { node {3} }
+            child { node {5} } };
+        \node[lbl] at (.5,-2.5) {rebalanceada};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+
+  \framebreak
+
+  Para a sequência ordenada $1, 2, \ldots, n$, a árvore AVL termina
+  com altura $\lceil \log_2 n \rceil + 1$ em vez de $n$.
+
+  \vspace{1em}
+
+  Animações interativas e detalhes adicionais:
+  \href{https://en.wikipedia.org/wiki/AVL_tree}{en.wikipedia.org/wiki/AVL\_tree}
+  (Wikipedia traz figuras CC-BY-SA das rotações e dos quatro casos, além
+  de provas de complexidade).
+
+\end{frame}
+
 
 \end{document}
 
